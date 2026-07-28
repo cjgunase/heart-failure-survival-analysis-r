@@ -1537,3 +1537,391 @@ silently weaken or complicate the repository configuration for everyone else.
 The existing fixed bootstrap seed helps control random behavior. The dataset is
 stored with source provenance, while a future pipeline and CI workflow will
 control execution order and test reproducibility on a clean machine.
+
+## Stage 11: Reproducible pipelines with `{targets}`
+
+### Why running numbered scripts is not enough
+
+The original project used a documented manual order:
+
+```text
+01-download → 02-explore → 03-KM → ... → 07-validation → report
+```
+
+This is understandable, but Git does not know whether an output is current.
+For example, a predictor transformation could change while an old model table
+remains on disk. A later report might then combine new code with stale output.
+
+`{targets}` treats the analysis as a directed acyclic graph, or DAG:
+
+- **directed:** dependencies point from upstream inputs to downstream results;
+- **acyclic:** dependencies cannot loop back to an earlier target;
+- **graph:** each target is connected by explicit dependency relationships.
+
+The first pipeline slice is:
+
+```text
+dataset_url
+     |
+     v
+raw_data_file
+     |
+     v
+clean_data_file
+     |
+     v
+clean_data
+```
+
+### What a target is
+
+A target is a named result produced by an R expression. The initial pipeline is
+defined in `_targets.R`:
+
+```r
+tar_target(
+  clean_data_file,
+  write_clean_heart_failure_data(
+    prepare_heart_failure_data(raw_data_file)
+  ),
+  format = "file"
+)
+```
+
+This definition communicates several facts:
+
+- the target is named `clean_data_file`;
+- its command prepares the raw data and writes the clean file;
+- it depends on `raw_data_file` because that symbol appears in the command;
+- `format = "file"` tells `{targets}` to hash and monitor the returned file.
+
+If the raw file, preparation function, writer function, or relevant package
+changes, `{targets}` marks the clean file and its downstream targets outdated.
+
+### Functions contain work; targets connect work
+
+Reusable functions were extracted into:
+
+```text
+R/functions-data.R
+```
+
+The file contains:
+
+- `download_heart_failure_data()`;
+- `prepare_heart_failure_data()`;
+- `write_clean_heart_failure_data()`;
+- documented raw and analysis schemas.
+
+The distinction is important:
+
+```text
+functions-data.R: how individual operations work
+_targets.R:       which results depend on which operations and inputs
+```
+
+The numbered download and exploratory scripts now call these same functions.
+This prevents the manual workflow and pipeline from implementing cleaning in
+two different ways.
+
+### File targets and object targets
+
+The initial graph uses both:
+
+```r
+tar_target(raw_data_file, ..., format = "file")
+tar_target(clean_data, readr::read_csv(clean_data_file))
+```
+
+A file target returns a path and tracks the file contents. An object target
+stores an R value, such as the clean data frame, in the `{targets}` data store.
+Downstream targets can depend on either representation.
+
+The local `_targets/` store contains metadata and serialized objects. It is
+excluded from Git because it is machine-generated and can be reconstructed by
+running the pipeline.
+
+### How change detection works
+
+For each target, `{targets}` records information such as:
+
+- the command;
+- relevant function code;
+- upstream target values or hashes;
+- package dependencies;
+- the output value or file hash.
+
+Before running a target, it compares the current information with the recorded
+metadata. If nothing relevant changed, the target is skipped. If an upstream
+target changes, downstream targets become outdated.
+
+Skipping is not merely a speed feature. It provides evidence that an output was
+built from the recorded dependency state rather than from an unknown manual
+sequence.
+
+### Results from the first pipeline slice
+
+The first run built every target in dependency order:
+
+```text
+4 completed, 0 skipped
+```
+
+An immediate second run with no changes produced:
+
+```text
+0 completed, 4 skipped
+```
+
+That second result demonstrates that `{targets}` recognized the stored outputs
+as current.
+
+The refactor also added eight software-test expectations for the reusable data
+functions:
+
+- preparation preserves all 299 rows;
+- analysis variables are created;
+- survival outcomes match the existing clean dataset;
+- the writer produces the documented schema;
+- the written dataset matches the reference clean data;
+- malformed source schemas produce an informative error.
+
+The complete suite now contains 55 passing expectations:
+
+```text
+data-functions:   8 passed
+data-quality:    32 passed
+survival-models: 15 passed
+total:           55 passed
+```
+
+### Core `{targets}` commands
+
+Run all outdated targets:
+
+```r
+targets::tar_make()
+```
+
+Inspect the declared targets and commands:
+
+```r
+targets::tar_manifest()
+```
+
+Read a stored target:
+
+```r
+targets::tar_read(clean_data)
+```
+
+Visualize the graph:
+
+```r
+targets::tar_visnetwork()
+```
+
+Delete the local target store and force a future full rebuild:
+
+```r
+targets::tar_destroy()
+```
+
+`tar_destroy()` removes reconstructible pipeline metadata and outputs in the
+target store. It should be used deliberately, especially before testing a
+clean rebuild.
+
+### Second pipeline slice: exploratory analysis
+
+The next slice extended the clean data into summary and visualization
+branches:
+
+```text
+clean_data
+   ├── data_quality_table ───────> data_quality_file
+   ├── continuous_summary_table ─> continuous_summary_file
+   ├── binary_summary_table ─────> binary_summary_file
+   └── eda_data
+          ├── followup_plot ─────> followup_figure
+          └── marker_plot ───────> marker_figure
+```
+
+This demonstrates branching in a DAG. The summary tables do not depend on the
+plot objects, and the two plots do not depend on each other. `{targets}` may
+therefore schedule independent work when upstream data are ready.
+
+Each publication artifact has two targets:
+
+```text
+summary object ---> CSV file
+plot object ------> PNG file
+```
+
+Separating computation from writing has practical benefits:
+
+- tests can inspect an in-memory table without reading a generated CSV;
+- another downstream target can reuse a plot or summary object;
+- file targets still monitor the published artifacts;
+- failures indicate whether calculation or file creation caused the problem.
+
+Reusable EDA operations were extracted into:
+
+```text
+R/functions-eda.R
+```
+
+The manual `R/02-exploratory-analysis.R` entry point now calls the same
+functions as `_targets.R`. This reduced the script to orchestration and avoids
+maintaining separate summary and plotting implementations.
+
+When this slice was added, the incremental pipeline run produced:
+
+```text
+11 completed, 4 skipped
+```
+
+The four data-ingestion targets were unchanged and remained current. Only the
+new downstream EDA branch was built. An immediate subsequent run produced:
+
+```text
+0 completed, 15 skipped
+```
+
+The manual exploratory script also ran successfully, and its regenerated clean
+data, three CSV tables, and two PNG figures were byte-for-byte unchanged in
+Git.
+
+Eighteen new expectations test:
+
+- factor-label levels;
+- agreement of row, column, missing-cell, death, and censor counts;
+- coverage and ordering of continuous summaries;
+- valid binary-variable proportions that sum to one;
+- successful creation of `ggplot` objects.
+
+The complete suite now contains 73 passing expectations:
+
+```text
+data-functions:    8 passed
+data-quality:     32 passed
+eda-functions:    18 passed
+survival-models:  15 passed
+total:            73 passed
+```
+
+### Final pipeline slice: survival analysis through reporting
+
+The remaining established scripts were integrated as tracked stage targets:
+
+```text
+clean_data_file
+   ├── Kaplan–Meier outputs
+   ├── grouped-comparison outputs
+   └── Cox outputs
+          └── diagnostic outputs
+                 └── validation outputs
+
+all analysis outputs
+   └── Markdown and HTML tutorial report
+```
+
+The final graph contains 27 targets and declares:
+
+- 6 Kaplan–Meier artifacts;
+- 6 grouped-comparison artifacts;
+- 5 Cox-regression artifacts;
+- 11 diagnostic artifacts;
+- 7 bootstrap-validation artifacts;
+- 2 rendered-report artifacts.
+
+Each established stage has two pipeline targets:
+
+```text
+tracked script file ---> tracked output-file collection
+```
+
+For example, changing `R/06-model-diagnostics.R` changes the script target,
+which invalidates the diagnostic outputs, validation outputs, and report. It
+does not unnecessarily invalidate the data, EDA, Kaplan–Meier, grouped, or Cox
+targets.
+
+The helper `run_analysis_stage()` executes a stage and then verifies that every
+declared output exists. A script that exits without an R error but fails to
+create a promised artifact therefore fails the pipeline rather than leaving a
+silent stale file.
+
+Four additional expectations test the stage helper:
+
+- a valid script creates and returns its declared output;
+- the created file contains the expected content;
+- a missing script produces an informative error;
+- a missing declared output produces an informative error.
+
+The complete suite now contains 77 passing expectations:
+
+```text
+data-functions:      8 passed
+data-quality:       32 passed
+eda-functions:      18 passed
+pipeline-functions:  4 passed
+survival-models:    15 passed
+total:              77 passed
+```
+
+### True dependencies versus chapter order
+
+An early draft made grouped comparisons depend on Kaplan–Meier outputs and Cox
+regression depend on grouped outputs. That reproduced the tutorial chapter
+order but represented false computational dependencies: all three analyses
+actually need only the clean dataset.
+
+The final graph connects those analyses directly to `clean_data_file`.
+Diagnostics genuinely depend on Cox results, and validation genuinely depends
+on diagnostics because it uses the refined model specification.
+
+This distinction matters:
+
+- true dependencies produce accurate invalidation;
+- independent branches may run concurrently with parallel workers;
+- false dependencies create unnecessary reruns and reduce parallelism;
+- a pipeline documents computational causality, not presentation order.
+
+The report depends on all published analysis outputs, so any changed result
+invalidates the rendered tutorial.
+
+### Clean end-to-end rebuild
+
+After the graph was finalized, the reconstructible local cache was removed:
+
+```r
+targets::tar_destroy(destroy = "all", ask = FALSE)
+```
+
+The complete project was then rebuilt:
+
+```r
+targets::tar_make()
+```
+
+Final clean-build result:
+
+```text
+27 completed, 0 skipped
+500/500 bootstrap fits successful
+Markdown report rendered
+HTML report rendered
+elapsed pipeline time: approximately 12 seconds
+```
+
+An immediate unchanged run skips all 27 targets. Together, the clean build and
+unchanged skip demonstrate both reproducibility from zero metadata and correct
+up-to-date detection.
+
+No tracked analysis table, figure, data file, or report changed unexpectedly
+during migration. The numbered manual entry points also remained functional.
+
+Building the pipeline in slices limited the size of each debugging problem and
+provided validated checkpoints. A pipeline should not be considered reliable
+merely because every operation was placed into one large target; its declared
+outputs, invalidation behavior, clean rebuild, tests, and scientific results
+must all be verified.
