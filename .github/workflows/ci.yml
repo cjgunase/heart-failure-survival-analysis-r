@@ -37,6 +37,11 @@ jobs:
       - name: Set up Pandoc
         uses: r-lib/actions/setup-pandoc@v2
 
+      - name: Install Linux system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes libglpk-dev
+
       - name: Restore locked R environment
         uses: r-lib/actions/setup-renv@v2
 

@@ -2086,3 +2086,38 @@ Common categories are:
 The correct response is to identify and fix the root cause on a feature branch,
 then let CI validate the new commit. Disabling a meaningful check only to
 obtain a green badge would remove evidence rather than improve quality.
+
+### First CI failure: a missing system library
+
+The first pull-request run passed package restoration and all 77 software
+expectations, then failed when the pipeline loaded `{targets}`:
+
+```text
+unable to load shared object igraph.so:
+libglpk.so.40: cannot open shared object file
+```
+
+`{targets}` depends on `igraph`, whose compiled Linux code uses the GNU Linear
+Programming Kit, or GLPK. `renv.lock` records R packages, but it does not
+install operating-system shared libraries. The local macOS environment did not
+reveal this Ubuntu dependency.
+
+The focused workflow fix installs GLPK before restoring and loading R packages:
+
+```yaml
+- name: Install Linux system dependencies
+  run: |
+    sudo apt-get update
+    sudo apt-get install --yes libglpk-dev
+```
+
+This failure illustrates the reproducibility boundary discussed in Stage 10:
+
+```text
+renv.lock       ---> R package dependencies
+apt installation ---> Ubuntu system dependencies
+```
+
+CI turned an undocumented machine requirement into explicit infrastructure
+code. The existing tests were not weakened or skipped; the runner environment
+was corrected so the real pipeline could execute.
