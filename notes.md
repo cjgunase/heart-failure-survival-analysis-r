@@ -1925,3 +1925,164 @@ provided validated checkpoints. A pipeline should not be considered reliable
 merely because every operation was placed into one large target; its declared
 outputs, invalidation behavior, clean rebuild, tests, and scientific results
 must all be verified.
+
+## Stage 12: Continuous integration with GitHub Actions
+
+### What continuous integration means
+
+Continuous integration, or CI, automatically validates changes in a fresh
+environment whenever code is pushed or proposed in a pull request:
+
+```text
+push or pull request
+          |
+          v
+fresh GitHub-hosted Linux runner
+          |
+          ├── install exact R version
+          ├── restore renv.lock
+          ├── run 77 software expectations
+          ├── run the complete 27-target pipeline
+          └── upload rendered reports
+```
+
+Local success is necessary but not sufficient. A project may accidentally
+depend on a package, file, environment variable, or configuration available
+only on the developer's computer. CI tests the repository on a clean machine
+that has no memory of previous manual steps.
+
+### Workflow location and triggers
+
+GitHub Actions workflows are YAML files under:
+
+```text
+.github/workflows/
+```
+
+This project uses `.github/workflows/ci.yml`. It runs on:
+
+- pushes to `main`;
+- pushes to `develop`;
+- pull requests targeting `main` or `develop`;
+- manual requests through `workflow_dispatch`.
+
+The pull-request trigger validates the proposed merged code before it reaches
+an important branch. Push triggers validate the actual branch state after a
+merge. Manual dispatch is useful when investigating infrastructure changes.
+
+### Workflow, job, and step
+
+The hierarchy is:
+
+```text
+workflow
+└── job: analysis
+    ├── step: check out repository
+    ├── step: set up R
+    ├── step: set up Pandoc
+    ├── step: restore renv environment
+    ├── step: run tests
+    ├── step: run targets pipeline
+    └── step: upload reports
+```
+
+A workflow is the complete automated process. A job runs on one runner. Steps
+within a job execute in order and share that job's filesystem.
+
+Tests run before the pipeline so inexpensive contract failures stop the
+analysis early. The report-upload step uses `if: always()`, allowing GitHub to
+attempt artifact collection even when an earlier step fails. Missing reports
+still cause that upload step to report an error.
+
+### Actions and shell commands
+
+Some steps reuse maintained GitHub Actions:
+
+```yaml
+uses: actions/checkout@v4
+uses: r-lib/actions/setup-r@v2
+uses: r-lib/actions/setup-pandoc@v2
+uses: r-lib/actions/setup-renv@v2
+uses: actions/upload-artifact@v4
+```
+
+Other steps execute project commands:
+
+```yaml
+run: Rscript tests/testthat.R
+run: Rscript -e 'targets::tar_make()'
+```
+
+`setup-renv` restores packages from `renv.lock` and caches them between runs.
+The cache improves speed, while the lockfile remains the source of truth.
+Pandoc is installed because R Markdown requires it to create the final report.
+
+### Security and resource controls
+
+The workflow declares:
+
+```yaml
+permissions:
+  contents: read
+```
+
+The automatically provided GitHub token can read the repository but cannot
+write code or alter issues and pull requests. CI validation does not require
+write access.
+
+The job has a 30-minute timeout so a hung installation or analysis cannot
+consume runner time indefinitely.
+
+Concurrency control groups runs by workflow and Git reference:
+
+```yaml
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+```
+
+If a newer commit is pushed to the same branch or PR, GitHub cancels the older
+superseded run rather than spending resources validating obsolete code.
+
+### Workflow artifacts
+
+An Actions artifact is a file bundle retained by GitHub after a workflow run.
+This workflow uploads the rendered Markdown and HTML tutorials for 14 days.
+
+Artifacts are not Git releases and are not permanent source control. They are
+useful for inspecting exactly what a particular CI run produced without
+committing new machine-generated files from the runner.
+
+### The CI status badge
+
+The README badge queries the workflow status for `main`:
+
+```text
+green  = latest main workflow succeeded
+red    = latest main workflow failed
+gray   = no relevant run or unknown state
+```
+
+A green badge is evidence that the declared automated checks passed on the
+latest run. It is not proof that the statistical conclusions are scientifically
+correct or externally valid.
+
+### What to inspect when CI fails
+
+Start with the earliest failing step and the first meaningful error, not merely
+the final “process exited” message. A later error may be a consequence of an
+earlier failed installation or missing file.
+
+Common categories are:
+
+- dependency restoration failure;
+- operating-system or system-library difference;
+- software-test expectation failure;
+- missing input or undeclared local dependency;
+- pipeline target failure;
+- report-rendering failure;
+- transient external download failure.
+
+The correct response is to identify and fix the root cause on a feature branch,
+then let CI validate the new commit. Disabling a meaningful check only to
+obtain a green badge would remove evidence rather than improve quality.

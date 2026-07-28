@@ -1,5 +1,7 @@
 # Heart Failure Survival Analysis in R
 
+[![Continuous integration](https://github.com/cjgunase/heart-failure-survival-analysis-r/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/cjgunase/heart-failure-survival-analysis-r/actions/workflows/ci.yml)
+
 An educational, reproducible survival-analysis project using the UCI Heart
 Failure Clinical Records dataset.
 
