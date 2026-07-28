@@ -60,9 +60,9 @@ Rscript R/07-bootstrap-validation.R
 
 ## Run the pipeline
 
-The project is being migrated to a `{targets}` pipeline. The current pipeline
-downloads and cleans the UCI dataset, calculates the exploratory summaries,
-and generates the exploratory figures:
+The complete `{targets}` pipeline downloads and cleans the UCI dataset,
+generates the exploratory results, runs every survival-analysis stage,
+performs bootstrap validation, and renders both tutorial formats:
 
 ```r
 targets::tar_make()
@@ -75,10 +75,9 @@ targets::tar_visnetwork()
 targets::tar_read(clean_data)
 ```
 
-The graph currently contains 15 targets spanning data ingestion and
-exploration. On later runs, `{targets}` skips targets whose code, inputs, and
-upstream dependencies have not changed. The numbered scripts remain available
-as manual entry points while survival-model pipeline slices are added.
+The graph contains 27 targets spanning the entire project. On later runs,
+`{targets}` skips targets whose code, inputs, and upstream dependencies have
+not changed. The numbered scripts remain available as manual entry points.
 
 ## Recreate the R environment
 

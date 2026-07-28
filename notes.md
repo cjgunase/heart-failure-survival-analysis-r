@@ -1809,13 +1809,119 @@ survival-models:  15 passed
 total:            73 passed
 ```
 
-### What the pipeline does not yet automate
+### Final pipeline slice: survival analysis through reporting
 
-The graph now covers data ingestion, cleaning, exploratory tables, and
-exploratory figures. Kaplan–Meier estimation, group comparisons, Cox models,
-diagnostics, validation, and report rendering still use the numbered scripts.
-They will be added in later commits on the same feature branch.
+The remaining established scripts were integrated as tracked stage targets:
 
-Building the pipeline in slices limits the size of each debugging problem and
-provides validated checkpoints. A pipeline should not be considered reliable
-merely because every operation was placed into one large target.
+```text
+clean_data_file
+   ├── Kaplan–Meier outputs
+   ├── grouped-comparison outputs
+   └── Cox outputs
+          └── diagnostic outputs
+                 └── validation outputs
+
+all analysis outputs
+   └── Markdown and HTML tutorial report
+```
+
+The final graph contains 27 targets and declares:
+
+- 6 Kaplan–Meier artifacts;
+- 6 grouped-comparison artifacts;
+- 5 Cox-regression artifacts;
+- 11 diagnostic artifacts;
+- 7 bootstrap-validation artifacts;
+- 2 rendered-report artifacts.
+
+Each established stage has two pipeline targets:
+
+```text
+tracked script file ---> tracked output-file collection
+```
+
+For example, changing `R/06-model-diagnostics.R` changes the script target,
+which invalidates the diagnostic outputs, validation outputs, and report. It
+does not unnecessarily invalidate the data, EDA, Kaplan–Meier, grouped, or Cox
+targets.
+
+The helper `run_analysis_stage()` executes a stage and then verifies that every
+declared output exists. A script that exits without an R error but fails to
+create a promised artifact therefore fails the pipeline rather than leaving a
+silent stale file.
+
+Four additional expectations test the stage helper:
+
+- a valid script creates and returns its declared output;
+- the created file contains the expected content;
+- a missing script produces an informative error;
+- a missing declared output produces an informative error.
+
+The complete suite now contains 77 passing expectations:
+
+```text
+data-functions:      8 passed
+data-quality:       32 passed
+eda-functions:      18 passed
+pipeline-functions:  4 passed
+survival-models:    15 passed
+total:              77 passed
+```
+
+### True dependencies versus chapter order
+
+An early draft made grouped comparisons depend on Kaplan–Meier outputs and Cox
+regression depend on grouped outputs. That reproduced the tutorial chapter
+order but represented false computational dependencies: all three analyses
+actually need only the clean dataset.
+
+The final graph connects those analyses directly to `clean_data_file`.
+Diagnostics genuinely depend on Cox results, and validation genuinely depends
+on diagnostics because it uses the refined model specification.
+
+This distinction matters:
+
+- true dependencies produce accurate invalidation;
+- independent branches may run concurrently with parallel workers;
+- false dependencies create unnecessary reruns and reduce parallelism;
+- a pipeline documents computational causality, not presentation order.
+
+The report depends on all published analysis outputs, so any changed result
+invalidates the rendered tutorial.
+
+### Clean end-to-end rebuild
+
+After the graph was finalized, the reconstructible local cache was removed:
+
+```r
+targets::tar_destroy(destroy = "all", ask = FALSE)
+```
+
+The complete project was then rebuilt:
+
+```r
+targets::tar_make()
+```
+
+Final clean-build result:
+
+```text
+27 completed, 0 skipped
+500/500 bootstrap fits successful
+Markdown report rendered
+HTML report rendered
+elapsed pipeline time: approximately 12 seconds
+```
+
+An immediate unchanged run skips all 27 targets. Together, the clean build and
+unchanged skip demonstrate both reproducibility from zero metadata and correct
+up-to-date detection.
+
+No tracked analysis table, figure, data file, or report changed unexpectedly
+during migration. The numbered manual entry points also remained functional.
+
+Building the pipeline in slices limited the size of each debugging problem and
+provided validated checkpoints. A pipeline should not be considered reliable
+merely because every operation was placed into one large target; its declared
+outputs, invalidation behavior, clean rebuild, tests, and scientific results
+must all be verified.
