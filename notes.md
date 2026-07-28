@@ -2121,3 +2121,121 @@ apt installation ---> Ubuntu system dependencies
 CI turned an undocumented machine requirement into explicit infrastructure
 code. The existing tests were not weakened or skipped; the runner environment
 was corrected so the real pipeline could execute.
+
+### CI results after the fix
+
+The replacement pull-request run completed successfully:
+
+```text
+locked environment restored
+77 software expectations passed
+27-target pipeline completed
+Markdown and HTML reports uploaded
+total CI time: 1 minute 51 seconds
+```
+
+After Pull Request #4 was merged, the push-triggered run on the actual
+`develop` branch also passed:
+
+```text
+environment + tests + pipeline + artifacts
+total CI time: 1 minute 38 seconds
+```
+
+The two runs answer different questions:
+
+- PR CI asks whether the proposed feature and base branch work together.
+- Push CI asks whether the branch state that was actually merged works.
+
+Both should be green before using `develop` as the source of a release.
+
+## Stage 13: Preparing release `v0.2.0`
+
+### From integration to release
+
+At the start of release preparation:
+
+```text
+main     -> stable v0.1.0-era analysis
+develop  -> tests + renv + targets + green CI
+```
+
+A temporary branch was created from the green integration commit:
+
+```bash
+git switch -c release/v0.2.0 develop
+```
+
+Release branches should contain only final preparation, such as version
+metadata, changelog corrections, and release-blocking fixes. New feature work
+continues separately rather than expanding the release candidate indefinitely.
+
+### Version metadata
+
+The repository now contains:
+
+```text
+VERSION
+CHANGELOG.md
+```
+
+`VERSION` gives tools and readers one simple machine-readable release number.
+`CHANGELOG.md` explains what changed between public versions. Git history
+records every implementation detail, while the changelog summarizes changes
+that matter to users.
+
+Version `0.2.0` represents:
+
+- `0`: the project is still evolving and is not a validated clinical tool;
+- `2`: substantial reproducibility infrastructure was added;
+- `0`: this is the initial release of that feature set, not a patch correction.
+
+### Release pull request and CI
+
+The release branch is proposed into stable `main` through a pull request:
+
+```text
+release/v0.2.0  --->  main
+      head              base
+```
+
+Because CI runs on pull requests targeting `main`, the exact release candidate
+must restore its environment, pass all tests, run the pipeline, and render the
+reports on a clean Ubuntu runner before merging.
+
+After merge, an annotated Git tag marks the immutable release commit:
+
+```bash
+git tag -a v0.2.0 -m "Release v0.2.0"
+git push origin v0.2.0
+```
+
+A branch name moves as new commits arrive. A release tag should remain fixed
+at the published release commit. GitHub Releases can then attach human-readable
+notes to that tag.
+
+### Synchronizing after release
+
+The release merge commit on `main` must be brought back into `develop`. This
+keeps future release branches based on history that already contains the stable
+release decision and final release metadata.
+
+Temporary release branches are deleted only after:
+
+- the release PR is merged;
+- the tag is published;
+- the GitHub Release exists;
+- `develop` is synchronized;
+- final branch CI is green.
+
+### Release evidence versus scientific validity
+
+A versioned green release means the declared code, environment, tests,
+pipeline, and reports were reproducible under CI. It does not make the model a
+clinically validated prediction tool. The limitations remain:
+
+- small development sample;
+- transformations partly informed by the data;
+- internal rather than external validation;
+- observational, noncausal findings;
+- no demonstrated clinical utility.
