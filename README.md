@@ -58,6 +58,28 @@ Rscript R/06-model-diagnostics.R
 Rscript R/07-bootstrap-validation.R
 ```
 
+## Run the pipeline
+
+The project is being migrated to a `{targets}` pipeline. The current pipeline
+slice downloads the raw UCI dataset, prepares the analysis variables, writes
+the clean dataset, and stores the clean data object:
+
+```r
+targets::tar_make()
+```
+
+Inspect the dependency graph or read a built target with:
+
+```r
+targets::tar_visnetwork()
+targets::tar_read(clean_data)
+```
+
+On the first run, all targets build. On later runs, `{targets}` skips targets
+whose code, inputs, and upstream dependencies have not changed. The numbered
+scripts remain available as manual entry points while later pipeline slices
+are added.
+
 ## Recreate the R environment
 
 This project uses `renv` to record the R and package versions used by the

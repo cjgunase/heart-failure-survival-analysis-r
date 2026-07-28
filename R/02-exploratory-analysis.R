@@ -19,6 +19,8 @@ library(dplyr)
 library(ggplot2)
 library(readr)
 
+source(file.path("R", "functions-data.R"))
+
 raw_file <- file.path(
   "data",
   "raw",
@@ -33,43 +35,7 @@ dir.create(file.path("data", "processed"), recursive = TRUE, showWarnings = FALS
 dir.create(file.path("outputs", "tables"), recursive = TRUE, showWarnings = FALSE)
 dir.create(file.path("outputs", "figures"), recursive = TRUE, showWarnings = FALSE)
 
-heart <- read_csv(raw_file, show_col_types = FALSE) |>
-  rename(
-    followup_days = time,
-    death = DEATH_EVENT
-  ) |>
-  mutate(
-    death_label = factor(
-      death,
-      levels = c(0, 1),
-      labels = c("Censored", "Death observed")
-    ),
-    sex_label = factor(
-      sex,
-      levels = c(0, 1),
-      labels = c("Female", "Male")
-    ),
-    anaemia_label = factor(
-      anaemia,
-      levels = c(0, 1),
-      labels = c("No", "Yes")
-    ),
-    diabetes_label = factor(
-      diabetes,
-      levels = c(0, 1),
-      labels = c("No", "Yes")
-    ),
-    high_bp_label = factor(
-      high_blood_pressure,
-      levels = c(0, 1),
-      labels = c("No", "Yes")
-    ),
-    smoking_label = factor(
-      smoking,
-      levels = c(0, 1),
-      labels = c("No", "Yes")
-    )
-  )
+heart <- prepare_heart_failure_data(raw_file)
 
 if (any(!heart$death %in% c(0, 1))) {
   stop("The event indicator contains values other than 0 and 1.")
@@ -79,23 +45,8 @@ if (any(heart$followup_days <= 0, na.rm = TRUE)) {
   stop("Follow-up time must be positive.")
 }
 
-write_csv(
-  heart |>
-    select(
-      age,
-      anaemia,
-      creatinine_phosphokinase,
-      diabetes,
-      ejection_fraction,
-      high_blood_pressure,
-      platelets,
-      serum_creatinine,
-      serum_sodium,
-      sex,
-      smoking,
-      followup_days,
-      death
-    ),
+write_clean_heart_failure_data(
+  heart,
   file.path("data", "processed", "heart_failure_clean.csv")
 )
 
