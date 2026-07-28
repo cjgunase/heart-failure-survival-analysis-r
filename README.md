@@ -5,6 +5,8 @@
 An educational, reproducible survival-analysis project using the UCI Heart
 Failure Clinical Records dataset.
 
+Current version: **v0.2.0**
+
 The continuously updated [learning notes](notes.md) explain the concepts,
 equations, R code, interpretations, and common mistakes covered in each stage.
 
@@ -12,11 +14,11 @@ The complete [worked tutorial](report/survival-analysis-tutorial.md) connects
 the project from censoring and Kaplan–Meier estimation through Cox regression,
 diagnostics, and bootstrap validation.
 
-## Current stage
+## Analysis status
 
-Stages 1–6 download and explore the data, estimate overall survival, compare
-prespecified groups, model adjusted prognostic associations, assess model
-diagnostics, and perform bootstrap internal validation.
+The statistical analysis and tutorial are complete. Version 0.2.0 adds
+automated tests, a locked R environment, a one-command pipeline, continuous
+integration, and versioned release documentation.
 
 ## Research question
 
