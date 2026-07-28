@@ -58,15 +58,31 @@ Rscript R/06-model-diagnostics.R
 Rscript R/07-bootstrap-validation.R
 ```
 
-The scripts require `dplyr`, `ggplot2`, `patchwork`, `readr`, `scales`, and
-`survival`.
+## Recreate the R environment
+
+This project uses `renv` to record the R and package versions used by the
+analysis. After cloning the repository, open R in the project root and run:
+
+```r
+install.packages("renv")
+renv::restore()
+```
+
+`renv::restore()` reads `renv.lock` and recreates the project-specific package
+library. Check that the installed environment matches the lockfile with:
+
+```r
+renv::status()
+```
+
+When intentionally changing a dependency, test the full analysis and then
+record the new environment with `renv::snapshot()`.
 
 ## Run the automated tests
 
-Install `testthat` once, then run the test suite from the repository root:
+After restoring the environment, run the test suite from the repository root:
 
 ```r
-install.packages("testthat")
 source("tests/testthat.R")
 ```
 

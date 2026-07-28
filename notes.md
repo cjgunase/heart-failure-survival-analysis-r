@@ -1366,3 +1366,174 @@ delete the merged work. Branch cleanup is a separate, explicit operation.
 At this stage, `main` remains unchanged. Merging into `develop` integrates the
 feature for the next release, but only a later release PR and version tag will
 promote it to stable `main`.
+
+## Stage 10: Reproducible package environments with `renv`
+
+### The dependency problem
+
+R code depends on more than the visible scripts. It also depends on:
+
+- the R version;
+- the names and versions of installed packages;
+- the packages required underneath those packages;
+- the source from which each package can be obtained.
+
+Two people can run the same code and data but receive different behavior if
+their package versions differ. Installing “the latest version” does not
+recreate the environment used when the analysis was developed.
+
+`renv` gives each project an isolated package library and records its
+dependency state in a machine-readable lockfile:
+
+```text
+project code
+    |
+    | renv::dependencies()
+    v
+detected packages
+    |
+    | renv::snapshot()
+    v
+renv.lock
+    |
+    | renv::restore()
+    v
+recreated project library
+```
+
+### Direct and transitive dependencies
+
+A direct dependency is a package named by this project, such as:
+
+```r
+library(survival)
+library(ggplot2)
+testthat::test_dir(...)
+```
+
+A transitive dependency is required by a direct dependency. For example,
+`ggplot2` itself depends on packages such as `gtable`, `scales`, `rlang`, and
+`vctrs`. The project may not call those packages directly, but they are still
+needed for `ggplot2` to work.
+
+The dependency scan detected the expected analysis, reporting, and testing
+packages. The resulting lockfile records both direct and transitive
+dependencies so the complete environment can be reconstructed.
+
+### Files created by `renv`
+
+The feature added:
+
+```text
+.Rprofile
+renv.lock
+renv/
+├── activate.R
+├── settings.json
+└── .gitignore
+```
+
+- `.Rprofile` sources `renv/activate.R` when R starts in the project.
+- `renv/activate.R` activates the project-specific package library.
+- `renv/settings.json` records project-level `renv` behavior.
+- `renv.lock` records R, package versions, package sources, and dependencies.
+- `renv/.gitignore` excludes local package libraries, caches, staging areas,
+  and other machine-specific content.
+
+The package binaries under `renv/library/` are deliberately not committed.
+They can be large and may differ across operating systems. Git stores the
+environment recipe, while `renv::restore()` reconstructs the local library.
+
+### Core commands
+
+Initialize `renv` for a project:
+
+```r
+renv::init()
+```
+
+Record the currently used dependency versions:
+
+```r
+renv::snapshot()
+```
+
+Recreate the versions recorded in the lockfile:
+
+```r
+renv::restore()
+```
+
+Compare the project library with the lockfile:
+
+```r
+renv::status()
+```
+
+The commands have different directions:
+
+```text
+snapshot: installed library  ---> lockfile
+restore:  installed library  <--- lockfile
+status:   installed library  <--> lockfile
+```
+
+Use `snapshot()` only after an intentional dependency change has been tested.
+Running it automatically after every package installation could lock an
+accidental or unvalidated upgrade into the project.
+
+### What was recorded for this project
+
+The lockfile records:
+
+- R version `4.5.2`;
+- `renv` version `1.2.0`;
+- the versions and sources of all detected external dependencies;
+- enough metadata for another machine to retrieve compatible packages.
+
+Examples include:
+
+```text
+survival  3.8-6
+dplyr     1.1.4
+ggplot2   4.0.1
+testthat  3.3.2
+rmarkdown 2.30
+renv      1.2.0
+```
+
+After restoration, `renv::status()` reported that the project was consistent
+with the lockfile, and all 47 software-test expectations passed.
+
+### The local sandbox lesson
+
+During initialization, this managed workspace blocked `renv` while it tried to
+create links between the project library and a shared package cache outside the
+workspace. The first process was stopped after it remained on a sandbox lock.
+The snapshot and verification were then run with `renv`'s optional package
+sandbox disabled for those local commands.
+
+This workaround addresses the restricted execution environment used during
+development; it is not stored as project behavior. On a normal machine or
+GitHub Actions runner, collaborators should use the standard command:
+
+```r
+renv::restore()
+```
+
+This distinction is important: a local infrastructure restriction should not
+silently weaken or complicate the repository configuration for everyone else.
+
+### What `renv` does and does not guarantee
+
+`renv` improves package-level reproducibility, but it does not freeze:
+
+- the operating system and system libraries;
+- external websites or downloadable datasets;
+- random behavior unless seeds are controlled;
+- the order and logic of the analysis pipeline;
+- the correctness of statistical decisions.
+
+The existing fixed bootstrap seed helps control random behavior. The dataset is
+stored with source provenance, while a future pipeline and CI workflow will
+control execution order and test reproducibility on a clean machine.
