@@ -1311,3 +1311,58 @@ Semantic Versioning compliance.
   to stable branches.
 - Use tags for releases; do not use a permanent branch as a substitute for a
   version marker.
+
+### Completing the first pull request
+
+Pull Request #1 proposed merging:
+
+```text
+feature/automated-tests  --->  develop
+          head                   base
+```
+
+Before merging, the maintainer-style review checked:
+
+- the base and head branches were in the intended direction;
+- the PR contained six focused files and no unrelated deletions;
+- the commits described the testing feature;
+- GitHub reported that the branches were mergeable;
+- all 47 local expectations passed;
+- the local working tree matched the published feature branch.
+
+A draft PR means the work is published for early discussion but is not yet
+declared ready for final review. Marking it ready communicates that the author
+believes its scope, documentation, and validation are complete.
+
+The PR is merged using a merge commit. Conceptually:
+
+```text
+develop:  A-------------M
+                       /
+feature:        B-----C
+```
+
+`A` is the commit where the feature branch began. `B` and `C` are feature
+commits. `M` is a new commit with two parents that records the decision to
+combine the feature into `develop`. This preserves the visible branch and PR
+history.
+
+After the remote merge, the local `develop` branch must be synchronized:
+
+```bash
+git switch develop
+git pull --ff-only
+```
+
+`git switch` changes which branch is checked out. `git pull --ff-only` fetches
+the remote state and advances local `develop` only when no divergent local
+history must be reconciled. The `--ff-only` guard prevents Git from creating an
+unexpected merge commit during synchronization.
+
+The merged feature branch can later be deleted locally and remotely because
+its commits are reachable from `develop`; deleting the branch pointer does not
+delete the merged work. Branch cleanup is a separate, explicit operation.
+
+At this stage, `main` remains unchanged. Merging into `develop` integrates the
+feature for the next release, but only a later release PR and version tag will
+promote it to stable `main`.
