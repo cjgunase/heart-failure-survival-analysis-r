@@ -1,0 +1,11 @@
+statistic,value
+Requested bootstrap resamples,500
+Successful bootstrap fits,500
+Random seed,20260728
+Apparent concordance,0.7504081436665706
+Mean bootstrap training concordance,0.7547563399523415
+Mean bootstrap test concordance,0.7388587342744646
+Mean estimated optimism,0.015897605677876923
+Optimism-corrected concordance,0.7345105379886937
+Bootstrap test concordance 2.5th percentile,0.7225583405358686
+Bootstrap test concordance 97.5th percentile,0.7482953999807933

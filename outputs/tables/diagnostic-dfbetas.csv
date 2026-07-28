@@ -1,0 +1,1496 @@
+row_id,term,dfbetas,predictor,influence_flag
+1,age_per_10_years,0.08046881107721461,Age,FALSE
+1,ef_per_5_points,-0.1120022166129478,Ejection fraction,FALSE
+1,creatinine_per_doubling,-0.036894802278322564,Serum creatinine,FALSE
+1,sodium_per_5_units,-0.08324446642435737,Serum sodium,FALSE
+1,sex_groupMale,0.043791970460768326,Sex: male versus female,FALSE
+2,age_per_10_years,-0.11785656011240175,Age,TRUE
+2,ef_per_5_points,0.06679290015923983,Ejection fraction,FALSE
+2,creatinine_per_doubling,-0.06439296595738428,Serum creatinine,FALSE
+2,sodium_per_5_units,-0.004492250478758049,Serum sodium,FALSE
+2,sex_groupMale,0.08539127634631476,Sex: male versus female,FALSE
+3,age_per_10_years,0.002803423758980135,Age,FALSE
+3,ef_per_5_points,-0.10426966926159346,Ejection fraction,FALSE
+3,creatinine_per_doubling,-0.11096946029671052,Serum creatinine,FALSE
+3,sodium_per_5_units,-0.12703296926621174,Serum sodium,TRUE
+3,sex_groupMale,0.04857930103796268,Sex: male versus female,FALSE
+4,age_per_10_years,-0.1519322937657221,Age,TRUE
+4,ef_per_5_points,-0.11138830316360596,Ejection fraction,FALSE
+4,creatinine_per_doubling,0.043975016855074614,Serum creatinine,FALSE
+4,sodium_per_5_units,0.09023919172970421,Serum sodium,FALSE
+4,sex_groupMale,0.060775476618258356,Sex: male versus female,FALSE
+5,age_per_10_years,0.014628979481618393,Age,FALSE
+5,ef_per_5_points,-0.06699362152769377,Ejection fraction,FALSE
+5,creatinine_per_doubling,-0.05963146580414865,Serum creatinine,FALSE
+5,sodium_per_5_units,-0.3406246713859168,Serum sodium,TRUE
+5,sex_groupMale,-0.14574690349010916,Sex: male versus female,TRUE
+6,age_per_10_years,0.17315810356104894,Age,TRUE
+6,ef_per_5_points,0.06845841127121363,Ejection fraction,FALSE
+6,creatinine_per_doubling,7.983946075135862e-5,Serum creatinine,FALSE
+6,sodium_per_5_units,-0.07366915944664032,Serum sodium,FALSE
+6,sex_groupMale,0.06496982482350988,Sex: male versus female,FALSE
+7,age_per_10_years,0.08673073251263733,Age,FALSE
+7,ef_per_5_points,-0.18690602995535838,Ejection fraction,TRUE
+7,creatinine_per_doubling,-0.07279320085316916,Serum creatinine,FALSE
+7,sodium_per_5_units,0.04098511803790338,Serum sodium,FALSE
+7,sex_groupMale,0.0321851382388766,Sex: male versus female,FALSE
+8,age_per_10_years,-0.09267417155975914,Age,FALSE
+8,ef_per_5_points,0.3118245632869368,Ejection fraction,TRUE
+8,creatinine_per_doubling,-0.08355392176002,Serum creatinine,FALSE
+8,sodium_per_5_units,-0.17198812423753976,Serum sodium,TRUE
+8,sex_groupMale,0.11665427744610941,Sex: male versus female,TRUE
+9,age_per_10_years,-0.057543312193406464,Age,FALSE
+9,ef_per_5_points,0.30350315960966373,Ejection fraction,TRUE
+9,creatinine_per_doubling,0.02963024397876225,Serum creatinine,FALSE
+9,sodium_per_5_units,-0.0010302823030292534,Serum sodium,FALSE
+9,sex_groupMale,-0.09053478033447039,Sex: male versus female,FALSE
+10,age_per_10_years,0.04322640419908555,Age,FALSE
+10,ef_per_5_points,0.03676900219564886,Ejection fraction,FALSE
+10,creatinine_per_doubling,0.2166645175457553,Serum creatinine,TRUE
+10,sodium_per_5_units,0.034781834261335624,Serum sodium,FALSE
+10,sex_groupMale,0.04766834858376486,Sex: male versus female,FALSE
+11,age_per_10_years,0.035597033210823324,Age,FALSE
+11,ef_per_5_points,0.07557295817797546,Ejection fraction,FALSE
+11,creatinine_per_doubling,0.12831515805434246,Serum creatinine,TRUE
+11,sodium_per_5_units,-0.04678879645334778,Serum sodium,FALSE
+11,sex_groupMale,0.067908951945295,Sex: male versus female,FALSE
+12,age_per_10_years,-0.032370297300455445,Age,FALSE
+12,ef_per_5_points,-0.09857425887444522,Ejection fraction,FALSE
+12,creatinine_per_doubling,-0.09015316545245233,Serum creatinine,FALSE
+12,sodium_per_5_units,0.08284370272461404,Serum sodium,FALSE
+12,sex_groupMale,0.057743877979037586,Sex: male versus female,FALSE
+13,age_per_10_years,-0.18979546486003065,Age,TRUE
+13,ef_per_5_points,-0.010602693101447624,Ejection fraction,FALSE
+13,creatinine_per_doubling,-0.041043012183867016,Serum creatinine,FALSE
+13,sodium_per_5_units,0.02951728467213869,Serum sodium,FALSE
+13,sex_groupMale,0.07943505455584601,Sex: male versus female,FALSE
+14,age_per_10_years,-0.15667944720162624,Age,TRUE
+14,ef_per_5_points,0.0675428502773257,Ejection fraction,FALSE
+14,creatinine_per_doubling,-0.03896555197749728,Serum creatinine,FALSE
+14,sodium_per_5_units,0.012869782502972106,Serum sodium,FALSE
+14,sex_groupMale,0.08957394399328722,Sex: male versus female,FALSE
+15,age_per_10_years,0.0036997632945928055,Age,FALSE
+15,ef_per_5_points,0.0014080956835706639,Ejection fraction,FALSE
+15,creatinine_per_doubling,0.0018142311029734003,Serum creatinine,FALSE
+15,sodium_per_5_units,-0.001174323773055987,Serum sodium,FALSE
+15,sex_groupMale,0.0035867687338139347,Sex: male versus female,FALSE
+16,age_per_10_years,0.10495221702007802,Age,FALSE
+16,ef_per_5_points,0.15716069776063973,Ejection fraction,TRUE
+16,creatinine_per_doubling,-0.03502683059918181,Serum creatinine,FALSE
+16,sodium_per_5_units,-0.03537570904618079,Serum sodium,FALSE
+16,sex_groupMale,0.08705882376862874,Sex: male versus female,FALSE
+17,age_per_10_years,0.16404125674435727,Age,TRUE
+17,ef_per_5_points,0.008654056125041736,Ejection fraction,FALSE
+17,creatinine_per_doubling,-0.09241461238989175,Serum creatinine,FALSE
+17,sodium_per_5_units,0.04567958559425346,Serum sodium,FALSE
+17,sex_groupMale,0.06341657656731584,Sex: male versus female,FALSE
+18,age_per_10_years,-0.14228499033833758,Age,TRUE
+18,ef_per_5_points,-0.14143410156540476,Ejection fraction,TRUE
+18,creatinine_per_doubling,-0.19317163837277976,Serum creatinine,TRUE
+18,sodium_per_5_units,-0.1887349892627758,Serum sodium,TRUE
+18,sex_groupMale,0.049875986300400035,Sex: male versus female,FALSE
+19,age_per_10_years,0.04855461388413409,Age,FALSE
+19,ef_per_5_points,-0.12723410779772815,Ejection fraction,TRUE
+19,creatinine_per_doubling,-0.06933256080020789,Serum creatinine,FALSE
+19,sodium_per_5_units,0.07883893911250396,Serum sodium,FALSE
+19,sex_groupMale,-0.14301117607133257,Sex: male versus female,TRUE
+20,age_per_10_years,-0.1730024608866905,Age,TRUE
+20,ef_per_5_points,0.283391078741197,Ejection fraction,TRUE
+20,creatinine_per_doubling,-0.03615271318303933,Serum creatinine,FALSE
+20,sodium_per_5_units,-0.343651791031972,Serum sodium,TRUE
+20,sex_groupMale,-0.09297895198771339,Sex: male versus female,FALSE
+21,age_per_10_years,-3.1552917748327314e-4,Age,FALSE
+21,ef_per_5_points,0.013177780570597057,Ejection fraction,FALSE
+21,creatinine_per_doubling,0.0050232217651438,Serum creatinine,FALSE
+21,sodium_per_5_units,-0.004488887107204687,Serum sodium,FALSE
+21,sex_groupMale,0.017440974370101236,Sex: male versus female,FALSE
+22,age_per_10_years,-0.0045817638433986365,Age,FALSE
+22,ef_per_5_points,-0.05103099458495154,Ejection fraction,FALSE
+22,creatinine_per_doubling,-3.059641383724734e-4,Serum creatinine,FALSE
+22,sodium_per_5_units,0.017709640306437208,Serum sodium,FALSE
+22,sex_groupMale,-0.13021870169447655,Sex: male versus female,TRUE
+23,age_per_10_years,0.00910520266318526,Age,FALSE
+23,ef_per_5_points,-0.0013871961891305008,Ejection fraction,FALSE
+23,creatinine_per_doubling,-0.07941199510170106,Serum creatinine,FALSE
+23,sodium_per_5_units,0.06179470471157082,Serum sodium,FALSE
+23,sex_groupMale,0.06968031595402896,Sex: male versus female,FALSE
+24,age_per_10_years,0.00147428898650107,Age,FALSE
+24,ef_per_5_points,-0.002882023500120822,Ejection fraction,FALSE
+24,creatinine_per_doubling,0.0010434574162552594,Serum creatinine,FALSE
+24,sodium_per_5_units,9.092966506701566e-4,Serum sodium,FALSE
+24,sex_groupMale,-0.0011703922236266124,Sex: male versus female,FALSE
+25,age_per_10_years,0.06491952435224548,Age,FALSE
+25,ef_per_5_points,-0.045516757204463854,Ejection fraction,FALSE
+25,creatinine_per_doubling,9.026166338296537e-4,Serum creatinine,FALSE
+25,sodium_per_5_units,-0.017020901954426772,Serum sodium,FALSE
+25,sex_groupMale,-0.11759244842829042,Sex: male versus female,TRUE
+26,age_per_10_years,0.07752480802386126,Age,FALSE
+26,ef_per_5_points,0.012483698053724459,Ejection fraction,FALSE
+26,creatinine_per_doubling,0.07997619316266298,Serum creatinine,FALSE
+26,sodium_per_5_units,0.17138912432716408,Serum sodium,TRUE
+26,sex_groupMale,0.06333930212119719,Sex: male versus female,FALSE
+27,age_per_10_years,0.2095180379796505,Age,TRUE
+27,ef_per_5_points,-0.003857916016021296,Ejection fraction,FALSE
+27,creatinine_per_doubling,-0.08379671264669192,Serum creatinine,FALSE
+27,sodium_per_5_units,0.0014867398626041103,Serum sodium,FALSE
+27,sex_groupMale,-0.12181771316402769,Sex: male versus female,TRUE
+28,age_per_10_years,0.013075821636846903,Age,FALSE
+28,ef_per_5_points,0.11655274634224663,Ejection fraction,TRUE
+28,creatinine_per_doubling,-0.028539179038668285,Serum creatinine,FALSE
+28,sodium_per_5_units,-0.019591854391615832,Serum sodium,FALSE
+28,sex_groupMale,0.08045160071471899,Sex: male versus female,FALSE
+29,age_per_10_years,-0.09280235380931907,Age,FALSE
+29,ef_per_5_points,0.07838724996061318,Ejection fraction,FALSE
+29,creatinine_per_doubling,0.21086444286987316,Serum creatinine,TRUE
+29,sodium_per_5_units,0.042236643982478866,Serum sodium,FALSE
+29,sex_groupMale,0.06775207039462995,Sex: male versus female,FALSE
+30,age_per_10_years,0.11852367180973526,Age,TRUE
+30,ef_per_5_points,-0.027395760710700868,Ejection fraction,FALSE
+30,creatinine_per_doubling,-0.08238185533305989,Serum creatinine,FALSE
+30,sodium_per_5_units,-0.07748170723607359,Serum sodium,FALSE
+30,sex_groupMale,0.041073570072295236,Sex: male versus female,FALSE
+31,age_per_10_years,0.1436054544661425,Age,TRUE
+31,ef_per_5_points,0.022153366630938906,Ejection fraction,FALSE
+31,creatinine_per_doubling,-0.003620482598670757,Serum creatinine,FALSE
+31,sodium_per_5_units,-0.027225644909991013,Serum sodium,FALSE
+31,sex_groupMale,0.037138786815059985,Sex: male versus female,FALSE
+32,age_per_10_years,0.09245227182527617,Age,FALSE
+32,ef_per_5_points,0.09149357109738288,Ejection fraction,FALSE
+32,creatinine_per_doubling,0.06336974668799182,Serum creatinine,FALSE
+32,sodium_per_5_units,-0.0434343685140994,Serum sodium,FALSE
+32,sex_groupMale,0.05338793495348005,Sex: male versus female,FALSE
+33,age_per_10_years,-0.1091292224593805,Age,FALSE
+33,ef_per_5_points,0.03484569425033566,Ejection fraction,FALSE
+33,creatinine_per_doubling,-0.12927699611737334,Serum creatinine,TRUE
+33,sodium_per_5_units,-0.18823555459698427,Serum sodium,TRUE
+33,sex_groupMale,-0.12581809686370596,Sex: male versus female,TRUE
+34,age_per_10_years,0.010150453160864568,Age,FALSE
+34,ef_per_5_points,0.003918370673053987,Ejection fraction,FALSE
+34,creatinine_per_doubling,0.002251054114353825,Serum creatinine,FALSE
+34,sodium_per_5_units,-0.004198582786449371,Serum sodium,FALSE
+34,sex_groupMale,0.01039313470962458,Sex: male versus female,FALSE
+35,age_per_10_years,-0.030294437750796287,Age,FALSE
+35,ef_per_5_points,0.16071472925858277,Ejection fraction,TRUE
+35,creatinine_per_doubling,-0.04008615810274653,Serum creatinine,FALSE
+35,sodium_per_5_units,0.04386128370889835,Serum sodium,FALSE
+35,sex_groupMale,0.09642116557878468,Sex: male versus female,FALSE
+36,age_per_10_years,0.003848416526099082,Age,FALSE
+36,ef_per_5_points,0.03415622996925931,Ejection fraction,FALSE
+36,creatinine_per_doubling,0.1021148879333737,Serum creatinine,FALSE
+36,sodium_per_5_units,0.010859762726555974,Serum sodium,FALSE
+36,sex_groupMale,0.050722059816372775,Sex: male versus female,FALSE
+37,age_per_10_years,0.17494694208314893,Age,TRUE
+37,ef_per_5_points,0.13863970993581595,Ejection fraction,TRUE
+37,creatinine_per_doubling,-0.09868119608944445,Serum creatinine,FALSE
+37,sodium_per_5_units,-0.09203077389486833,Serum sodium,FALSE
+37,sex_groupMale,0.07184652989879908,Sex: male versus female,FALSE
+38,age_per_10_years,0.1184709981731134,Age,TRUE
+38,ef_per_5_points,0.08592823398761326,Ejection fraction,FALSE
+38,creatinine_per_doubling,-0.02274985006899994,Serum creatinine,FALSE
+38,sodium_per_5_units,0.13835172162748943,Serum sodium,TRUE
+38,sex_groupMale,-0.11404473151064602,Sex: male versus female,FALSE
+39,age_per_10_years,0.014556098480702018,Age,FALSE
+39,ef_per_5_points,0.00283146630513759,Ejection fraction,FALSE
+39,creatinine_per_doubling,-0.017599909116573467,Serum creatinine,FALSE
+39,sodium_per_5_units,-0.014379429362732971,Serum sodium,FALSE
+39,sex_groupMale,-0.014135440145576604,Sex: male versus female,FALSE
+40,age_per_10_years,-0.06167720478453609,Age,FALSE
+40,ef_per_5_points,0.021507821222860976,Ejection fraction,FALSE
+40,creatinine_per_doubling,0.15883038356835252,Serum creatinine,TRUE
+40,sodium_per_5_units,0.15735507530467166,Serum sodium,TRUE
+40,sex_groupMale,-0.10533418483543669,Sex: male versus female,FALSE
+41,age_per_10_years,0.03192763365114127,Age,FALSE
+41,ef_per_5_points,-0.07052156654075577,Ejection fraction,FALSE
+41,creatinine_per_doubling,0.005177555139390245,Serum creatinine,FALSE
+41,sodium_per_5_units,-2.0532155573229625e-5,Serum sodium,FALSE
+41,sex_groupMale,0.029662958839589644,Sex: male versus female,FALSE
+42,age_per_10_years,-0.11112498532436937,Age,FALSE
+42,ef_per_5_points,-0.03821203403565242,Ejection fraction,FALSE
+42,creatinine_per_doubling,-0.03492031195749036,Serum creatinine,FALSE
+42,sodium_per_5_units,0.00828455863120839,Serum sodium,FALSE
+42,sex_groupMale,-0.1255170579975143,Sex: male versus female,TRUE
+43,age_per_10_years,0.016644148376931397,Age,FALSE
+43,ef_per_5_points,0.10495320089933634,Ejection fraction,FALSE
+43,creatinine_per_doubling,-0.017275414078232104,Serum creatinine,FALSE
+43,sodium_per_5_units,0.03929914019448597,Serum sodium,FALSE
+43,sex_groupMale,0.08196461020353459,Sex: male versus female,FALSE
+44,age_per_10_years,-0.0026328557588098382,Age,FALSE
+44,ef_per_5_points,-0.014643299774874,Ejection fraction,FALSE
+44,creatinine_per_doubling,0.008028224418992765,Serum creatinine,FALSE
+44,sodium_per_5_units,0.007782730099433656,Serum sodium,FALSE
+44,sex_groupMale,-0.007675924909810454,Sex: male versus female,FALSE
+45,age_per_10_years,-0.07855624607540235,Age,FALSE
+45,ef_per_5_points,0.2327467280804945,Ejection fraction,TRUE
+45,creatinine_per_doubling,0.0074790894873678565,Serum creatinine,FALSE
+45,sodium_per_5_units,0.08176912143984756,Serum sodium,FALSE
+45,sex_groupMale,-0.09210776410406012,Sex: male versus female,FALSE
+46,age_per_10_years,-0.14460299934907153,Age,TRUE
+46,ef_per_5_points,0.08182425846986273,Ejection fraction,FALSE
+46,creatinine_per_doubling,0.055053828448719554,Serum creatinine,FALSE
+46,sodium_per_5_units,0.0042069311703885675,Serum sodium,FALSE
+46,sex_groupMale,0.08396678015605351,Sex: male versus female,FALSE
+47,age_per_10_years,-0.0955740771389385,Age,FALSE
+47,ef_per_5_points,-0.039633476364706086,Ejection fraction,FALSE
+47,creatinine_per_doubling,-0.13229270035830062,Serum creatinine,TRUE
+47,sodium_per_5_units,-0.12694885757406305,Serum sodium,TRUE
+47,sex_groupMale,0.06031489119630212,Sex: male versus female,FALSE
+48,age_per_10_years,-0.042134855324561495,Age,FALSE
+48,ef_per_5_points,0.042247962457764764,Ejection fraction,FALSE
+48,creatinine_per_doubling,-0.1590894142086965,Serum creatinine,TRUE
+48,sodium_per_5_units,-0.010130186291986143,Serum sodium,FALSE
+48,sex_groupMale,0.07865077985881035,Sex: male versus female,FALSE
+49,age_per_10_years,-0.07416602603650134,Age,FALSE
+49,ef_per_5_points,0.08697829096430443,Ejection fraction,FALSE
+49,creatinine_per_doubling,-0.11413091596768304,Serum creatinine,FALSE
+49,sodium_per_5_units,-0.02417527092704758,Serum sodium,FALSE
+49,sex_groupMale,-0.03186422409074748,Sex: male versus female,FALSE
+50,age_per_10_years,-0.04832730367391738,Age,FALSE
+50,ef_per_5_points,-0.06584885248928377,Ejection fraction,FALSE
+50,creatinine_per_doubling,-0.03969547594957225,Serum creatinine,FALSE
+50,sodium_per_5_units,0.07720977887967066,Serum sodium,FALSE
+50,sex_groupMale,-0.1231434949660791,Sex: male versus female,TRUE
+51,age_per_10_years,0.032165688820329566,Age,FALSE
+51,ef_per_5_points,-0.07930321573074084,Ejection fraction,FALSE
+51,creatinine_per_doubling,-0.05657034155795716,Serum creatinine,FALSE
+51,sodium_per_5_units,0.03679990140852578,Serum sodium,FALSE
+51,sex_groupMale,0.04790687616421297,Sex: male versus female,FALSE
+52,age_per_10_years,-0.06465177931380611,Age,FALSE
+52,ef_per_5_points,-0.1295679357121332,Ejection fraction,TRUE
+52,creatinine_per_doubling,0.010773530224048018,Serum creatinine,FALSE
+52,sodium_per_5_units,0.08450567760998527,Serum sodium,FALSE
+52,sex_groupMale,-0.11864148827621851,Sex: male versus female,TRUE
+53,age_per_10_years,-0.10743480556429177,Age,FALSE
+53,ef_per_5_points,0.22739366434799774,Ejection fraction,TRUE
+53,creatinine_per_doubling,0.3540629539929805,Serum creatinine,TRUE
+53,sodium_per_5_units,0.24988001536976528,Serum sodium,TRUE
+53,sex_groupMale,-0.06678717373713419,Sex: male versus female,FALSE
+54,age_per_10_years,0.03691456416899525,Age,FALSE
+54,ef_per_5_points,0.12933564505408496,Ejection fraction,TRUE
+54,creatinine_per_doubling,-0.07550115767772159,Serum creatinine,FALSE
+54,sodium_per_5_units,-0.08188376992391509,Serum sodium,FALSE
+54,sex_groupMale,-0.10381739891940146,Sex: male versus female,FALSE
+55,age_per_10_years,-0.03430366608098223,Age,FALSE
+55,ef_per_5_points,0.038347410541602886,Ejection fraction,FALSE
+55,creatinine_per_doubling,0.04711313604686362,Serum creatinine,FALSE
+55,sodium_per_5_units,-0.041767504048036225,Serum sodium,FALSE
+55,sex_groupMale,-0.09288178146038512,Sex: male versus female,FALSE
+56,age_per_10_years,-0.0678016998793552,Age,FALSE
+56,ef_per_5_points,0.009641106186413652,Ejection fraction,FALSE
+56,creatinine_per_doubling,0.015610346597882756,Serum creatinine,FALSE
+56,sodium_per_5_units,0.023575891675268437,Serum sodium,FALSE
+56,sex_groupMale,-0.014211564743759033,Sex: male versus female,FALSE
+57,age_per_10_years,-0.0028066730048569104,Age,FALSE
+57,ef_per_5_points,-0.010690373042323148,Ejection fraction,FALSE
+57,creatinine_per_doubling,-0.05270890410543783,Serum creatinine,FALSE
+57,sodium_per_5_units,-0.03870348429719508,Serum sodium,FALSE
+57,sex_groupMale,-0.031322964557487405,Sex: male versus female,FALSE
+58,age_per_10_years,0.002958654188877608,Age,FALSE
+58,ef_per_5_points,-0.003566514949339047,Ejection fraction,FALSE
+58,creatinine_per_doubling,0.009557436852884045,Serum creatinine,FALSE
+58,sodium_per_5_units,7.500356021363903e-4,Serum sodium,FALSE
+58,sex_groupMale,-0.004830787622371426,Sex: male versus female,FALSE
+59,age_per_10_years,-0.09820567961025582,Age,FALSE
+59,ef_per_5_points,-0.10326863593829452,Ejection fraction,FALSE
+59,creatinine_per_doubling,-0.04201791358390178,Serum creatinine,FALSE
+59,sodium_per_5_units,0.021160923958313923,Serum sodium,FALSE
+59,sex_groupMale,0.054955352548854385,Sex: male versus female,FALSE
+60,age_per_10_years,0.05167848295543762,Age,FALSE
+60,ef_per_5_points,-0.07728758139728724,Ejection fraction,FALSE
+60,creatinine_per_doubling,-0.016659788821857598,Serum creatinine,FALSE
+60,sodium_per_5_units,0.01307330986078306,Serum sodium,FALSE
+60,sex_groupMale,0.02822541590568056,Sex: male versus female,FALSE
+61,age_per_10_years,-0.14676209776135393,Age,TRUE
+61,ef_per_5_points,-0.07197702875123223,Ejection fraction,FALSE
+61,creatinine_per_doubling,-0.03475274081405742,Serum creatinine,FALSE
+61,sodium_per_5_units,0.0743168003729284,Serum sodium,FALSE
+61,sex_groupMale,0.06900291362913359,Sex: male versus female,FALSE
+62,age_per_10_years,-0.10549078430459585,Age,FALSE
+62,ef_per_5_points,0.07060292576520219,Ejection fraction,FALSE
+62,creatinine_per_doubling,0.0634163821597726,Serum creatinine,FALSE
+62,sodium_per_5_units,-0.0628088476789886,Serum sodium,FALSE
+62,sex_groupMale,-0.09306549411714814,Sex: male versus female,FALSE
+63,age_per_10_years,0.011080264455079985,Age,FALSE
+63,ef_per_5_points,-0.002358133082553201,Ejection fraction,FALSE
+63,creatinine_per_doubling,0.0033658436447812482,Serum creatinine,FALSE
+63,sodium_per_5_units,-0.0066995304216854405,Serum sodium,FALSE
+63,sex_groupMale,-0.008654761900840533,Sex: male versus female,FALSE
+64,age_per_10_years,-0.1760415900866047,Age,TRUE
+64,ef_per_5_points,0.003987399061502002,Ejection fraction,FALSE
+64,creatinine_per_doubling,0.016845374671230845,Serum creatinine,FALSE
+64,sodium_per_5_units,0.19337512680929217,Serum sodium,TRUE
+64,sex_groupMale,0.0882199146798629,Sex: male versus female,FALSE
+65,age_per_10_years,0.003548284789312447,Age,FALSE
+65,ef_per_5_points,-0.0071394745311491,Ejection fraction,FALSE
+65,creatinine_per_doubling,-2.6984772345224275e-4,Serum creatinine,FALSE
+65,sodium_per_5_units,7.948783482866285e-4,Serum sodium,FALSE
+65,sex_groupMale,7.80204184829028e-4,Sex: male versus female,FALSE
+66,age_per_10_years,0.0060010884281385445,Age,FALSE
+66,ef_per_5_points,-0.01779779211319201,Ejection fraction,FALSE
+66,creatinine_per_doubling,0.020377764210312024,Serum creatinine,FALSE
+66,sodium_per_5_units,-0.02026364577728583,Serum sodium,FALSE
+66,sex_groupMale,0.013708279016978173,Sex: male versus female,FALSE
+67,age_per_10_years,-0.12501191540240517,Age,TRUE
+67,ef_per_5_points,-0.1550815734283054,Ejection fraction,TRUE
+67,creatinine_per_doubling,-0.010896867442463104,Serum creatinine,FALSE
+67,sodium_per_5_units,0.035237772334771114,Serum sodium,FALSE
+67,sex_groupMale,-0.11676708563311912,Sex: male versus female,TRUE
+68,age_per_10_years,0.057319017708275036,Age,FALSE
+68,ef_per_5_points,-0.08177154821786838,Ejection fraction,FALSE
+68,creatinine_per_doubling,-0.0380740757422767,Serum creatinine,FALSE
+68,sodium_per_5_units,0.060735295503338296,Serum sodium,FALSE
+68,sex_groupMale,0.04288136993689967,Sex: male versus female,FALSE
+69,age_per_10_years,0.044289340532333216,Age,FALSE
+69,ef_per_5_points,-0.09347432393917864,Ejection fraction,FALSE
+69,creatinine_per_doubling,-0.0013798236175433208,Serum creatinine,FALSE
+69,sodium_per_5_units,0.0877638802167124,Serum sodium,FALSE
+69,sex_groupMale,-0.08904625749498278,Sex: male versus female,FALSE
+70,age_per_10_years,0.009196966357593431,Age,FALSE
+70,ef_per_5_points,-0.04522329487889891,Ejection fraction,FALSE
+70,creatinine_per_doubling,0.022103465054792028,Serum creatinine,FALSE
+70,sodium_per_5_units,0.010749262227540782,Serum sodium,FALSE
+70,sex_groupMale,0.03472433880024707,Sex: male versus female,FALSE
+71,age_per_10_years,0.009112913808730298,Age,FALSE
+71,ef_per_5_points,-0.0032246949385987115,Ejection fraction,FALSE
+71,creatinine_per_doubling,0.0026958593791328108,Serum creatinine,FALSE
+71,sodium_per_5_units,-0.0025197007807731403,Serum sodium,FALSE
+71,sex_groupMale,-0.0038959332920658757,Sex: male versus female,FALSE
+72,age_per_10_years,0.008128787680185077,Age,FALSE
+72,ef_per_5_points,-0.0016208263396655209,Ejection fraction,FALSE
+72,creatinine_per_doubling,0.008611445873493932,Serum creatinine,FALSE
+72,sodium_per_5_units,-0.005513721987053571,Serum sodium,FALSE
+72,sex_groupMale,-0.009148297266084987,Sex: male versus female,FALSE
+73,age_per_10_years,0.10646512116261363,Age,FALSE
+73,ef_per_5_points,-0.003050999493439193,Ejection fraction,FALSE
+73,creatinine_per_doubling,-0.06216467197915328,Serum creatinine,FALSE
+73,sodium_per_5_units,-0.06217843355554206,Serum sodium,FALSE
+73,sex_groupMale,0.036847946194676975,Sex: male versus female,FALSE
+74,age_per_10_years,0.004322422636623497,Age,FALSE
+74,ef_per_5_points,-0.021939138798136006,Ejection fraction,FALSE
+74,creatinine_per_doubling,9.470228775543425e-4,Serum creatinine,FALSE
+74,sodium_per_5_units,4.131590912205017e-4,Serum sodium,FALSE
+74,sex_groupMale,-0.012401188833218314,Sex: male versus female,FALSE
+75,age_per_10_years,0.03721537693442898,Age,FALSE
+75,ef_per_5_points,-0.07232538639001555,Ejection fraction,FALSE
+75,creatinine_per_doubling,-0.030267574114938467,Serum creatinine,FALSE
+75,sodium_per_5_units,-0.012564984436617136,Serum sodium,FALSE
+75,sex_groupMale,0.028240047857782582,Sex: male versus female,FALSE
+76,age_per_10_years,-0.006377832622137339,Age,FALSE
+76,ef_per_5_points,-0.13235822978698386,Ejection fraction,TRUE
+76,creatinine_per_doubling,-0.10801009514358502,Serum creatinine,FALSE
+76,sodium_per_5_units,0.04630964308346398,Serum sodium,FALSE
+76,sex_groupMale,0.048018155112357644,Sex: male versus female,FALSE
+77,age_per_10_years,-0.0014524530978903107,Age,FALSE
+77,ef_per_5_points,-0.017084917225313488,Ejection fraction,FALSE
+77,creatinine_per_doubling,0.006407210612097285,Serum creatinine,FALSE
+77,sodium_per_5_units,-8.475408749573443e-4,Serum sodium,FALSE
+77,sex_groupMale,0.00770153765360985,Sex: male versus female,FALSE
+78,age_per_10_years,0.014570814250651935,Age,FALSE
+78,ef_per_5_points,-0.0055212532205765694,Ejection fraction,FALSE
+78,creatinine_per_doubling,-9.686728604012052e-4,Serum creatinine,FALSE
+78,sodium_per_5_units,-0.005753874364575565,Serum sodium,FALSE
+78,sex_groupMale,-0.0062953896766116575,Sex: male versus female,FALSE
+79,age_per_10_years,-0.018938286268119418,Age,FALSE
+79,ef_per_5_points,-0.009213820168628468,Ejection fraction,FALSE
+79,creatinine_per_doubling,0.04471601027538464,Serum creatinine,FALSE
+79,sodium_per_5_units,0.03403033033430365,Serum sodium,FALSE
+79,sex_groupMale,-0.013616282288461486,Sex: male versus female,FALSE
+80,age_per_10_years,0.008251120624680447,Age,FALSE
+80,ef_per_5_points,-0.007246875143854477,Ejection fraction,FALSE
+80,creatinine_per_doubling,0.004876314696480008,Serum creatinine,FALSE
+80,sodium_per_5_units,-0.004534664596850951,Serum sodium,FALSE
+80,sex_groupMale,0.00979992435315202,Sex: male versus female,FALSE
+81,age_per_10_years,-0.012688709063733341,Age,FALSE
+81,ef_per_5_points,-0.016456340582579755,Ejection fraction,FALSE
+81,creatinine_per_doubling,-0.007935417976723029,Serum creatinine,FALSE
+81,sodium_per_5_units,-0.0021310538216307746,Serum sodium,FALSE
+81,sex_groupMale,0.0504344512217751,Sex: male versus female,FALSE
+82,age_per_10_years,0.0018167122671128109,Age,FALSE
+82,ef_per_5_points,-0.022252466722379887,Ejection fraction,FALSE
+82,creatinine_per_doubling,0.0037705184847606293,Serum creatinine,FALSE
+82,sodium_per_5_units,0.0014092056889644959,Serum sodium,FALSE
+82,sex_groupMale,-0.012729949212621505,Sex: male versus female,FALSE
+83,age_per_10_years,0.004145439458187859,Age,FALSE
+83,ef_per_5_points,-0.02936125063888432,Ejection fraction,FALSE
+83,creatinine_per_doubling,0.02288601501323644,Serum creatinine,FALSE
+83,sodium_per_5_units,-0.007367611895459966,Serum sodium,FALSE
+83,sex_groupMale,-0.03322976584537868,Sex: male versus female,FALSE
+84,age_per_10_years,-0.0316882648855322,Age,FALSE
+84,ef_per_5_points,-0.06547686692877816,Ejection fraction,FALSE
+84,creatinine_per_doubling,-0.004785952441712901,Serum creatinine,FALSE
+84,sodium_per_5_units,0.028976752845763884,Serum sodium,FALSE
+84,sex_groupMale,-0.03346866926460488,Sex: male versus female,FALSE
+85,age_per_10_years,-0.014585188616088532,Age,FALSE
+85,ef_per_5_points,-0.10966190702505868,Ejection fraction,FALSE
+85,creatinine_per_doubling,-0.03201058847504651,Serum creatinine,FALSE
+85,sodium_per_5_units,0.08783736388058765,Serum sodium,FALSE
+85,sex_groupMale,-0.11091602815420039,Sex: male versus female,FALSE
+86,age_per_10_years,0.005822682493544216,Age,FALSE
+86,ef_per_5_points,-0.00673956331383438,Ejection fraction,FALSE
+86,creatinine_per_doubling,0.003766218804854882,Serum creatinine,FALSE
+86,sodium_per_5_units,-0.0012246430634043292,Serum sodium,FALSE
+86,sex_groupMale,-0.004246053704963372,Sex: male versus female,FALSE
+87,age_per_10_years,0.013982334127349597,Age,FALSE
+87,ef_per_5_points,-0.004006601668021046,Ejection fraction,FALSE
+87,creatinine_per_doubling,0.006361829508845737,Serum creatinine,FALSE
+87,sodium_per_5_units,-0.0024172123019851107,Serum sodium,FALSE
+87,sex_groupMale,-0.011671625587992701,Sex: male versus female,FALSE
+88,age_per_10_years,0.0020823674464204435,Age,FALSE
+88,ef_per_5_points,-0.013809607127532795,Ejection fraction,FALSE
+88,creatinine_per_doubling,0.00389403958899694,Serum creatinine,FALSE
+88,sodium_per_5_units,-7.95738934663536e-4,Serum sodium,FALSE
+88,sex_groupMale,-0.00610733070822447,Sex: male versus female,FALSE
+89,age_per_10_years,0.00895374992949673,Age,FALSE
+89,ef_per_5_points,-0.0035613265322289684,Ejection fraction,FALSE
+89,creatinine_per_doubling,0.004823628757869747,Serum creatinine,FALSE
+89,sodium_per_5_units,-0.0013454012762461045,Serum sodium,FALSE
+89,sex_groupMale,-0.004381647838374126,Sex: male versus female,FALSE
+90,age_per_10_years,0.014925557635825334,Age,FALSE
+90,ef_per_5_points,0.020897018618161834,Ejection fraction,FALSE
+90,creatinine_per_doubling,5.702679312729538e-4,Serum creatinine,FALSE
+90,sodium_per_5_units,-0.03827242943737608,Serum sodium,FALSE
+90,sex_groupMale,-0.01288288306292373,Sex: male versus female,FALSE
+91,age_per_10_years,-0.004271082059758079,Age,FALSE
+91,ef_per_5_points,-0.015438904584980878,Ejection fraction,FALSE
+91,creatinine_per_doubling,0.016941805875847395,Serum creatinine,FALSE
+91,sodium_per_5_units,0.007248997441179095,Serum sodium,FALSE
+91,sex_groupMale,-0.011939144583901514,Sex: male versus female,FALSE
+92,age_per_10_years,0.0070099697054006715,Age,FALSE
+92,ef_per_5_points,-0.016609881922056317,Ejection fraction,FALSE
+92,creatinine_per_doubling,0.010685584180952454,Serum creatinine,FALSE
+92,sodium_per_5_units,0.01200588171487229,Serum sodium,FALSE
+92,sex_groupMale,-0.011093944627372435,Sex: male versus female,FALSE
+93,age_per_10_years,0.009034211289631068,Age,FALSE
+93,ef_per_5_points,-0.010505583264416083,Ejection fraction,FALSE
+93,creatinine_per_doubling,-1.6757148749944507e-4,Serum creatinine,FALSE
+93,sodium_per_5_units,6.451698648821776e-4,Serum sodium,FALSE
+93,sex_groupMale,0.0031569329899254132,Sex: male versus female,FALSE
+94,age_per_10_years,-0.015130257517651787,Age,FALSE
+94,ef_per_5_points,-0.04825480945736438,Ejection fraction,FALSE
+94,creatinine_per_doubling,0.014301391868860865,Serum creatinine,FALSE
+94,sodium_per_5_units,0.00924848881863724,Serum sodium,FALSE
+94,sex_groupMale,0.0414230951445608,Sex: male versus female,FALSE
+95,age_per_10_years,0.005869018429357322,Age,FALSE
+95,ef_per_5_points,4.978850797775073e-4,Ejection fraction,FALSE
+95,creatinine_per_doubling,0.010787422992691508,Serum creatinine,FALSE
+95,sodium_per_5_units,-0.009728228690086188,Serum sodium,FALSE
+95,sex_groupMale,0.013484367979245324,Sex: male versus female,FALSE
+96,age_per_10_years,0.005185429284739631,Age,FALSE
+96,ef_per_5_points,-0.012876564399202501,Ejection fraction,FALSE
+96,creatinine_per_doubling,5.963400993022671e-4,Serum creatinine,FALSE
+96,sodium_per_5_units,-0.0027186108601820534,Serum sodium,FALSE
+96,sex_groupMale,-0.005770880284049432,Sex: male versus female,FALSE
+97,age_per_10_years,0.00499481484483739,Age,FALSE
+97,ef_per_5_points,0.027987516312449525,Ejection fraction,FALSE
+97,creatinine_per_doubling,0.020235271643570023,Serum creatinine,FALSE
+97,sodium_per_5_units,0.010655142677746034,Serum sodium,FALSE
+97,sex_groupMale,-0.0238521250957606,Sex: male versus female,FALSE
+98,age_per_10_years,-0.0020610124853627657,Age,FALSE
+98,ef_per_5_points,-0.029345747463721997,Ejection fraction,FALSE
+98,creatinine_per_doubling,0.005864829613191558,Serum creatinine,FALSE
+98,sodium_per_5_units,0.007141609886402947,Serum sodium,FALSE
+98,sex_groupMale,0.011991099388527583,Sex: male versus female,FALSE
+99,age_per_10_years,0.009874364725095173,Age,FALSE
+99,ef_per_5_points,0.041356530149034704,Ejection fraction,FALSE
+99,creatinine_per_doubling,0.01667852320378847,Serum creatinine,FALSE
+99,sodium_per_5_units,-0.01321506497937617,Serum sodium,FALSE
+99,sex_groupMale,0.0542801661520044,Sex: male versus female,FALSE
+100,age_per_10_years,0.004319895431961339,Age,FALSE
+100,ef_per_5_points,-0.004978067434014675,Ejection fraction,FALSE
+100,creatinine_per_doubling,0.005551830456123848,Serum creatinine,FALSE
+100,sodium_per_5_units,-0.013400987699262573,Serum sodium,FALSE
+100,sex_groupMale,0.02380784042009728,Sex: male versus female,FALSE
+101,age_per_10_years,6.075110186190303e-5,Age,FALSE
+101,ef_per_5_points,0.031740116906252634,Ejection fraction,FALSE
+101,creatinine_per_doubling,0.010544330439355366,Serum creatinine,FALSE
+101,sodium_per_5_units,-0.03695000302181877,Serum sodium,FALSE
+101,sex_groupMale,-0.018366608421734196,Sex: male versus female,FALSE
+102,age_per_10_years,-0.015372782429718559,Age,FALSE
+102,ef_per_5_points,-0.02620263028845194,Ejection fraction,FALSE
+102,creatinine_per_doubling,0.010094253622036708,Serum creatinine,FALSE
+102,sodium_per_5_units,0.001508882362930143,Serum sodium,FALSE
+102,sex_groupMale,-0.020440632039842373,Sex: male versus female,FALSE
+103,age_per_10_years,-0.06862505218373433,Age,FALSE
+103,ef_per_5_points,0.0707026684361866,Ejection fraction,FALSE
+103,creatinine_per_doubling,0.014997979940970548,Serum creatinine,FALSE
+103,sodium_per_5_units,-0.0967086219971461,Serum sodium,FALSE
+103,sex_groupMale,-0.02742722306781025,Sex: male versus female,FALSE
+104,age_per_10_years,0.018383803746540434,Age,FALSE
+104,ef_per_5_points,0.0020001965321975092,Ejection fraction,FALSE
+104,creatinine_per_doubling,0.002769939865925373,Serum creatinine,FALSE
+104,sodium_per_5_units,-0.008389847855422936,Serum sodium,FALSE
+104,sex_groupMale,-0.007205703096275446,Sex: male versus female,FALSE
+105,age_per_10_years,0.016706335677778305,Age,FALSE
+105,ef_per_5_points,-0.02654373648268642,Ejection fraction,FALSE
+105,creatinine_per_doubling,-0.03034837595767292,Serum creatinine,FALSE
+105,sodium_per_5_units,-0.03376255163511301,Serum sodium,FALSE
+105,sex_groupMale,0.020445293510998278,Sex: male versus female,FALSE
+106,age_per_10_years,0.035940932674329254,Age,FALSE
+106,ef_per_5_points,-0.03702876882508271,Ejection fraction,FALSE
+106,creatinine_per_doubling,0.013660866265029504,Serum creatinine,FALSE
+106,sodium_per_5_units,0.02870841685463942,Serum sodium,FALSE
+106,sex_groupMale,-0.04883325130164579,Sex: male versus female,FALSE
+107,age_per_10_years,0.013107634683737875,Age,FALSE
+107,ef_per_5_points,-0.015404513330159571,Ejection fraction,FALSE
+107,creatinine_per_doubling,6.267832622120552e-5,Serum creatinine,FALSE
+107,sodium_per_5_units,-0.0012263972659623413,Serum sodium,FALSE
+107,sex_groupMale,-0.011213223013726037,Sex: male versus female,FALSE
+108,age_per_10_years,0.014547925276036868,Age,FALSE
+108,ef_per_5_points,-0.0025278408370593927,Ejection fraction,FALSE
+108,creatinine_per_doubling,0.005300937339942675,Serum creatinine,FALSE
+108,sodium_per_5_units,-0.0025177255583882633,Serum sodium,FALSE
+108,sex_groupMale,-0.006948398598415749,Sex: male versus female,FALSE
+109,age_per_10_years,0.005077647759075321,Age,FALSE
+109,ef_per_5_points,-0.013315333019798667,Ejection fraction,FALSE
+109,creatinine_per_doubling,0.016536319759480413,Serum creatinine,FALSE
+109,sodium_per_5_units,0.01724758725837507,Serum sodium,FALSE
+109,sex_groupMale,-0.01663195992841245,Sex: male versus female,FALSE
+110,age_per_10_years,0.019649324356669346,Age,FALSE
+110,ef_per_5_points,-0.0023135559927819874,Ejection fraction,FALSE
+110,creatinine_per_doubling,-0.0038928013994511865,Serum creatinine,FALSE
+110,sodium_per_5_units,-0.014781869962569414,Serum sodium,FALSE
+110,sex_groupMale,-0.008886902138827821,Sex: male versus female,FALSE
+111,age_per_10_years,0.12341819234948954,Age,TRUE
+111,ef_per_5_points,0.20507649779086773,Ejection fraction,TRUE
+111,creatinine_per_doubling,-0.053044665792755914,Serum creatinine,FALSE
+111,sodium_per_5_units,-0.1135887130646329,Serum sodium,FALSE
+111,sex_groupMale,0.08408583820835426,Sex: male versus female,FALSE
+112,age_per_10_years,0.0170707519720433,Age,FALSE
+112,ef_per_5_points,-0.006476151565979765,Ejection fraction,FALSE
+112,creatinine_per_doubling,0.007383700427861984,Serum creatinine,FALSE
+112,sodium_per_5_units,0.004041789788676451,Serum sodium,FALSE
+112,sex_groupMale,-0.014546740581778031,Sex: male versus female,FALSE
+113,age_per_10_years,0.037348647525792346,Age,FALSE
+113,ef_per_5_points,0.01676269036119521,Ejection fraction,FALSE
+113,creatinine_per_doubling,-0.005677192292478051,Serum creatinine,FALSE
+113,sodium_per_5_units,-0.010993633967715584,Serum sodium,FALSE
+113,sex_groupMale,-0.019311457491690814,Sex: male versus female,FALSE
+114,age_per_10_years,0.02409827190983345,Age,FALSE
+114,ef_per_5_points,0.20125198560697863,Ejection fraction,TRUE
+114,creatinine_per_doubling,-0.0010233517069204074,Serum creatinine,FALSE
+114,sodium_per_5_units,-0.01637927087721024,Serum sodium,FALSE
+114,sex_groupMale,-0.08369160131166012,Sex: male versus female,FALSE
+115,age_per_10_years,0.010436708816494387,Age,FALSE
+115,ef_per_5_points,-0.02644612341616671,Ejection fraction,FALSE
+115,creatinine_per_doubling,0.024969830815441314,Serum creatinine,FALSE
+115,sodium_per_5_units,0.054126905692585735,Serum sodium,FALSE
+115,sex_groupMale,-0.019266602184176262,Sex: male versus female,FALSE
+116,age_per_10_years,0.009616904305331223,Age,FALSE
+116,ef_per_5_points,-0.005163040486630335,Ejection fraction,FALSE
+116,creatinine_per_doubling,0.007774501009832401,Serum creatinine,FALSE
+116,sodium_per_5_units,-0.006875416958669752,Serum sodium,FALSE
+116,sex_groupMale,0.019006079422573693,Sex: male versus female,FALSE
+117,age_per_10_years,0.003363315903867641,Age,FALSE
+117,ef_per_5_points,-0.013880013427070601,Ejection fraction,FALSE
+117,creatinine_per_doubling,0.007309844807652327,Serum creatinine,FALSE
+117,sodium_per_5_units,0.004762374706840204,Serum sodium,FALSE
+117,sex_groupMale,0.0053648933557239285,Sex: male versus female,FALSE
+118,age_per_10_years,-0.07248096190525494,Age,FALSE
+118,ef_per_5_points,-0.14145373565895666,Ejection fraction,TRUE
+118,creatinine_per_doubling,-0.10025436749428696,Serum creatinine,FALSE
+118,sodium_per_5_units,-0.030805881197011938,Serum sodium,FALSE
+118,sex_groupMale,0.061798181779365316,Sex: male versus female,FALSE
+119,age_per_10_years,0.0021092630542687927,Age,FALSE
+119,ef_per_5_points,-0.018008489360857447,Ejection fraction,FALSE
+119,creatinine_per_doubling,0.004174089948563783,Serum creatinine,FALSE
+119,sodium_per_5_units,-0.0017252989079126644,Serum sodium,FALSE
+119,sex_groupMale,0.007573538378620297,Sex: male versus female,FALSE
+120,age_per_10_years,0.0026698764657245464,Age,FALSE
+120,ef_per_5_points,-0.005526797860724873,Ejection fraction,FALSE
+120,creatinine_per_doubling,0.005604168793912553,Serum creatinine,FALSE
+120,sodium_per_5_units,0.006787232698652282,Serum sodium,FALSE
+120,sex_groupMale,0.010674598374795232,Sex: male versus female,FALSE
+121,age_per_10_years,0.008739328807446895,Age,FALSE
+121,ef_per_5_points,-0.028313723067306295,Ejection fraction,FALSE
+121,creatinine_per_doubling,-0.002160269565482736,Serum creatinine,FALSE
+121,sodium_per_5_units,0.005161098909974139,Serum sodium,FALSE
+121,sex_groupMale,-0.011484014561601728,Sex: male versus female,FALSE
+122,age_per_10_years,-0.003976875115934758,Age,FALSE
+122,ef_per_5_points,-0.003835679395638369,Ejection fraction,FALSE
+122,creatinine_per_doubling,0.021764079871313333,Serum creatinine,FALSE
+122,sodium_per_5_units,0.006319240589578108,Serum sodium,FALSE
+122,sex_groupMale,0.03420920156618915,Sex: male versus female,FALSE
+123,age_per_10_years,0.005030848034989883,Age,FALSE
+123,ef_per_5_points,-1.5337931556031275e-4,Ejection fraction,FALSE
+123,creatinine_per_doubling,0.014771390053344184,Serum creatinine,FALSE
+123,sodium_per_5_units,-0.007105289673931905,Serum sodium,FALSE
+123,sex_groupMale,0.01808285967543546,Sex: male versus female,FALSE
+124,age_per_10_years,0.007340689958854352,Age,FALSE
+124,ef_per_5_points,0.01985630115467308,Ejection fraction,FALSE
+124,creatinine_per_doubling,0.007702638745412975,Serum creatinine,FALSE
+124,sodium_per_5_units,-0.03872972280085514,Serum sodium,FALSE
+124,sex_groupMale,0.028438423362484304,Sex: male versus female,FALSE
+125,age_per_10_years,-0.024538266613635867,Age,FALSE
+125,ef_per_5_points,0.0495179194506982,Ejection fraction,FALSE
+125,creatinine_per_doubling,0.09493665615143954,Serum creatinine,FALSE
+125,sodium_per_5_units,0.013942826146667694,Serum sodium,FALSE
+125,sex_groupMale,0.04260317967048362,Sex: male versus female,FALSE
+126,age_per_10_years,0.01648287186219027,Age,FALSE
+126,ef_per_5_points,-0.013784934161684454,Ejection fraction,FALSE
+126,creatinine_per_doubling,1.0770465511228759e-4,Serum creatinine,FALSE
+126,sodium_per_5_units,0.0030191640140035617,Serum sodium,FALSE
+126,sex_groupMale,0.007722024546086389,Sex: male versus female,FALSE
+127,age_per_10_years,-0.020804373902449092,Age,FALSE
+127,ef_per_5_points,-0.03643822092702577,Ejection fraction,FALSE
+127,creatinine_per_doubling,6.463620562109068e-4,Serum creatinine,FALSE
+127,sodium_per_5_units,-0.051464704643207536,Serum sodium,FALSE
+127,sex_groupMale,-0.04458127819641067,Sex: male versus female,FALSE
+128,age_per_10_years,0.004931653484494504,Age,FALSE
+128,ef_per_5_points,-0.01500313276202067,Ejection fraction,FALSE
+128,creatinine_per_doubling,0.005596456759579636,Serum creatinine,FALSE
+128,sodium_per_5_units,0.0031021751119829485,Serum sodium,FALSE
+128,sex_groupMale,0.005672350007038849,Sex: male versus female,FALSE
+129,age_per_10_years,0.004089064087159836,Age,FALSE
+129,ef_per_5_points,0.006748889914792737,Ejection fraction,FALSE
+129,creatinine_per_doubling,0.028153924015138554,Serum creatinine,FALSE
+129,sodium_per_5_units,0.005538205991050271,Serum sodium,FALSE
+129,sex_groupMale,-0.012395917196181369,Sex: male versus female,FALSE
+130,age_per_10_years,0.05187427170786545,Age,FALSE
+130,ef_per_5_points,-0.006666239947551769,Ejection fraction,FALSE
+130,creatinine_per_doubling,-0.08477404378127412,Serum creatinine,FALSE
+130,sodium_per_5_units,-0.09461318329133572,Serum sodium,FALSE
+130,sex_groupMale,-0.03008907029328311,Sex: male versus female,FALSE
+131,age_per_10_years,0.004797158543342928,Age,FALSE
+131,ef_per_5_points,-0.009705938427763525,Ejection fraction,FALSE
+131,creatinine_per_doubling,0.0035483177510104583,Serum creatinine,FALSE
+131,sodium_per_5_units,0.0011516526852140849,Serum sodium,FALSE
+131,sex_groupMale,-0.004241701465241101,Sex: male versus female,FALSE
+132,age_per_10_years,0.07293615829838097,Age,FALSE
+132,ef_per_5_points,-0.13166808277098355,Ejection fraction,TRUE
+132,creatinine_per_doubling,-0.1919708026565724,Serum creatinine,TRUE
+132,sodium_per_5_units,0.017540884413454083,Serum sodium,FALSE
+132,sex_groupMale,-0.07334142170931854,Sex: male versus female,FALSE
+133,age_per_10_years,0.020467496350378915,Age,FALSE
+133,ef_per_5_points,-0.007022669480537051,Ejection fraction,FALSE
+133,creatinine_per_doubling,0.0022472543301321904,Serum creatinine,FALSE
+133,sodium_per_5_units,-0.0020262667456778117,Serum sodium,FALSE
+133,sex_groupMale,0.014054681840128773,Sex: male versus female,FALSE
+134,age_per_10_years,0.0056754827006555535,Age,FALSE
+134,ef_per_5_points,-0.019312767732920292,Ejection fraction,FALSE
+134,creatinine_per_doubling,-0.005123995954675348,Serum creatinine,FALSE
+134,sodium_per_5_units,-0.01261517193338975,Serum sodium,FALSE
+134,sex_groupMale,-0.009153563256132693,Sex: male versus female,FALSE
+135,age_per_10_years,-0.0710896253604098,Age,FALSE
+135,ef_per_5_points,0.0011933846517916003,Ejection fraction,FALSE
+135,creatinine_per_doubling,0.03087163270662273,Serum creatinine,FALSE
+135,sodium_per_5_units,-0.004596000026543519,Serum sodium,FALSE
+135,sex_groupMale,-0.03532193486969864,Sex: male versus female,FALSE
+136,age_per_10_years,-0.024595946606401374,Age,FALSE
+136,ef_per_5_points,-0.0190849310967364,Ejection fraction,FALSE
+136,creatinine_per_doubling,0.015592397587403104,Serum creatinine,FALSE
+136,sodium_per_5_units,-0.0010087283441011785,Serum sodium,FALSE
+136,sex_groupMale,-0.026121326967027864,Sex: male versus female,FALSE
+137,age_per_10_years,0.0019732463572600203,Age,FALSE
+137,ef_per_5_points,-0.021842573953427896,Ejection fraction,FALSE
+137,creatinine_per_doubling,0.00687243944644053,Serum creatinine,FALSE
+137,sodium_per_5_units,0.0042356108517655295,Serum sodium,FALSE
+137,sex_groupMale,0.008802526689095053,Sex: male versus female,FALSE
+138,age_per_10_years,-0.025219210255694794,Age,FALSE
+138,ef_per_5_points,0.050633647804735234,Ejection fraction,FALSE
+138,creatinine_per_doubling,-0.01001558979190065,Serum creatinine,FALSE
+138,sodium_per_5_units,0.08305465186750104,Serum sodium,FALSE
+138,sex_groupMale,-0.05572188975727322,Sex: male versus female,FALSE
+139,age_per_10_years,0.003943400052121248,Age,FALSE
+139,ef_per_5_points,0.003104925642384235,Ejection fraction,FALSE
+139,creatinine_per_doubling,0.021342633131965633,Serum creatinine,FALSE
+139,sodium_per_5_units,0.004380635690782087,Serum sodium,FALSE
+139,sex_groupMale,0.03493828697349268,Sex: male versus female,FALSE
+140,age_per_10_years,0.01544088026853544,Age,FALSE
+140,ef_per_5_points,0.0035964099052505686,Ejection fraction,FALSE
+140,creatinine_per_doubling,0.01224447022924219,Serum creatinine,FALSE
+140,sodium_per_5_units,-0.0036935540356522567,Serum sodium,FALSE
+140,sex_groupMale,-0.009236444382723015,Sex: male versus female,FALSE
+141,age_per_10_years,0.08429893722719736,Age,FALSE
+141,ef_per_5_points,0.021095635513577144,Ejection fraction,FALSE
+141,creatinine_per_doubling,-0.039452091005632156,Serum creatinine,FALSE
+141,sodium_per_5_units,-0.03747066224584447,Serum sodium,FALSE
+141,sex_groupMale,0.03889914569736928,Sex: male versus female,FALSE
+142,age_per_10_years,0.017676301196380802,Age,FALSE
+142,ef_per_5_points,0.0011805420312242076,Ejection fraction,FALSE
+142,creatinine_per_doubling,0.006138215033786296,Serum creatinine,FALSE
+142,sodium_per_5_units,-0.008409142713555575,Serum sodium,FALSE
+142,sex_groupMale,0.013862564815405536,Sex: male versus female,FALSE
+143,age_per_10_years,0.021237735413280882,Age,FALSE
+143,ef_per_5_points,0.007351955241214907,Ejection fraction,FALSE
+143,creatinine_per_doubling,0.0250637324314861,Serum creatinine,FALSE
+143,sodium_per_5_units,0.020068083021674104,Serum sodium,FALSE
+143,sex_groupMale,0.027295304733904242,Sex: male versus female,FALSE
+144,age_per_10_years,0.005713827257552672,Age,FALSE
+144,ef_per_5_points,-0.003325716407908374,Ejection fraction,FALSE
+144,creatinine_per_doubling,0.009801819941262453,Serum creatinine,FALSE
+144,sodium_per_5_units,-0.013532998989958056,Serum sodium,FALSE
+144,sex_groupMale,0.020724166533284707,Sex: male versus female,FALSE
+145,age_per_10_years,0.02884745659790489,Age,FALSE
+145,ef_per_5_points,-0.026103091030094797,Ejection fraction,FALSE
+145,creatinine_per_doubling,0.017326705113544526,Serum creatinine,FALSE
+145,sodium_per_5_units,0.026577358976143956,Serum sodium,FALSE
+145,sex_groupMale,0.013618884116319402,Sex: male versus female,FALSE
+146,age_per_10_years,0.013292712060456067,Age,FALSE
+146,ef_per_5_points,0.004579757145761175,Ejection fraction,FALSE
+146,creatinine_per_doubling,0.010945374237633036,Serum creatinine,FALSE
+146,sodium_per_5_units,-0.009469599784365061,Serum sodium,FALSE
+146,sex_groupMale,-0.007939293557939311,Sex: male versus female,FALSE
+147,age_per_10_years,0.013285917697367505,Age,FALSE
+147,ef_per_5_points,0.0034763933212340163,Ejection fraction,FALSE
+147,creatinine_per_doubling,0.018844469358956048,Serum creatinine,FALSE
+147,sodium_per_5_units,0.0033554679384516038,Serum sodium,FALSE
+147,sex_groupMale,-0.009593805296089388,Sex: male versus female,FALSE
+148,age_per_10_years,0.003908986495840752,Age,FALSE
+148,ef_per_5_points,-0.023187041150021983,Ejection fraction,FALSE
+148,creatinine_per_doubling,0.00405240074084167,Serum creatinine,FALSE
+148,sodium_per_5_units,0.0031463851128796347,Serum sodium,FALSE
+148,sex_groupMale,-0.009772699774354783,Sex: male versus female,FALSE
+149,age_per_10_years,0.02659139197195139,Age,FALSE
+149,ef_per_5_points,-0.0070282568531142295,Ejection fraction,FALSE
+149,creatinine_per_doubling,0.010448593369658626,Serum creatinine,FALSE
+149,sodium_per_5_units,-3.5294215361170937e-4,Serum sodium,FALSE
+149,sex_groupMale,0.009500841085072256,Sex: male versus female,FALSE
+150,age_per_10_years,0.008406392450718654,Age,FALSE
+150,ef_per_5_points,-0.0040623147724674425,Ejection fraction,FALSE
+150,creatinine_per_doubling,0.018822328891865255,Serum creatinine,FALSE
+150,sodium_per_5_units,0.004186083450193071,Serum sodium,FALSE
+150,sex_groupMale,-0.015134649638597777,Sex: male versus female,FALSE
+151,age_per_10_years,0.03041805704040123,Age,FALSE
+151,ef_per_5_points,0.033618501684561146,Ejection fraction,FALSE
+151,creatinine_per_doubling,0.04348986584303503,Serum creatinine,FALSE
+151,sodium_per_5_units,0.001744660831939046,Serum sodium,FALSE
+151,sex_groupMale,-0.04189552936882856,Sex: male versus female,FALSE
+152,age_per_10_years,0.004368922194559046,Age,FALSE
+152,ef_per_5_points,-0.01834998613024066,Ejection fraction,FALSE
+152,creatinine_per_doubling,0.0035535529844138865,Serum creatinine,FALSE
+152,sodium_per_5_units,-1.6141188628330283e-4,Serum sodium,FALSE
+152,sex_groupMale,-0.008023755533405112,Sex: male versus female,FALSE
+153,age_per_10_years,0.012635541236596048,Age,FALSE
+153,ef_per_5_points,-0.01278782760333767,Ejection fraction,FALSE
+153,creatinine_per_doubling,0.008062282399674187,Serum creatinine,FALSE
+153,sodium_per_5_units,0.007033652550078335,Serum sodium,FALSE
+153,sex_groupMale,-0.008794943752311605,Sex: male versus female,FALSE
+154,age_per_10_years,0.022194453944635484,Age,FALSE
+154,ef_per_5_points,-0.005351110450847167,Ejection fraction,FALSE
+154,creatinine_per_doubling,0.003623592205841836,Serum creatinine,FALSE
+154,sodium_per_5_units,-0.003955173200533029,Serum sodium,FALSE
+154,sex_groupMale,-0.013448535187785908,Sex: male versus female,FALSE
+155,age_per_10_years,-0.004890719256990201,Age,FALSE
+155,ef_per_5_points,0.0052679128241512755,Ejection fraction,FALSE
+155,creatinine_per_doubling,0.034521056094862154,Serum creatinine,FALSE
+155,sodium_per_5_units,0.008869113613759201,Serum sodium,FALSE
+155,sex_groupMale,0.03646575999444336,Sex: male versus female,FALSE
+156,age_per_10_years,0.023965999997910253,Age,FALSE
+156,ef_per_5_points,0.04097480277207503,Ejection fraction,FALSE
+156,creatinine_per_doubling,-0.025230445764831962,Serum creatinine,FALSE
+156,sodium_per_5_units,-0.06151617736401108,Serum sodium,FALSE
+156,sex_groupMale,-0.030451820484273258,Sex: male versus female,FALSE
+157,age_per_10_years,0.028023653296240767,Age,FALSE
+157,ef_per_5_points,-0.0014652378235115065,Ejection fraction,FALSE
+157,creatinine_per_doubling,5.074898553919872e-4,Serum creatinine,FALSE
+157,sodium_per_5_units,-0.0028326907061212206,Serum sodium,FALSE
+157,sex_groupMale,0.032188456291671094,Sex: male versus female,FALSE
+158,age_per_10_years,0.02581778277547377,Age,FALSE
+158,ef_per_5_points,0.014946585304711124,Ejection fraction,FALSE
+158,creatinine_per_doubling,0.015769224339134864,Serum creatinine,FALSE
+158,sodium_per_5_units,-0.0017910964348538721,Serum sodium,FALSE
+158,sex_groupMale,-0.014527553004473219,Sex: male versus female,FALSE
+159,age_per_10_years,-0.065865435091670907,Age,FALSE
+159,ef_per_5_points,-0.07085809426376752,Ejection fraction,FALSE
+159,creatinine_per_doubling,0.02185650533977354,Serum creatinine,FALSE
+159,sodium_per_5_units,0.035546688699922675,Serum sodium,FALSE
+159,sex_groupMale,-0.038316924819828936,Sex: male versus female,FALSE
+160,age_per_10_years,0.010152837044371484,Age,FALSE
+160,ef_per_5_points,-0.01609054140184691,Ejection fraction,FALSE
+160,creatinine_per_doubling,0.0030127299234070453,Serum creatinine,FALSE
+160,sodium_per_5_units,-0.005934247878056921,Serum sodium,FALSE
+160,sex_groupMale,-0.012963765470302169,Sex: male versus female,FALSE
+161,age_per_10_years,3.836649963138874e-4,Age,FALSE
+161,ef_per_5_points,-0.02190738818565454,Ejection fraction,FALSE
+161,creatinine_per_doubling,0.015271581942061208,Serum creatinine,FALSE
+161,sodium_per_5_units,0.016524399187899753,Serum sodium,FALSE
+161,sex_groupMale,-0.022977520757494038,Sex: male versus female,FALSE
+162,age_per_10_years,0.015268985533980664,Age,FALSE
+162,ef_per_5_points,-0.002123067765874134,Ejection fraction,FALSE
+162,creatinine_per_doubling,0.006989836184427824,Serum creatinine,FALSE
+162,sodium_per_5_units,-0.004051908762686694,Serum sodium,FALSE
+162,sex_groupMale,-0.007461432634940778,Sex: male versus female,FALSE
+163,age_per_10_years,0.004321132492093253,Age,FALSE
+163,ef_per_5_points,-0.011470201587436567,Ejection fraction,FALSE
+163,creatinine_per_doubling,0.015270427084230298,Serum creatinine,FALSE
+163,sodium_per_5_units,0.001556852760200222,Serum sodium,FALSE
+163,sex_groupMale,-0.014677144912747214,Sex: male versus female,FALSE
+164,age_per_10_years,-0.09523784552344279,Age,FALSE
+164,ef_per_5_points,-0.019390227857093264,Ejection fraction,FALSE
+164,creatinine_per_doubling,-0.0307160672774492,Serum creatinine,FALSE
+164,sodium_per_5_units,0.10825020968093953,Serum sodium,FALSE
+164,sex_groupMale,-0.10979826966068841,Sex: male versus female,FALSE
+165,age_per_10_years,-0.1404147801035884,Age,TRUE
+165,ef_per_5_points,-0.017833989869634657,Ejection fraction,FALSE
+165,creatinine_per_doubling,-0.010472695690946719,Serum creatinine,FALSE
+165,sodium_per_5_units,0.07026839730181275,Serum sodium,FALSE
+165,sex_groupMale,0.07228080833155703,Sex: male versus female,FALSE
+166,age_per_10_years,0.05164636071939112,Age,FALSE
+166,ef_per_5_points,0.0028127937461438933,Ejection fraction,FALSE
+166,creatinine_per_doubling,-0.0067499441547308235,Serum creatinine,FALSE
+166,sodium_per_5_units,-0.007206170367135821,Serum sodium,FALSE
+166,sex_groupMale,-0.035569664619265584,Sex: male versus female,FALSE
+167,age_per_10_years,0.006045223537836015,Age,FALSE
+167,ef_per_5_points,-0.014013237129852276,Ejection fraction,FALSE
+167,creatinine_per_doubling,0.006522288692328801,Serum creatinine,FALSE
+167,sodium_per_5_units,0.006941430838790173,Serum sodium,FALSE
+167,sex_groupMale,-0.005705137033993869,Sex: male versus female,FALSE
+168,age_per_10_years,0.01398505540987348,Age,FALSE
+168,ef_per_5_points,-0.00349727233183773,Ejection fraction,FALSE
+168,creatinine_per_doubling,0.00973354833195982,Serum creatinine,FALSE
+168,sodium_per_5_units,0.0030726177801279676,Serum sodium,FALSE
+168,sex_groupMale,0.0028049606720652676,Sex: male versus female,FALSE
+169,age_per_10_years,-0.0012940619636720256,Age,FALSE
+169,ef_per_5_points,-0.007950257837041135,Ejection fraction,FALSE
+169,creatinine_per_doubling,0.017575363566180946,Serum creatinine,FALSE
+169,sodium_per_5_units,-0.00519060112532846,Serum sodium,FALSE
+169,sex_groupMale,0.03516093551467225,Sex: male versus female,FALSE
+170,age_per_10_years,-0.026707715729724104,Age,FALSE
+170,ef_per_5_points,0.005504372714690701,Ejection fraction,FALSE
+170,creatinine_per_doubling,0.06168835651785685,Serum creatinine,FALSE
+170,sodium_per_5_units,0.04084404712673867,Serum sodium,FALSE
+170,sex_groupMale,0.05501145276369279,Sex: male versus female,FALSE
+171,age_per_10_years,0.031168853838939938,Age,FALSE
+171,ef_per_5_points,-0.009516458570306988,Ejection fraction,FALSE
+171,creatinine_per_doubling,-0.004157834547684845,Serum creatinine,FALSE
+171,sodium_per_5_units,-0.004177245495104425,Serum sodium,FALSE
+171,sex_groupMale,-0.01976892269321919,Sex: male versus female,FALSE
+172,age_per_10_years,0.01398049952580191,Age,FALSE
+172,ef_per_5_points,-0.0075182487764457176,Ejection fraction,FALSE
+172,creatinine_per_doubling,0.005795823784734756,Serum creatinine,FALSE
+172,sodium_per_5_units,-0.007356579575584675,Serum sodium,FALSE
+172,sex_groupMale,-0.010221196252294087,Sex: male versus female,FALSE
+173,age_per_10_years,4.903149965255774e-4,Age,FALSE
+173,ef_per_5_points,-0.02591118516983899,Ejection fraction,FALSE
+173,creatinine_per_doubling,-0.0028657906419341144,Serum creatinine,FALSE
+173,sodium_per_5_units,-0.01615077256251906,Serum sodium,FALSE
+173,sex_groupMale,-0.01236394312304396,Sex: male versus female,FALSE
+174,age_per_10_years,0.02444016137507867,Age,FALSE
+174,ef_per_5_points,0.030376947105257377,Ejection fraction,FALSE
+174,creatinine_per_doubling,0.02214139125652506,Serum creatinine,FALSE
+174,sodium_per_5_units,-0.015643345426472614,Serum sodium,FALSE
+174,sex_groupMale,-0.0131611135641106,Sex: male versus female,FALSE
+175,age_per_10_years,-3.4822091999500064e-4,Age,FALSE
+175,ef_per_5_points,-0.002916966055038981,Ejection fraction,FALSE
+175,creatinine_per_doubling,0.02425278717618804,Serum creatinine,FALSE
+175,sodium_per_5_units,2.543612816244866e-4,Serum sodium,FALSE
+175,sex_groupMale,-0.019404264695326,Sex: male versus female,FALSE
+176,age_per_10_years,0.006371736297827627,Age,FALSE
+176,ef_per_5_points,-0.02163117487085638,Ejection fraction,FALSE
+176,creatinine_per_doubling,0.0027533446508088305,Serum creatinine,FALSE
+176,sodium_per_5_units,9.494681737158619e-4,Serum sodium,FALSE
+176,sex_groupMale,-0.009305465146633116,Sex: male versus female,FALSE
+177,age_per_10_years,-0.008608525464251662,Age,FALSE
+177,ef_per_5_points,-0.01965876661283842,Ejection fraction,FALSE
+177,creatinine_per_doubling,0.025037644302565932,Serum creatinine,FALSE
+177,sodium_per_5_units,0.014491507166656571,Serum sodium,FALSE
+177,sex_groupMale,-0.023205502356202192,Sex: male versus female,FALSE
+178,age_per_10_years,0.013385174885299441,Age,FALSE
+178,ef_per_5_points,-0.012578055342909226,Ejection fraction,FALSE
+178,creatinine_per_doubling,0.0018726804544590939,Serum creatinine,FALSE
+178,sodium_per_5_units,-0.004837309523059752,Serum sodium,FALSE
+178,sex_groupMale,0.008895269304530001,Sex: male versus female,FALSE
+179,age_per_10_years,0.005988484727074295,Age,FALSE
+179,ef_per_5_points,-0.021695538644122714,Ejection fraction,FALSE
+179,creatinine_per_doubling,-0.004517155995643321,Serum creatinine,FALSE
+179,sodium_per_5_units,-0.013821836796963624,Serum sodium,FALSE
+179,sex_groupMale,-0.010338723065687644,Sex: male versus female,FALSE
+180,age_per_10_years,0.009334126686889724,Age,FALSE
+180,ef_per_5_points,-0.0059862018322730795,Ejection fraction,FALSE
+180,creatinine_per_doubling,0.01078426442864779,Serum creatinine,FALSE
+180,sodium_per_5_units,-0.004787093088174513,Serum sodium,FALSE
+180,sex_groupMale,-0.008990199609794575,Sex: male versus female,FALSE
+181,age_per_10_years,0.024218462764825803,Age,FALSE
+181,ef_per_5_points,9.011013993361147e-4,Ejection fraction,FALSE
+181,creatinine_per_doubling,0.00897294204801234,Serum creatinine,FALSE
+181,sodium_per_5_units,2.349269218093844e-4,Serum sodium,FALSE
+181,sex_groupMale,-0.009332453893930432,Sex: male versus female,FALSE
+182,age_per_10_years,-0.012542449748155403,Age,FALSE
+182,ef_per_5_points,-0.05249738157813351,Ejection fraction,FALSE
+182,creatinine_per_doubling,-0.05116507372725209,Serum creatinine,FALSE
+182,sodium_per_5_units,0.005699516177583845,Serum sodium,FALSE
+182,sex_groupMale,0.04465178918957282,Sex: male versus female,FALSE
+183,age_per_10_years,0.017727927786248394,Age,FALSE
+183,ef_per_5_points,-0.03919275549621351,Ejection fraction,FALSE
+183,creatinine_per_doubling,-0.02126748641288061,Serum creatinine,FALSE
+183,sodium_per_5_units,0.009301721292090424,Serum sodium,FALSE
+183,sex_groupMale,0.031532079455502,Sex: male versus female,FALSE
+184,age_per_10_years,0.014077426811240117,Age,FALSE
+184,ef_per_5_points,3.624324934910684e-4,Ejection fraction,FALSE
+184,creatinine_per_doubling,0.004080088104312729,Serum creatinine,FALSE
+184,sodium_per_5_units,0.0029962234683084867,Serum sodium,FALSE
+184,sex_groupMale,0.005081071971601643,Sex: male versus female,FALSE
+185,age_per_10_years,-0.017336787099047804,Age,FALSE
+185,ef_per_5_points,-0.047150897893725806,Ejection fraction,FALSE
+185,creatinine_per_doubling,-0.017415713286553877,Serum creatinine,FALSE
+185,sodium_per_5_units,0.027048774430894915,Serum sodium,FALSE
+185,sex_groupMale,0.044834988050168285,Sex: male versus female,FALSE
+186,age_per_10_years,-0.007582133195511671,Age,FALSE
+186,ef_per_5_points,-0.011906860056389705,Ejection fraction,FALSE
+186,creatinine_per_doubling,0.005959256381992536,Serum creatinine,FALSE
+186,sodium_per_5_units,0.015104133260021017,Serum sodium,FALSE
+186,sex_groupMale,0.04491064450674498,Sex: male versus female,FALSE
+187,age_per_10_years,-0.10188410903100324,Age,FALSE
+187,ef_per_5_points,0.1472277968237296,Ejection fraction,TRUE
+187,creatinine_per_doubling,-0.1570796153522944,Serum creatinine,TRUE
+187,sodium_per_5_units,-0.10533367546825659,Serum sodium,FALSE
+187,sex_groupMale,-0.09263971394739423,Sex: male versus female,FALSE
+188,age_per_10_years,0.0036985078059681036,Age,FALSE
+188,ef_per_5_points,-0.028313700463662612,Ejection fraction,FALSE
+188,creatinine_per_doubling,0.031055648014083722,Serum creatinine,FALSE
+188,sodium_per_5_units,0.054246725254264196,Serum sodium,FALSE
+188,sex_groupMale,-0.024185354989212537,Sex: male versus female,FALSE
+189,age_per_10_years,0.008226638777366154,Age,FALSE
+189,ef_per_5_points,-0.011946219629891695,Ejection fraction,FALSE
+189,creatinine_per_doubling,0.021119832658808374,Serum creatinine,FALSE
+189,sodium_per_5_units,0.006876183532678623,Serum sodium,FALSE
+189,sex_groupMale,0.0357818118156412,Sex: male versus female,FALSE
+190,age_per_10_years,0.017635895181137607,Age,FALSE
+190,ef_per_5_points,-0.008015354230301676,Ejection fraction,FALSE
+190,creatinine_per_doubling,0.002950313227722353,Serum creatinine,FALSE
+190,sodium_per_5_units,-0.004968737690449073,Serum sodium,FALSE
+190,sex_groupMale,0.008304763074739195,Sex: male versus female,FALSE
+191,age_per_10_years,-0.15884422941684737,Age,TRUE
+191,ef_per_5_points,-0.028195407340609407,Ejection fraction,FALSE
+191,creatinine_per_doubling,-0.05302278058581144,Serum creatinine,FALSE
+191,sodium_per_5_units,0.026020334537453716,Serum sodium,FALSE
+191,sex_groupMale,-0.09292858679765795,Sex: male versus female,FALSE
+192,age_per_10_years,0.0074476025574758695,Age,FALSE
+192,ef_per_5_points,-0.05403389588315664,Ejection fraction,FALSE
+192,creatinine_per_doubling,-0.0034856304682517854,Serum creatinine,FALSE
+192,sodium_per_5_units,0.011769313926281465,Serum sodium,FALSE
+192,sex_groupMale,0.01952836725680903,Sex: male versus female,FALSE
+193,age_per_10_years,0.015302987898977473,Age,FALSE
+193,ef_per_5_points,-0.013105414455608802,Ejection fraction,FALSE
+193,creatinine_per_doubling,0.02236958024706966,Serum creatinine,FALSE
+193,sodium_per_5_units,0.02267513746939937,Serum sodium,FALSE
+193,sex_groupMale,-0.011539853270549957,Sex: male versus female,FALSE
+194,age_per_10_years,-0.04275321597189987,Age,FALSE
+194,ef_per_5_points,0.04010183489377699,Ejection fraction,FALSE
+194,creatinine_per_doubling,0.0082234469759153,Serum creatinine,FALSE
+194,sodium_per_5_units,-0.08556666273761743,Serum sodium,FALSE
+194,sex_groupMale,-0.04057875247323569,Sex: male versus female,FALSE
+195,age_per_10_years,-0.0788661299960946,Age,FALSE
+195,ef_per_5_points,-0.058616129634825445,Ejection fraction,FALSE
+195,creatinine_per_doubling,0.016612009732431633,Serum creatinine,FALSE
+195,sodium_per_5_units,0.024084061959995514,Serum sodium,FALSE
+195,sex_groupMale,0.04308638587300565,Sex: male versus female,FALSE
+196,age_per_10_years,0.04914757258790346,Age,FALSE
+196,ef_per_5_points,0.042413485590094425,Ejection fraction,FALSE
+196,creatinine_per_doubling,0.05998016615681226,Serum creatinine,FALSE
+196,sodium_per_5_units,0.11038444460355884,Serum sodium,FALSE
+196,sex_groupMale,0.05014611164616011,Sex: male versus female,FALSE
+197,age_per_10_years,0.03238087233780743,Age,FALSE
+197,ef_per_5_points,-0.00732611609594287,Ejection fraction,FALSE
+197,creatinine_per_doubling,0.0031960721839632256,Serum creatinine,FALSE
+197,sodium_per_5_units,-0.004216929920346289,Serum sodium,FALSE
+197,sex_groupMale,0.022458861557601205,Sex: male versus female,FALSE
+198,age_per_10_years,-0.01160067117412756,Age,FALSE
+198,ef_per_5_points,0.03404506938476888,Ejection fraction,FALSE
+198,creatinine_per_doubling,0.05044676414384856,Serum creatinine,FALSE
+198,sodium_per_5_units,-0.009517060505672314,Serum sodium,FALSE
+198,sex_groupMale,0.0615680121842521,Sex: male versus female,FALSE
+199,age_per_10_years,0.04333043141944409,Age,FALSE
+199,ef_per_5_points,0.06889310506821564,Ejection fraction,FALSE
+199,creatinine_per_doubling,0.04505032637494926,Serum creatinine,FALSE
+199,sodium_per_5_units,0.013523462460619598,Serum sodium,FALSE
+199,sex_groupMale,0.07070068492911577,Sex: male versus female,FALSE
+200,age_per_10_years,0.022896296094473974,Age,FALSE
+200,ef_per_5_points,-0.11112987213870258,Ejection fraction,FALSE
+200,creatinine_per_doubling,0.11731872715060233,Serum creatinine,TRUE
+200,sodium_per_5_units,0.4543305875205894,Serum sodium,TRUE
+200,sex_groupMale,-0.07116044959725874,Sex: male versus female,FALSE
+201,age_per_10_years,0.0032326518400365343,Age,FALSE
+201,ef_per_5_points,-0.017647591397989864,Ejection fraction,FALSE
+201,creatinine_per_doubling,0.020548784543084675,Serum creatinine,FALSE
+201,sodium_per_5_units,0.005218047969625277,Serum sodium,FALSE
+201,sex_groupMale,-0.014393580843930694,Sex: male versus female,FALSE
+202,age_per_10_years,0.011415154754248398,Age,FALSE
+202,ef_per_5_points,-0.01649040497313644,Ejection fraction,FALSE
+202,creatinine_per_doubling,0.0017926247797692679,Serum creatinine,FALSE
+202,sodium_per_5_units,0.0026867963122857576,Serum sodium,FALSE
+202,sex_groupMale,-0.007034380147725872,Sex: male versus female,FALSE
+203,age_per_10_years,-0.001762213245928904,Age,FALSE
+203,ef_per_5_points,-0.03562159104527892,Ejection fraction,FALSE
+203,creatinine_per_doubling,0.009027311845226673,Serum creatinine,FALSE
+203,sodium_per_5_units,0.003192574482805115,Serum sodium,FALSE
+203,sex_groupMale,-0.015401903713437737,Sex: male versus female,FALSE
+204,age_per_10_years,0.08123655298479943,Age,FALSE
+204,ef_per_5_points,0.07946069235952642,Ejection fraction,FALSE
+204,creatinine_per_doubling,-0.23539311385431202,Serum creatinine,TRUE
+204,sodium_per_5_units,-0.12213464090401036,Serum sodium,TRUE
+204,sex_groupMale,-0.09347296869995678,Sex: male versus female,FALSE
+205,age_per_10_years,-0.043096656351355456,Age,FALSE
+205,ef_per_5_points,-0.015781620776418325,Ejection fraction,FALSE
+205,creatinine_per_doubling,0.055469223184342935,Serum creatinine,FALSE
+205,sodium_per_5_units,0.011790026982389379,Serum sodium,FALSE
+205,sex_groupMale,-0.027286567159445947,Sex: male versus female,FALSE
+206,age_per_10_years,0.020124722719662272,Age,FALSE
+206,ef_per_5_points,-0.016534508832455285,Ejection fraction,FALSE
+206,creatinine_per_doubling,0.008829363029791249,Serum creatinine,FALSE
+206,sodium_per_5_units,0.0041723768115997355,Serum sodium,FALSE
+206,sex_groupMale,0.017133545163424375,Sex: male versus female,FALSE
+207,age_per_10_years,0.019212313364796885,Age,FALSE
+207,ef_per_5_points,-0.0038436930848350674,Ejection fraction,FALSE
+207,creatinine_per_doubling,0.005234765982889761,Serum creatinine,FALSE
+207,sodium_per_5_units,-0.007820088720390738,Serum sodium,FALSE
+207,sex_groupMale,0.010172362527749007,Sex: male versus female,FALSE
+208,age_per_10_years,-0.12148740120765511,Age,TRUE
+208,ef_per_5_points,-0.015695495267403582,Ejection fraction,FALSE
+208,creatinine_per_doubling,0.08113340607265858,Serum creatinine,FALSE
+208,sodium_per_5_units,0.02622089676997713,Serum sodium,FALSE
+208,sex_groupMale,-0.04675294987114448,Sex: male versus female,FALSE
+209,age_per_10_years,0.010430343542200118,Age,FALSE
+209,ef_per_5_points,-0.005981953979446632,Ejection fraction,FALSE
+209,creatinine_per_doubling,0.008869861711874179,Serum creatinine,FALSE
+209,sodium_per_5_units,-0.023371298131408254,Serum sodium,FALSE
+209,sex_groupMale,0.03168689438111719,Sex: male versus female,FALSE
+210,age_per_10_years,0.024134121569105882,Age,FALSE
+210,ef_per_5_points,-0.00478693210986887,Ejection fraction,FALSE
+210,creatinine_per_doubling,0.0340423528700171,Serum creatinine,FALSE
+210,sodium_per_5_units,0.03509293688479195,Serum sodium,FALSE
+210,sex_groupMale,0.02775623096918692,Sex: male versus female,FALSE
+211,age_per_10_years,-0.06911421073365531,Age,FALSE
+211,ef_per_5_points,0.16925395440932184,Ejection fraction,TRUE
+211,creatinine_per_doubling,0.09748734309431414,Serum creatinine,FALSE
+211,sodium_per_5_units,-0.012554819070647765,Serum sodium,FALSE
+211,sex_groupMale,-0.042558534376577285,Sex: male versus female,FALSE
+212,age_per_10_years,0.007646260817179378,Age,FALSE
+212,ef_per_5_points,-0.013610918221834405,Ejection fraction,FALSE
+212,creatinine_per_doubling,0.0023498289566249914,Serum creatinine,FALSE
+212,sodium_per_5_units,-9.715964488248603e-4,Serum sodium,FALSE
+212,sex_groupMale,-0.005891701888621484,Sex: male versus female,FALSE
+213,age_per_10_years,-0.03712128749438025,Age,FALSE
+213,ef_per_5_points,-0.06744771203616085,Ejection fraction,FALSE
+213,creatinine_per_doubling,-0.0020697662951774344,Serum creatinine,FALSE
+213,sodium_per_5_units,-0.008448509204162225,Serum sodium,FALSE
+213,sex_groupMale,-0.04051225688276633,Sex: male versus female,FALSE
+214,age_per_10_years,-0.05081544941038255,Age,FALSE
+214,ef_per_5_points,-0.009946888222079937,Ejection fraction,FALSE
+214,creatinine_per_doubling,-0.009263864503876066,Serum creatinine,FALSE
+214,sodium_per_5_units,-0.052760415120693516,Serum sodium,FALSE
+214,sex_groupMale,-0.057080757558140065,Sex: male versus female,FALSE
+215,age_per_10_years,-0.003855269813705507,Age,FALSE
+215,ef_per_5_points,-0.006661323707846404,Ejection fraction,FALSE
+215,creatinine_per_doubling,0.045144117948762184,Serum creatinine,FALSE
+215,sodium_per_5_units,0.024785781541170726,Serum sodium,FALSE
+215,sex_groupMale,-0.02446849911893784,Sex: male versus female,FALSE
+216,age_per_10_years,-0.049337552475047224,Age,FALSE
+216,ef_per_5_points,-0.014216617991262713,Ejection fraction,FALSE
+216,creatinine_per_doubling,0.034670451010020024,Serum creatinine,FALSE
+216,sodium_per_5_units,0.03348760615684271,Serum sodium,FALSE
+216,sex_groupMale,-0.05084150120945425,Sex: male versus female,FALSE
+217,age_per_10_years,-0.009424313025283985,Age,FALSE
+217,ef_per_5_points,-0.028265356728714136,Ejection fraction,FALSE
+217,creatinine_per_doubling,0.014241709794511136,Serum creatinine,FALSE
+217,sodium_per_5_units,-0.015206236862596024,Serum sodium,FALSE
+217,sex_groupMale,0.028023478927751796,Sex: male versus female,FALSE
+218,age_per_10_years,-0.083699162551062245,Age,FALSE
+218,ef_per_5_points,0.22009865329123596,Ejection fraction,TRUE
+218,creatinine_per_doubling,0.2289578095378246,Serum creatinine,TRUE
+218,sodium_per_5_units,0.05457599285320729,Serum sodium,FALSE
+218,sex_groupMale,-0.021218965782595776,Sex: male versus female,FALSE
+219,age_per_10_years,-0.015573515842964923,Age,FALSE
+219,ef_per_5_points,-0.01156478007199869,Ejection fraction,FALSE
+219,creatinine_per_doubling,0.03924072643454173,Serum creatinine,FALSE
+219,sodium_per_5_units,0.02844155885093116,Serum sodium,FALSE
+219,sex_groupMale,-0.03791539937028503,Sex: male versus female,FALSE
+220,age_per_10_years,0.013547484050988557,Age,FALSE
+220,ef_per_5_points,0.0052730950831049676,Ejection fraction,FALSE
+220,creatinine_per_doubling,0.02316148926486713,Serum creatinine,FALSE
+220,sodium_per_5_units,-0.011280079597131704,Serum sodium,FALSE
+220,sex_groupMale,0.026276677762158987,Sex: male versus female,FALSE
+221,age_per_10_years,-0.056354559684714686,Age,FALSE
+221,ef_per_5_points,0.11811812644581055,Ejection fraction,TRUE
+221,creatinine_per_doubling,-0.002949528989477658,Serum creatinine,FALSE
+221,sodium_per_5_units,-1.4489877843389858e-4,Serum sodium,FALSE
+221,sex_groupMale,-0.03166575631592981,Sex: male versus female,FALSE
+222,age_per_10_years,0.0055636987451890664,Age,FALSE
+222,ef_per_5_points,-0.025670615728164807,Ejection fraction,FALSE
+222,creatinine_per_doubling,-0.004273336291054334,Serum creatinine,FALSE
+222,sodium_per_5_units,-0.031018375850810263,Serum sodium,FALSE
+222,sex_groupMale,-0.018815918681405037,Sex: male versus female,FALSE
+223,age_per_10_years,0.03123056320174182,Age,FALSE
+223,ef_per_5_points,-0.00521149070021071,Ejection fraction,FALSE
+223,creatinine_per_doubling,0.001707448667378853,Serum creatinine,FALSE
+223,sodium_per_5_units,-0.010837134393140421,Serum sodium,FALSE
+223,sex_groupMale,-0.013970487417622275,Sex: male versus female,FALSE
+224,age_per_10_years,0.03256010181648607,Age,FALSE
+224,ef_per_5_points,0.015345937885488705,Ejection fraction,FALSE
+224,creatinine_per_doubling,0.03164343194862862,Serum creatinine,FALSE
+224,sodium_per_5_units,0.012155588356184202,Serum sodium,FALSE
+224,sex_groupMale,-0.017386117621243594,Sex: male versus female,FALSE
+225,age_per_10_years,0.019871954434153277,Age,FALSE
+225,ef_per_5_points,0.03708502204359108,Ejection fraction,FALSE
+225,creatinine_per_doubling,0.028036399731290865,Serum creatinine,FALSE
+225,sodium_per_5_units,-0.021926174978058627,Serum sodium,FALSE
+225,sex_groupMale,-0.028194494856279555,Sex: male versus female,FALSE
+226,age_per_10_years,-0.037108339258700794,Age,FALSE
+226,ef_per_5_points,-0.13187267895238153,Ejection fraction,TRUE
+226,creatinine_per_doubling,0.039835906788137976,Serum creatinine,FALSE
+226,sodium_per_5_units,0.1377527306614371,Serum sodium,TRUE
+226,sex_groupMale,0.04677950940919995,Sex: male versus female,FALSE
+227,age_per_10_years,0.028465664728877724,Age,FALSE
+227,ef_per_5_points,0.03715622206254122,Ejection fraction,FALSE
+227,creatinine_per_doubling,0.03661319036432608,Serum creatinine,FALSE
+227,sodium_per_5_units,0.04320038997442649,Serum sodium,FALSE
+227,sex_groupMale,-0.04177221396421112,Sex: male versus female,FALSE
+228,age_per_10_years,0.021021808790830716,Age,FALSE
+228,ef_per_5_points,-0.0031824293101954,Ejection fraction,FALSE
+228,creatinine_per_doubling,0.00877733849232783,Serum creatinine,FALSE
+228,sodium_per_5_units,-0.01904444279150828,Serum sodium,FALSE
+228,sex_groupMale,-0.019753858920493656,Sex: male versus female,FALSE
+229,age_per_10_years,-0.002185926641485462,Age,FALSE
+229,ef_per_5_points,0.2508670290701367,Ejection fraction,TRUE
+229,creatinine_per_doubling,-0.7110235678264966,Serum creatinine,TRUE
+229,sodium_per_5_units,0.10543130226796445,Serum sodium,FALSE
+229,sex_groupMale,0.5428055733718214,Sex: male versus female,TRUE
+230,age_per_10_years,-0.11921864997916524,Age,TRUE
+230,ef_per_5_points,0.14924177891501988,Ejection fraction,TRUE
+230,creatinine_per_doubling,0.10026238768855002,Serum creatinine,FALSE
+230,sodium_per_5_units,0.04685470830575391,Serum sodium,FALSE
+230,sex_groupMale,0.1958109670733515,Sex: male versus female,TRUE
+231,age_per_10_years,0.019612813128227078,Age,FALSE
+231,ef_per_5_points,5.681957929435436e-4,Ejection fraction,FALSE
+231,creatinine_per_doubling,-0.0023381384485481626,Serum creatinine,FALSE
+231,sodium_per_5_units,-0.002465724558487842,Serum sodium,FALSE
+231,sex_groupMale,0.01948474675169743,Sex: male versus female,FALSE
+232,age_per_10_years,-0.029027950348508063,Age,FALSE
+232,ef_per_5_points,-0.012147411976240498,Ejection fraction,FALSE
+232,creatinine_per_doubling,0.046766109966091055,Serum creatinine,FALSE
+232,sodium_per_5_units,0.03358521054732463,Serum sodium,FALSE
+232,sex_groupMale,-0.0438271664258072,Sex: male versus female,FALSE
+233,age_per_10_years,0.027328379515722492,Age,FALSE
+233,ef_per_5_points,-0.005159105799305029,Ejection fraction,FALSE
+233,creatinine_per_doubling,0.008275057905095905,Serum creatinine,FALSE
+233,sodium_per_5_units,-0.0016584479386357752,Serum sodium,FALSE
+233,sex_groupMale,-0.011791555976656518,Sex: male versus female,FALSE
+234,age_per_10_years,0.03307688173636322,Age,FALSE
+234,ef_per_5_points,-0.018677141962506187,Ejection fraction,FALSE
+234,creatinine_per_doubling,-0.0037952258412786376,Serum creatinine,FALSE
+234,sodium_per_5_units,-0.008877931476917653,Serum sodium,FALSE
+234,sex_groupMale,-0.026317232677455223,Sex: male versus female,FALSE
+235,age_per_10_years,0.020481986454376874,Age,FALSE
+235,ef_per_5_points,-0.023052860517579057,Ejection fraction,FALSE
+235,creatinine_per_doubling,0.005018268940383889,Serum creatinine,FALSE
+235,sodium_per_5_units,-4.040323968983447e-4,Serum sodium,FALSE
+235,sex_groupMale,-0.017595489253403426,Sex: male versus female,FALSE
+236,age_per_10_years,-0.03357712279908379,Age,FALSE
+236,ef_per_5_points,-0.06070278670991856,Ejection fraction,FALSE
+236,creatinine_per_doubling,0.019531223245816035,Serum creatinine,FALSE
+236,sodium_per_5_units,0.007288895183024647,Serum sodium,FALSE
+236,sex_groupMale,-0.03681785291331757,Sex: male versus female,FALSE
+237,age_per_10_years,-0.014503292591840038,Age,FALSE
+237,ef_per_5_points,-0.03125341218786201,Ejection fraction,FALSE
+237,creatinine_per_doubling,-0.009335780849669417,Serum creatinine,FALSE
+237,sodium_per_5_units,-0.061979330830157275,Serum sodium,FALSE
+237,sex_groupMale,-0.0261161136960667,Sex: male versus female,FALSE
+238,age_per_10_years,-0.04682111188702778,Age,FALSE
+238,ef_per_5_points,0.01802948601788723,Ejection fraction,FALSE
+238,creatinine_per_doubling,0.06764572970493603,Serum creatinine,FALSE
+238,sodium_per_5_units,0.07266775152746971,Serum sodium,FALSE
+238,sex_groupMale,-0.05503787181521702,Sex: male versus female,FALSE
+239,age_per_10_years,-0.005141623618461112,Age,FALSE
+239,ef_per_5_points,-0.01499976989900692,Ejection fraction,FALSE
+239,creatinine_per_doubling,0.03189993990581391,Serum creatinine,FALSE
+239,sodium_per_5_units,0.010553724598703474,Serum sodium,FALSE
+239,sex_groupMale,0.05116702556643985,Sex: male versus female,FALSE
+240,age_per_10_years,0.02053348691699824,Age,FALSE
+240,ef_per_5_points,-0.02649720529569815,Ejection fraction,FALSE
+240,creatinine_per_doubling,0.0034009000948932635,Serum creatinine,FALSE
+240,sodium_per_5_units,-0.0012086856143357105,Serum sodium,FALSE
+240,sex_groupMale,-0.02019639922710396,Sex: male versus female,FALSE
+241,age_per_10_years,-0.03857001408412558,Age,FALSE
+241,ef_per_5_points,0.020217594634445935,Ejection fraction,FALSE
+241,creatinine_per_doubling,0.008967489987534334,Serum creatinine,FALSE
+241,sodium_per_5_units,-0.04838842269361297,Serum sodium,FALSE
+241,sex_groupMale,0.09800212282758755,Sex: male versus female,FALSE
+242,age_per_10_years,-0.003499336503670266,Age,FALSE
+242,ef_per_5_points,0.01925530041952942,Ejection fraction,FALSE
+242,creatinine_per_doubling,0.019489726208745294,Serum creatinine,FALSE
+242,sodium_per_5_units,-0.006893323311592674,Serum sodium,FALSE
+242,sex_groupMale,-0.04560182750085171,Sex: male versus female,FALSE
+243,age_per_10_years,0.03412885332674552,Age,FALSE
+243,ef_per_5_points,-0.007517542659122587,Ejection fraction,FALSE
+243,creatinine_per_doubling,0.0049843329281430045,Serum creatinine,FALSE
+243,sodium_per_5_units,-5.852358043965614e-4,Serum sodium,FALSE
+243,sex_groupMale,-0.01457441409132684,Sex: male versus female,FALSE
+244,age_per_10_years,-0.03627721321846599,Age,FALSE
+244,ef_per_5_points,-0.002865174254336796,Ejection fraction,FALSE
+244,creatinine_per_doubling,0.03212638284486941,Serum creatinine,FALSE
+244,sodium_per_5_units,-0.03524875569539879,Serum sodium,FALSE
+244,sex_groupMale,0.05929065534969542,Sex: male versus female,FALSE
+245,age_per_10_years,0.04403604832973036,Age,FALSE
+245,ef_per_5_points,-0.0324667406143977,Ejection fraction,FALSE
+245,creatinine_per_doubling,-0.01636131280533806,Serum creatinine,FALSE
+245,sodium_per_5_units,0.00861438029149291,Serum sodium,FALSE
+245,sex_groupMale,-0.03712680474231603,Sex: male versus female,FALSE
+246,age_per_10_years,0.01780008439657707,Age,FALSE
+246,ef_per_5_points,-0.02241332809486491,Ejection fraction,FALSE
+246,creatinine_per_doubling,-0.0017646589508177562,Serum creatinine,FALSE
+246,sodium_per_5_units,-0.010759477838352472,Serum sodium,FALSE
+246,sex_groupMale,-0.03495612351828197,Sex: male versus female,FALSE
+247,age_per_10_years,-0.0062029293893902425,Age,FALSE
+247,ef_per_5_points,-0.05721472487246219,Ejection fraction,FALSE
+247,creatinine_per_doubling,-0.010301092541426648,Serum creatinine,FALSE
+247,sodium_per_5_units,0.01578109371137292,Serum sodium,FALSE
+247,sex_groupMale,0.03387966899136436,Sex: male versus female,FALSE
+248,age_per_10_years,0.012530194730788823,Age,FALSE
+248,ef_per_5_points,0.0937784746965399,Ejection fraction,FALSE
+248,creatinine_per_doubling,-0.11837452605465702,Serum creatinine,TRUE
+248,sodium_per_5_units,-0.05337568910848053,Serum sodium,FALSE
+248,sex_groupMale,-0.09292661718663643,Sex: male versus female,FALSE
+249,age_per_10_years,0.028695202296181527,Age,FALSE
+249,ef_per_5_points,-0.002949555014452658,Ejection fraction,FALSE
+249,creatinine_per_doubling,6.349205879432157e-4,Serum creatinine,FALSE
+249,sodium_per_5_units,-0.017223649929668346,Serum sodium,FALSE
+249,sex_groupMale,-0.012073106511292994,Sex: male versus female,FALSE
+250,age_per_10_years,0.03153280468453116,Age,FALSE
+250,ef_per_5_points,-0.027335364389759562,Ejection fraction,FALSE
+250,creatinine_per_doubling,0.025966791263735516,Serum creatinine,FALSE
+250,sodium_per_5_units,0.051841823029500037,Serum sodium,FALSE
+250,sex_groupMale,0.04231592659978848,Sex: male versus female,FALSE
+251,age_per_10_years,0.015811109290821666,Age,FALSE
+251,ef_per_5_points,0.013004902140712996,Ejection fraction,FALSE
+251,creatinine_per_doubling,0.03265804464137789,Serum creatinine,FALSE
+251,sodium_per_5_units,-0.0035124407486397517,Serum sodium,FALSE
+251,sex_groupMale,0.02340167699934965,Sex: male versus female,FALSE
+252,age_per_10_years,0.016869714332869164,Age,FALSE
+252,ef_per_5_points,0.008370676534372021,Ejection fraction,FALSE
+252,creatinine_per_doubling,0.015015734414916148,Serum creatinine,FALSE
+252,sodium_per_5_units,-0.031363001512969314,Serum sodium,FALSE
+252,sex_groupMale,0.030273495743239003,Sex: male versus female,FALSE
+253,age_per_10_years,0.022148961471827135,Age,FALSE
+253,ef_per_5_points,-0.024515887401165344,Ejection fraction,FALSE
+253,creatinine_per_doubling,0.012227636517850212,Serum creatinine,FALSE
+253,sodium_per_5_units,0.01550994748447821,Serum sodium,FALSE
+253,sex_groupMale,-0.016736964596076067,Sex: male versus female,FALSE
+254,age_per_10_years,-0.05679334674331956,Age,FALSE
+254,ef_per_5_points,0.002571638322817161,Ejection fraction,FALSE
+254,creatinine_per_doubling,0.06941702667745604,Serum creatinine,FALSE
+254,sodium_per_5_units,0.08534154080771411,Serum sodium,FALSE
+254,sex_groupMale,0.11680795435527179,Sex: male versus female,TRUE
+255,age_per_10_years,0.01160525816653269,Age,FALSE
+255,ef_per_5_points,-0.023608232937223868,Ejection fraction,FALSE
+255,creatinine_per_doubling,0.0015227990459048954,Serum creatinine,FALSE
+255,sodium_per_5_units,-0.001219870094063987,Serum sodium,FALSE
+255,sex_groupMale,-0.010595676046654038,Sex: male versus female,FALSE
+256,age_per_10_years,0.02886122031937714,Age,FALSE
+256,ef_per_5_points,0.011425077858383505,Ejection fraction,FALSE
+256,creatinine_per_doubling,0.006062068771960247,Serum creatinine,FALSE
+256,sodium_per_5_units,-0.035914851645640365,Serum sodium,FALSE
+256,sex_groupMale,-0.020701198557895123,Sex: male versus female,FALSE
+257,age_per_10_years,1.8349759915448814e-4,Age,FALSE
+257,ef_per_5_points,-0.009570062319624068,Ejection fraction,FALSE
+257,creatinine_per_doubling,-0.035549903715474035,Serum creatinine,FALSE
+257,sodium_per_5_units,-0.056294211575056555,Serum sodium,FALSE
+257,sex_groupMale,0.08759368480729252,Sex: male versus female,FALSE
+258,age_per_10_years,0.016579615383565765,Age,FALSE
+258,ef_per_5_points,-0.01173402969752087,Ejection fraction,FALSE
+258,creatinine_per_doubling,0.011747590636392231,Serum creatinine,FALSE
+258,sodium_per_5_units,-0.013223575629418045,Serum sodium,FALSE
+258,sex_groupMale,-0.022925198295278445,Sex: male versus female,FALSE
+259,age_per_10_years,0.03567863503042577,Age,FALSE
+259,ef_per_5_points,0.015426717119838184,Ejection fraction,FALSE
+259,creatinine_per_doubling,0.028329327692976056,Serum creatinine,FALSE
+259,sodium_per_5_units,0.006370324769022528,Serum sodium,FALSE
+259,sex_groupMale,-0.01734377439835008,Sex: male versus female,FALSE
+260,age_per_10_years,0.01136307739993777,Age,FALSE
+260,ef_per_5_points,-0.019129293099822923,Ejection fraction,FALSE
+260,creatinine_per_doubling,0.013549592003930005,Serum creatinine,FALSE
+260,sodium_per_5_units,0.008676747944583158,Serum sodium,FALSE
+260,sex_groupMale,-0.011163762186393799,Sex: male versus female,FALSE
+261,age_per_10_years,0.019899459463784873,Age,FALSE
+261,ef_per_5_points,-0.015916532407569142,Ejection fraction,FALSE
+261,creatinine_per_doubling,0.010288269067345425,Serum creatinine,FALSE
+261,sodium_per_5_units,-0.005579571477999478,Serum sodium,FALSE
+261,sex_groupMale,-0.020125175716581442,Sex: male versus female,FALSE
+262,age_per_10_years,-2.738760172810224e-4,Age,FALSE
+262,ef_per_5_points,-0.013281711663187801,Ejection fraction,FALSE
+262,creatinine_per_doubling,0.05049508898214555,Serum creatinine,FALSE
+262,sodium_per_5_units,0.03514719414943808,Serum sodium,FALSE
+262,sex_groupMale,0.03746587002018365,Sex: male versus female,FALSE
+263,age_per_10_years,0.029370315804210418,Age,FALSE
+263,ef_per_5_points,-0.00862373726201932,Ejection fraction,FALSE
+263,creatinine_per_doubling,0.017757150433432504,Serum creatinine,FALSE
+263,sodium_per_5_units,-0.004139382758135687,Serum sodium,FALSE
+263,sex_groupMale,-0.020194611263749253,Sex: male versus female,FALSE
+264,age_per_10_years,-0.002108087127554412,Age,FALSE
+264,ef_per_5_points,-0.04560134929564932,Ejection fraction,FALSE
+264,creatinine_per_doubling,0.006172394974887843,Serum creatinine,FALSE
+264,sodium_per_5_units,-0.005412138960785382,Serum sodium,FALSE
+264,sex_groupMale,0.019365287353478602,Sex: male versus female,FALSE
+265,age_per_10_years,0.014826427384576388,Age,FALSE
+265,ef_per_5_points,-0.012776595314841937,Ejection fraction,FALSE
+265,creatinine_per_doubling,-0.001728800462122972,Serum creatinine,FALSE
+265,sodium_per_5_units,-0.03755393317241591,Serum sodium,FALSE
+265,sex_groupMale,-0.03050398381448155,Sex: male versus female,FALSE
+266,age_per_10_years,0.02551201128180223,Age,FALSE
+266,ef_per_5_points,-0.003199809811100556,Ejection fraction,FALSE
+266,creatinine_per_doubling,0.010490381986053891,Serum creatinine,FALSE
+266,sodium_per_5_units,-0.01495654338920219,Serum sodium,FALSE
+266,sex_groupMale,-0.017379733061189027,Sex: male versus female,FALSE
+267,age_per_10_years,0.03933598413569246,Age,FALSE
+267,ef_per_5_points,-0.006862184448909189,Ejection fraction,FALSE
+267,creatinine_per_doubling,4.937988447039644e-4,Serum creatinine,FALSE
+267,sodium_per_5_units,-0.02957422545107319,Serum sodium,FALSE
+267,sex_groupMale,-0.011858590462649476,Sex: male versus female,FALSE
+268,age_per_10_years,0.03949882137018739,Age,FALSE
+268,ef_per_5_points,-0.022087309082998878,Ejection fraction,FALSE
+268,creatinine_per_doubling,-0.03202585969976518,Serum creatinine,FALSE
+268,sodium_per_5_units,-0.046292564319602915,Serum sodium,FALSE
+268,sex_groupMale,-0.038802622386792905,Sex: male versus female,FALSE
+269,age_per_10_years,0.029997184885225035,Age,FALSE
+269,ef_per_5_points,-0.003631494759591011,Ejection fraction,FALSE
+269,creatinine_per_doubling,0.009000583649762082,Serum creatinine,FALSE
+269,sodium_per_5_units,-0.012890541086789985,Serum sodium,FALSE
+269,sex_groupMale,0.022416320350805038,Sex: male versus female,FALSE
+270,age_per_10_years,0.03942619241020295,Age,FALSE
+270,ef_per_5_points,-0.0113719417126887,Ejection fraction,FALSE
+270,creatinine_per_doubling,0.015468366679080076,Serum creatinine,FALSE
+270,sodium_per_5_units,0.019025796843274358,Serum sodium,FALSE
+270,sex_groupMale,-0.017509231415062994,Sex: male versus female,FALSE
+271,age_per_10_years,0.07731766331866889,Age,FALSE
+271,ef_per_5_points,-0.008395605503490885,Ejection fraction,FALSE
+271,creatinine_per_doubling,0.0041292410017461055,Serum creatinine,FALSE
+271,sodium_per_5_units,0.04781760990973245,Serum sodium,FALSE
+271,sex_groupMale,-0.03696458442565772,Sex: male versus female,FALSE
+272,age_per_10_years,0.026181804221305473,Age,FALSE
+272,ef_per_5_points,-0.014725273595263948,Ejection fraction,FALSE
+272,creatinine_per_doubling,0.02571058412208317,Serum creatinine,FALSE
+272,sodium_per_5_units,0.01995321135109328,Serum sodium,FALSE
+272,sex_groupMale,0.03138815152873489,Sex: male versus female,FALSE
+273,age_per_10_years,-0.02907342711959271,Age,FALSE
+273,ef_per_5_points,-0.019142154875900916,Ejection fraction,FALSE
+273,creatinine_per_doubling,0.049558170021018894,Serum creatinine,FALSE
+273,sodium_per_5_units,0.06269350808708184,Serum sodium,FALSE
+273,sex_groupMale,0.09771806150460217,Sex: male versus female,FALSE
+274,age_per_10_years,0.019598282271934234,Age,FALSE
+274,ef_per_5_points,-0.007168180303252321,Ejection fraction,FALSE
+274,creatinine_per_doubling,0.008948841560202092,Serum creatinine,FALSE
+274,sodium_per_5_units,-0.005055328191784411,Serum sodium,FALSE
+274,sex_groupMale,-0.009775897421175274,Sex: male versus female,FALSE
+275,age_per_10_years,0.013122519926368708,Age,FALSE
+275,ef_per_5_points,0.017331648112224846,Ejection fraction,FALSE
+275,creatinine_per_doubling,0.033496579630760186,Serum creatinine,FALSE
+275,sodium_per_5_units,-0.006794454980004511,Serum sodium,FALSE
+275,sex_groupMale,-0.03472272338479047,Sex: male versus female,FALSE
+276,age_per_10_years,0.02791962747974632,Age,FALSE
+276,ef_per_5_points,-0.005255392139857445,Ejection fraction,FALSE
+276,creatinine_per_doubling,0.017408388920993483,Serum creatinine,FALSE
+276,sodium_per_5_units,0.001594730419424694,Serum sodium,FALSE
+276,sex_groupMale,0.022000552400678202,Sex: male versus female,FALSE
+277,age_per_10_years,-0.04193977745137565,Age,FALSE
+277,ef_per_5_points,0.03171983558597721,Ejection fraction,FALSE
+277,creatinine_per_doubling,0.015357051128823825,Serum creatinine,FALSE
+277,sodium_per_5_units,-0.0837439590133476,Serum sodium,FALSE
+277,sex_groupMale,0.09591596194946261,Sex: male versus female,FALSE
+278,age_per_10_years,-0.023480990136497768,Age,FALSE
+278,ef_per_5_points,-0.014022169948069244,Ejection fraction,FALSE
+278,creatinine_per_doubling,0.01604110950853409,Serum creatinine,FALSE
+278,sodium_per_5_units,-0.037141877908834456,Serum sodium,FALSE
+278,sex_groupMale,-0.04216245281354413,Sex: male versus female,FALSE
+279,age_per_10_years,0.026511911041640156,Age,FALSE
+279,ef_per_5_points,0.01733161321946347,Ejection fraction,FALSE
+279,creatinine_per_doubling,0.04138901985052828,Serum creatinine,FALSE
+279,sodium_per_5_units,0.008484756850759455,Serum sodium,FALSE
+279,sex_groupMale,0.03947701682116541,Sex: male versus female,FALSE
+280,age_per_10_years,0.03271588020001311,Age,FALSE
+280,ef_per_5_points,-0.013238015787966552,Ejection fraction,FALSE
+280,creatinine_per_doubling,0.006328842414308985,Serum creatinine,FALSE
+280,sodium_per_5_units,0.0017316796610146238,Serum sodium,FALSE
+280,sex_groupMale,0.0549514694210357,Sex: male versus female,FALSE
+281,age_per_10_years,-0.023248877639445956,Age,FALSE
+281,ef_per_5_points,-0.027669223914663817,Ejection fraction,FALSE
+281,creatinine_per_doubling,0.03422141008764636,Serum creatinine,FALSE
+281,sodium_per_5_units,0.004233571486571229,Serum sodium,FALSE
+281,sex_groupMale,-0.03968181595824349,Sex: male versus female,FALSE
+282,age_per_10_years,-0.029103140323116897,Age,FALSE
+282,ef_per_5_points,-0.09594243129631083,Ejection fraction,FALSE
+282,creatinine_per_doubling,-0.1495862789318692,Serum creatinine,TRUE
+282,sodium_per_5_units,-0.04300977765133554,Serum sodium,FALSE
+282,sex_groupMale,-0.1032410210308814,Sex: male versus female,FALSE
+283,age_per_10_years,0.1967496752602189,Age,TRUE
+283,ef_per_5_points,-0.042333690622476175,Ejection fraction,FALSE
+283,creatinine_per_doubling,-0.1451358861438826,Serum creatinine,TRUE
+283,sodium_per_5_units,0.08706911990313196,Serum sodium,FALSE
+283,sex_groupMale,-0.08144124768230876,Sex: male versus female,FALSE
+284,age_per_10_years,-0.0011478733303605727,Age,FALSE
+284,ef_per_5_points,-0.018096520077371368,Ejection fraction,FALSE
+284,creatinine_per_doubling,0.018095931742649004,Serum creatinine,FALSE
+284,sodium_per_5_units,-0.012122897311077139,Serum sodium,FALSE
+284,sex_groupMale,-0.037202826498816254,Sex: male versus female,FALSE
+285,age_per_10_years,0.0199239535268371,Age,FALSE
+285,ef_per_5_points,-0.009375496725811496,Ejection fraction,FALSE
+285,creatinine_per_doubling,0.009760968710406092,Serum creatinine,FALSE
+285,sodium_per_5_units,-0.012049878396126366,Serum sodium,FALSE
+285,sex_groupMale,-0.014398241079787254,Sex: male versus female,FALSE
+286,age_per_10_years,0.027837019089808072,Age,FALSE
+286,ef_per_5_points,-0.027366739250839347,Ejection fraction,FALSE
+286,creatinine_per_doubling,0.010259508089075999,Serum creatinine,FALSE
+286,sodium_per_5_units,0.01097162105151017,Serum sodium,FALSE
+286,sex_groupMale,-0.029128913528893907,Sex: male versus female,FALSE
+287,age_per_10_years,0.029963341243867975,Age,FALSE
+287,ef_per_5_points,-0.008682704705319034,Ejection fraction,FALSE
+287,creatinine_per_doubling,-0.0387542242500751,Serum creatinine,FALSE
+287,sodium_per_5_units,-0.06401455297458937,Serum sodium,FALSE
+287,sex_groupMale,-0.047902466269561066,Sex: male versus female,FALSE
+288,age_per_10_years,0.021790976268553867,Age,FALSE
+288,ef_per_5_points,-0.028806609814851444,Ejection fraction,FALSE
+288,creatinine_per_doubling,0.008871832797902964,Serum creatinine,FALSE
+288,sodium_per_5_units,0.01730033248084798,Serum sodium,FALSE
+288,sex_groupMale,0.011509212421128592,Sex: male versus female,FALSE
+289,age_per_10_years,-0.008804782304963892,Age,FALSE
+289,ef_per_5_points,0.022376344208786713,Ejection fraction,FALSE
+289,creatinine_per_doubling,0.009305555770987234,Serum creatinine,FALSE
+289,sodium_per_5_units,-0.06930368000553272,Serum sodium,FALSE
+289,sex_groupMale,0.07598580420008114,Sex: male versus female,FALSE
+290,age_per_10_years,-0.2682656353068768,Age,TRUE
+290,ef_per_5_points,0.05552370564752598,Ejection fraction,FALSE
+290,creatinine_per_doubling,0.07595768624430298,Serum creatinine,FALSE
+290,sodium_per_5_units,-0.154947554635359,Serum sodium,TRUE
+290,sex_groupMale,0.16461042203654708,Sex: male versus female,TRUE
+291,age_per_10_years,0.014636649318948583,Age,FALSE
+291,ef_per_5_points,-0.015502890305069973,Ejection fraction,FALSE
+291,creatinine_per_doubling,0.0038593786023885103,Serum creatinine,FALSE
+291,sodium_per_5_units,-0.0043222563895430315,Serum sodium,FALSE
+291,sex_groupMale,0.007414717540953854,Sex: male versus female,FALSE
+292,age_per_10_years,0.02272038403428741,Age,FALSE
+292,ef_per_5_points,-0.007597512743117075,Ejection fraction,FALSE
+292,creatinine_per_doubling,-0.009759038184950889,Serum creatinine,FALSE
+292,sodium_per_5_units,-0.03714202286713756,Serum sodium,FALSE
+292,sex_groupMale,-0.04090316820442501,Sex: male versus female,FALSE
+293,age_per_10_years,0.0258326399677045,Age,FALSE
+293,ef_per_5_points,-0.010423649217206222,Ejection fraction,FALSE
+293,creatinine_per_doubling,0.006784698298722838,Serum creatinine,FALSE
+293,sodium_per_5_units,-0.016643320014853268,Serum sodium,FALSE
+293,sex_groupMale,-0.020498347858468872,Sex: male versus female,FALSE
+294,age_per_10_years,0.0013795901488087554,Age,FALSE
+294,ef_per_5_points,-0.0061792889622547436,Ejection fraction,FALSE
+294,creatinine_per_doubling,0.040266323238267517,Serum creatinine,FALSE
+294,sodium_per_5_units,0.010972145395422999,Serum sodium,FALSE
+294,sex_groupMale,-0.03221741872065716,Sex: male versus female,FALSE
+295,age_per_10_years,0.010803548632396031,Age,FALSE
+295,ef_per_5_points,-0.008489133126423175,Ejection fraction,FALSE
+295,creatinine_per_doubling,-5.25252620262256e-4,Serum creatinine,FALSE
+295,sodium_per_5_units,-0.050036692625345124,Serum sodium,FALSE
+295,sex_groupMale,-0.029644733469040424,Sex: male versus female,FALSE
+296,age_per_10_years,0.028934275907951345,Age,FALSE
+296,ef_per_5_points,-0.006405323452224196,Ejection fraction,FALSE
+296,creatinine_per_doubling,0.0029267643434335118,Serum creatinine,FALSE
+296,sodium_per_5_units,-0.022758120547696385,Serum sodium,FALSE
+296,sex_groupMale,0.04725031222366317,Sex: male versus female,FALSE
+297,age_per_10_years,0.01303185929843401,Age,FALSE
+297,ef_per_5_points,-0.01813215597472831,Ejection fraction,FALSE
+297,creatinine_per_doubling,0.004669160307960761,Serum creatinine,FALSE
+297,sodium_per_5_units,0.0017302450985538778,Serum sodium,FALSE
+297,sex_groupMale,0.0059570131298044456,Sex: male versus female,FALSE
+298,age_per_10_years,0.04215928421918011,Age,FALSE
+298,ef_per_5_points,-0.013795632125467016,Ejection fraction,FALSE
+298,creatinine_per_doubling,-0.010663451953217974,Serum creatinine,FALSE
+298,sodium_per_5_units,-0.02278680903969283,Serum sodium,FALSE
+298,sex_groupMale,-0.021855882986493536,Sex: male versus female,FALSE
+299,age_per_10_years,0.03880246353353001,Age,FALSE
+299,ef_per_5_points,-0.03834727119219785,Ejection fraction,FALSE
+299,creatinine_per_doubling,-0.011713792441352575,Serum creatinine,FALSE
+299,sodium_per_5_units,-5.000054866488632e-4,Serum sodium,FALSE
+299,sex_groupMale,-0.02731639670168557,Sex: male versus female,FALSE

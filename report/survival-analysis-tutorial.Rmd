@@ -1,0 +1,591 @@
+---
+title: "Survival Analysis in R: A Worked Beginner Tutorial"
+subtitle: "Heart Failure Clinical Records"
+author: "cjgunase"
+date: "`r format(Sys.Date(), '%B %d, %Y')`"
+output:
+  github_document:
+    toc: true
+    html_preview: false
+  html_document:
+    toc: true
+    toc_float: true
+    code_folding: show
+    theme: cosmo
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  fig.align = "center"
+)
+
+library(dplyr)
+library(ggplot2)
+library(readr)
+library(splines)
+library(survival)
+
+heart <- read_csv(
+  "../data/processed/heart_failure_clean.csv",
+  show_col_types = FALSE
+) |>
+  mutate(
+    age_per_10_years = age / 10,
+    ef_per_5_points = ejection_fraction / 5,
+    creatinine_per_doubling = log2(serum_creatinine),
+    sodium_per_5_units = serum_sodium / 5,
+    ef_group = factor(
+      if_else(ejection_fraction < 40, "EF < 40%", "EF ≥ 40%"),
+      levels = c("EF < 40%", "EF ≥ 40%")
+    ),
+    sex_group = factor(
+      sex,
+      levels = c(0, 1),
+      labels = c("Female", "Male")
+    )
+  )
+
+data_quality <- read_csv(
+  "../outputs/tables/data-quality-summary.csv",
+  show_col_types = FALSE
+)
+
+km_times <- read_csv(
+  "../outputs/tables/kaplan-meier-selected-times.csv",
+  show_col_types = FALSE
+)
+
+grouped_estimates <- read_csv(
+  "../outputs/tables/grouped-survival-selected-times.csv",
+  show_col_types = FALSE
+)
+
+log_rank_results <- read_csv(
+  "../outputs/tables/log-rank-tests.csv",
+  show_col_types = FALSE
+)
+
+cox_results <- read_csv(
+  "../outputs/tables/cox-adjusted-results.csv",
+  show_col_types = FALSE
+)
+
+nonlinearity_results <- read_csv(
+  "../outputs/tables/diagnostic-nonlinearity-tests.csv",
+  show_col_types = FALSE
+)
+
+bootstrap_concordance <- read_csv(
+  "../outputs/tables/bootstrap-concordance-summary.csv",
+  show_col_types = FALSE
+)
+
+bootstrap_calibration <- read_csv(
+  "../outputs/tables/bootstrap-calibration-90-days.csv",
+  show_col_types = FALSE
+)
+```
+
+# Purpose of this tutorial
+
+Survival analysis studies **whether an event occurs and how long it takes**. It
+is especially useful when participants have different follow-up times or when
+their eventual event times are unknown.
+
+This tutorial answers:
+
+> Which baseline patient characteristics are associated with time to death
+> among patients with heart failure?
+
+The analysis is educational and prognostic. It does not estimate causal effects
+and must not be used for clinical decisions.
+
+## Learning goals
+
+By the end, a reader should be able to:
+
+1. distinguish an observed event from censoring;
+2. explain a risk set and survival function;
+3. calculate and interpret Kaplan--Meier survival;
+4. compare curves with a log-rank test;
+5. interpret adjusted Cox hazard ratios;
+6. recognize proportional-hazards and functional-form assumptions;
+7. distinguish apparent from internally validated performance.
+
+# 1. The data
+
+The [UCI Heart Failure Clinical Records
+dataset](https://archive.ics.uci.edu/dataset/519/heart) contains records for 299
+patients. Its license is CC BY 4.0.
+
+```{r first-rows}
+heart |>
+  select(
+    followup_days,
+    death,
+    age,
+    ejection_fraction,
+    serum_creatinine,
+    serum_sodium,
+    sex_group
+  ) |>
+  head() |>
+  knitr::kable(
+    caption = "Example analysis records"
+  )
+```
+
+The survival outcome has two columns:
+
+- `followup_days`: observed time under follow-up;
+- `death`: 1 if death was observed and 0 if the patient was censored.
+
+```{r data-quality, echo=FALSE}
+data_quality |>
+  mutate(
+    value = if_else(
+      metric == "Death proportion",
+      sprintf("%.1f%%", 100 * value),
+      format(round(value, 1), trim = TRUE)
+    )
+  ) |>
+  knitr::kable(
+    caption = "Data-quality and outcome summary"
+  )
+```
+
+```{r marker-distributions, echo=FALSE, out.width="95%", fig.cap="Distributions of prespecified clinical predictors."}
+knitr::include_graphics(
+  "../outputs/figures/clinical-marker-distributions.png"
+)
+```
+
+Serum creatinine and creatinine phosphokinase are strongly right-skewed.
+Extreme values should be checked for plausibility, not automatically deleted.
+
+# 2. Censoring
+
+A patient censored after 100 days tells us:
+
+\[
+T>100
+\]
+
+The patient was known to remain event-free for at least 100 days, but their
+eventual death time is unknown.
+
+Censored patients:
+
+- contribute to risk sets while observed;
+- leave the risk set at censoring;
+- are not counted as deaths;
+- are not assumed to survive forever.
+
+```{r survival-object}
+survival_outcome <- with(
+  heart,
+  Surv(followup_days, death)
+)
+
+head(survival_outcome)
+```
+
+`Surv()` represents time and event status together. A printed `+` identifies a
+censored observation.
+
+> The central assumption is independent censoring: after accounting for
+> relevant information, censoring should not be systematically related to
+> unobserved future event risk.
+
+# 3. Kaplan--Meier survival
+
+The survival function is:
+
+\[
+S(t)=P(T>t)
+\]
+
+At event time \(t_j\):
+
+- \(n_j\) is the number at risk immediately before the time;
+- \(d_j\) is the number of deaths at the time.
+
+The conditional probability of surviving that event time is:
+
+\[
+p_j=\frac{n_j-d_j}{n_j}
+\]
+
+Kaplan--Meier multiplies these conditional probabilities:
+
+\[
+\hat S(t)=
+\prod_{t_j\leq t}
+\left(1-\frac{d_j}{n_j}\right)
+\]
+
+## Calculation with the first events
+
+At day 4, one of 299 patients died:
+
+\[
+\hat S(4)=\frac{298}{299}=0.9967
+\]
+
+At day 6, one of the remaining 298 died:
+
+\[
+\hat S(6)=
+\frac{298}{299}\times\frac{297}{298}
+=0.9933
+\]
+
+At day 7, two of 297 at-risk patients died:
+
+\[
+\hat S(7)=
+0.9933\times\frac{295}{297}
+=0.9866
+\]
+
+```{r fit-km}
+overall_km <- survfit(
+  Surv(followup_days, death) ~ 1,
+  data = heart,
+  conf.type = "log"
+)
+```
+
+```{r overall-km, echo=FALSE, out.width="95%", fig.cap="Overall Kaplan--Meier estimate with confidence interval, censor marks, and numbers at risk."}
+knitr::include_graphics(
+  "../outputs/figures/overall-kaplan-meier.png"
+)
+```
+
+```{r km-table, echo=FALSE}
+km_times |>
+  transmute(
+    `Time, days` = time_days,
+    `Number at risk` = n_risk,
+    `Survival` = sprintf("%.1f%%", 100 * survival),
+    `95% CI` = sprintf(
+      "%.1f%%–%.1f%%",
+      100 * lower_95,
+      100 * upper_95
+    )
+  ) |>
+  knitr::kable(
+    caption = "Overall survival estimates"
+  )
+```
+
+At 90 days, estimated survival was 76.3% (95% CI: 71.5%--81.3%).
+
+The curve never reached 50%, so median survival was **not reached**. This does
+not mean median survival is infinite; it means the available follow-up cannot
+estimate it.
+
+# 4. Comparing groups
+
+Grouped Kaplan--Meier curves describe unadjusted survival patterns.
+
+```{r grouped-km-fit}
+ef_km <- survfit(
+  Surv(followup_days, death) ~ ef_group,
+  data = heart
+)
+
+ef_log_rank <- survdiff(
+  Surv(followup_days, death) ~ ef_group,
+  data = heart
+)
+```
+
+```{r ef-km, echo=FALSE, out.width="95%", fig.cap="Kaplan--Meier estimates by educational ejection-fraction group."}
+knitr::include_graphics(
+  "../outputs/figures/kaplan-meier-ejection-fraction.png"
+)
+```
+
+```{r grouped-table, echo=FALSE}
+grouped_estimates |>
+  filter(comparison == "Ejection fraction group") |>
+  transmute(
+    Group = group,
+    `Time, days` = time_days,
+    `Number at risk` = n_risk,
+    `Survival` = sprintf("%.1f%%", 100 * survival),
+    `95% CI` = sprintf(
+      "%.1f%%–%.1f%%",
+      100 * lower_95,
+      100 * upper_95
+    )
+  ) |>
+  knitr::kable(
+    caption = "Survival estimates by ejection-fraction group"
+  )
+```
+
+The log-rank test compares observed with expected deaths over follow-up:
+
+```{r logrank-table, echo=FALSE}
+log_rank_results |>
+  transmute(
+    Comparison = comparison,
+    `Chi-square` = round(chi_square, 3),
+    df = degrees_freedom,
+    `p-value` = format.pval(p_value, digits = 3, eps = 0.001)
+  ) |>
+  knitr::kable(
+    caption = "Log-rank tests"
+  )
+```
+
+There was evidence of different survival curves between ejection-fraction
+groups (\(\chi^2=9.47\), \(p=0.0021\)). There was no evidence of a sex difference
+(\(p=0.950\)).
+
+These are unadjusted associations. A p-value does not measure effect size and
+does not establish causation.
+
+# 5. Cox proportional-hazards regression
+
+The Cox model is:
+
+\[
+h(t\mid X)
+=
+h_0(t)\exp(\beta_1X_1+\cdots+\beta_pX_p)
+\]
+
+At every death time, the partial likelihood compares the patient who died with
+patients still in the risk set. The model estimates relative hazard without
+requiring a parametric shape for \(h_0(t)\).
+
+```{r cox-fit}
+adjusted_model <- coxph(
+  Surv(followup_days, death) ~
+    age_per_10_years +
+    ef_per_5_points +
+    creatinine_per_doubling +
+    sodium_per_5_units +
+    sex_group,
+  data = heart,
+  ties = "efron"
+)
+```
+
+```{r cox-table, echo=FALSE}
+cox_results |>
+  transmute(
+    Predictor = predictor,
+    HR = sprintf("%.2f", hazard_ratio),
+    `95% CI` = sprintf("%.2f–%.2f", lower_95, upper_95),
+    `p-value` = format.pval(p_value, digits = 3, eps = 0.001)
+  ) |>
+  knitr::kable(
+    caption = "Adjusted Cox proportional-hazards results"
+  )
+```
+
+```{r forest-plot, echo=FALSE, out.width="95%", fig.cap="Adjusted hazard ratios from the initial linear Cox model."}
+knitr::include_graphics(
+  "../outputs/figures/cox-adjusted-forest-plot.png"
+)
+```
+
+Interpretation examples:
+
+- A 10-year age increase was associated with 52% higher mortality hazard.
+- A 5-point ejection-fraction increase was associated with 19% lower hazard.
+- A creatinine doubling was associated with 85% higher hazard.
+
+Each interpretation is conditional on the other included predictors. Hazard
+ratios are relative rates, not direct differences in survival probability.
+
+# 6. Model diagnostics
+
+## Proportional hazards
+
+The Cox model assumes each hazard ratio is approximately constant over
+follow-up.
+
+```{r ph-test}
+ph_assessment <- cox.zph(adjusted_model)
+ph_assessment
+```
+
+The global test gave \(p=0.233\), providing no clear evidence of a violation.
+Ejection fraction had the strongest possible trend (\(p=0.060\)), so graphical
+assessment remained important.
+
+```{r schoenfeld, echo=FALSE, out.width="95%", fig.cap="Centered scaled Schoenfeld diagnostics."}
+knitr::include_graphics(
+  "../outputs/figures/cox-schoenfeld-residuals.png"
+)
+```
+
+## Nonlinear relationships
+
+The initial Cox model assumes a straight-line relationship between each
+continuous predictor and log hazard. Natural splines test whether that shape is
+too restrictive.
+
+```{r nonlinearity-table, echo=FALSE}
+nonlinearity_results |>
+  transmute(
+    Predictor = predictor,
+    `Added df` = added_degrees_freedom,
+    `LR chi-square` = round(likelihood_ratio_chi_square, 2),
+    `p-value` = format.pval(p_value, digits = 3, eps = 0.001),
+    `Linear AIC` = round(linear_model_aic, 1),
+    `Spline AIC` = round(predictor_spline_model_aic, 1)
+  ) |>
+  knitr::kable(
+    caption = "Predictor-specific functional-form tests"
+  )
+```
+
+Ejection fraction showed strong evidence of nonlinearity (\(p=0.0013\)). The
+estimated hazard increased sharply at very low values and was comparatively
+flat around and above 40%.
+
+```{r ef-spline, echo=FALSE, out.width="95%", fig.cap="Adjusted nonlinear ejection-fraction association, referenced to EF 40%."}
+knitr::include_graphics(
+  "../outputs/figures/cox-ejection-fraction-spline.png"
+)
+```
+
+Confidence intervals widen at sparse extremes. The rug marks show where
+patients were observed.
+
+## Unusual and influential observations
+
+One patient had an absolute deviance residual greater than 3. DFBETAS also
+identified observations that affected individual coefficients.
+
+```{r influence-plots, echo=FALSE, out.width="95%", fig.cap="Deviance-residual and DFBETAS screening."}
+knitr::include_graphics(
+  c(
+    "../outputs/figures/cox-deviance-residuals.png",
+    "../outputs/figures/cox-dfbetas.png"
+  )
+)
+```
+
+These observations are not automatically errors. They may represent
+scientifically informative combinations of predictors and outcomes.
+
+# 7. Bootstrap internal validation
+
+The refined model used a 3-df ejection-fraction spline. It was fixed before
+validation.
+
+For each of 500 bootstrap resamples:
+
+1. sample patients with replacement;
+2. refit the complete model;
+3. calculate concordance in the bootstrap sample;
+4. apply the model to the original sample;
+5. estimate optimism as training minus test performance;
+6. generate predictions for out-of-bag patients.
+
+```{r bootstrap-summary, echo=FALSE}
+bootstrap_concordance |>
+  filter(
+    statistic %in% c(
+      "Requested bootstrap resamples",
+      "Successful bootstrap fits",
+      "Apparent concordance",
+      "Mean estimated optimism",
+      "Optimism-corrected concordance"
+    )
+  ) |>
+  mutate(
+    value = if_else(
+      grepl("resamples|fits", statistic),
+      format(round(value), trim = TRUE),
+      sprintf("%.3f", value)
+    )
+  ) |>
+  knitr::kable(
+    caption = "Bootstrap internal-validation summary"
+  )
+```
+
+```{r bootstrap-c, echo=FALSE, out.width="95%", fig.cap="Bootstrap validation of concordance."}
+knitr::include_graphics(
+  "../outputs/figures/bootstrap-concordance.png"
+)
+```
+
+Apparent concordance was 0.750. After subtracting estimated optimism of 0.016,
+corrected concordance was 0.735.
+
+## Calibration
+
+Discrimination asks whether the model ranks patients correctly. Calibration
+asks whether predicted probabilities agree with observed survival.
+
+```{r calibration, echo=FALSE, out.width="95%", fig.cap="Apparent and out-of-bag calibration of 90-day survival."}
+knitr::include_graphics(
+  "../outputs/figures/bootstrap-calibration-90-days.png"
+)
+```
+
+Out-of-bag calibration was broadly reasonable, although the second prediction
+quintile overpredicted survival by approximately eight percentage points.
+Groups contained only about 60 patients, producing wide confidence intervals.
+
+# 8. Conclusions
+
+Within this dataset:
+
+1. survival declined progressively over observed follow-up;
+2. very low ejection fraction was associated with poorer survival;
+3. older age and higher serum creatinine were associated with higher adjusted
+   mortality hazard;
+4. the ejection-fraction association was nonlinear;
+5. the refined model had optimism-corrected concordance around 0.735;
+6. calibration was imperfect in part of the risk range.
+
+These findings describe associations in a small observational dataset. They do
+not show causal effects or establish performance in other populations.
+
+# 9. Reproduce the project
+
+Run the scripts from the repository root:
+
+```{bash, eval=FALSE}
+Rscript R/01-download-data.R
+Rscript R/02-exploratory-analysis.R
+Rscript R/03-kaplan-meier.R
+Rscript R/04-group-comparisons.R
+Rscript R/05-cox-regression.R
+Rscript R/06-model-diagnostics.R
+Rscript R/07-bootstrap-validation.R
+```
+
+Then render this report:
+
+```{r render-report, eval=FALSE}
+rmarkdown::render(
+  "report/survival-analysis-tutorial.Rmd",
+  output_format = "all"
+)
+```
+
+The detailed living study guide is available in `notes.md`.
+
+# 10. Limitations
+
+- The sample contains only 299 patients and 96 observed deaths.
+- Predictor selection and transformations depend partly on this dataset.
+- Group cutpoints lose continuous information.
+- Internal bootstrap validation does not replace external validation.
+- Measurement error and unmeasured predictors may affect results.
+- Independent censoring cannot be fully verified from the observed data.
+- The analysis cannot support causal or clinical treatment claims.

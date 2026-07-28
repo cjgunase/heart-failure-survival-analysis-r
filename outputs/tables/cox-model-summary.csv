@@ -1,0 +1,13 @@
+statistic,value
+Patients,299
+Observed deaths,96
+Model coefficients,5
+Events per coefficient,19.2
+Concordance,0.7237587630846058
+Concordance standard error,0.02775218078095177
+Likelihood-ratio chi-square,70.8048952410287
+Likelihood-ratio p-value,6.967770512014009e-14
+Wald chi-square,71.78
+Wald p-value,4.374207480750674e-14
+Score chi-square,75.10310950989881
+Score p-value,8.853241021796956e-15

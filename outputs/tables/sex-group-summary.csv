@@ -1,0 +1,3 @@
+group,patients,deaths,censored,observed_death_proportion,median_observed_followup
+Female,105,34,71,0.32380952380952355,109
+Male,194,62,132,0.3195876288659797,117.5
