@@ -1731,11 +1731,90 @@ targets::tar_destroy()
 target store. It should be used deliberately, especially before testing a
 clean rebuild.
 
-### What this slice does not yet automate
+### Second pipeline slice: exploratory analysis
 
-The current graph ends at the clean data object. Exploratory tables, figures,
-survival models, validation, and report rendering still use the numbered
-scripts. They will be added in later commits on the same feature branch.
+The next slice extended the clean data into summary and visualization
+branches:
+
+```text
+clean_data
+   ├── data_quality_table ───────> data_quality_file
+   ├── continuous_summary_table ─> continuous_summary_file
+   ├── binary_summary_table ─────> binary_summary_file
+   └── eda_data
+          ├── followup_plot ─────> followup_figure
+          └── marker_plot ───────> marker_figure
+```
+
+This demonstrates branching in a DAG. The summary tables do not depend on the
+plot objects, and the two plots do not depend on each other. `{targets}` may
+therefore schedule independent work when upstream data are ready.
+
+Each publication artifact has two targets:
+
+```text
+summary object ---> CSV file
+plot object ------> PNG file
+```
+
+Separating computation from writing has practical benefits:
+
+- tests can inspect an in-memory table without reading a generated CSV;
+- another downstream target can reuse a plot or summary object;
+- file targets still monitor the published artifacts;
+- failures indicate whether calculation or file creation caused the problem.
+
+Reusable EDA operations were extracted into:
+
+```text
+R/functions-eda.R
+```
+
+The manual `R/02-exploratory-analysis.R` entry point now calls the same
+functions as `_targets.R`. This reduced the script to orchestration and avoids
+maintaining separate summary and plotting implementations.
+
+When this slice was added, the incremental pipeline run produced:
+
+```text
+11 completed, 4 skipped
+```
+
+The four data-ingestion targets were unchanged and remained current. Only the
+new downstream EDA branch was built. An immediate subsequent run produced:
+
+```text
+0 completed, 15 skipped
+```
+
+The manual exploratory script also ran successfully, and its regenerated clean
+data, three CSV tables, and two PNG figures were byte-for-byte unchanged in
+Git.
+
+Eighteen new expectations test:
+
+- factor-label levels;
+- agreement of row, column, missing-cell, death, and censor counts;
+- coverage and ordering of continuous summaries;
+- valid binary-variable proportions that sum to one;
+- successful creation of `ggplot` objects.
+
+The complete suite now contains 73 passing expectations:
+
+```text
+data-functions:    8 passed
+data-quality:     32 passed
+eda-functions:    18 passed
+survival-models:  15 passed
+total:            73 passed
+```
+
+### What the pipeline does not yet automate
+
+The graph now covers data ingestion, cleaning, exploratory tables, and
+exploratory figures. Kaplan–Meier estimation, group comparisons, Cox models,
+diagnostics, validation, and report rendering still use the numbered scripts.
+They will be added in later commits on the same feature branch.
 
 Building the pipeline in slices limits the size of each debugging problem and
 provides validated checkpoints. A pipeline should not be considered reliable

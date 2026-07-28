@@ -61,8 +61,8 @@ Rscript R/07-bootstrap-validation.R
 ## Run the pipeline
 
 The project is being migrated to a `{targets}` pipeline. The current pipeline
-slice downloads the raw UCI dataset, prepares the analysis variables, writes
-the clean dataset, and stores the clean data object:
+downloads and cleans the UCI dataset, calculates the exploratory summaries,
+and generates the exploratory figures:
 
 ```r
 targets::tar_make()
@@ -75,10 +75,10 @@ targets::tar_visnetwork()
 targets::tar_read(clean_data)
 ```
 
-On the first run, all targets build. On later runs, `{targets}` skips targets
-whose code, inputs, and upstream dependencies have not changed. The numbered
-scripts remain available as manual entry points while later pipeline slices
-are added.
+The graph currently contains 15 targets spanning data ingestion and
+exploration. On later runs, `{targets}` skips targets whose code, inputs, and
+upstream dependencies have not changed. The numbered scripts remain available
+as manual entry points while survival-model pipeline slices are added.
 
 ## Recreate the R environment
 
