@@ -1,0 +1,2 @@
+# renv generates this vendored bootstrap script with intentional trailing spaces.
+renv/activate.R whitespace=-blank-at-eol
