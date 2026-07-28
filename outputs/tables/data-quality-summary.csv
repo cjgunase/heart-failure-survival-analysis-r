@@ -1,0 +1,11 @@
+metric,value
+Rows,299
+Analysis columns,13
+Duplicate rows,0
+Missing cells,0
+Observed deaths,96
+Censored observations,203
+Death proportion,0.32107023411371255
+Minimum follow-up days,4
+Median follow-up days,115
+Maximum follow-up days,285
