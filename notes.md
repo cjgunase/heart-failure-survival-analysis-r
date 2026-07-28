@@ -2239,3 +2239,16 @@ clinically validated prediction tool. The limitations remain:
 - internal rather than external validation;
 - observational, noncausal findings;
 - no demonstrated clinical utility.
+
+### Pre-tag release correction
+
+After the first release merge and its green `main` CI run, final review caught
+README wording that still called v0.2.0 a “release candidate.” Creating the tag
+would have made that statement immediately stale.
+
+The correction was committed to the temporary release branch and proposed
+through another small PR rather than edited directly on `main`. The tag was
+deliberately postponed until the corrected stable commit passed CI. This shows
+why tagging is the final publication step: errors found before the tag can
+still be corrected through the normal review process without moving or
+replacing a published version.
