@@ -5,7 +5,7 @@
 An educational, reproducible survival-analysis project using the UCI Heart
 Failure Clinical Records dataset.
 
-Current release candidate: **v0.2.0**
+Current version: **v0.2.0**
 
 The continuously updated [learning notes](notes.md) explain the concepts,
 equations, R code, interpretations, and common mistakes covered in each stage.
