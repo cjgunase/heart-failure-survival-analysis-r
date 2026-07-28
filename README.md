@@ -1,7 +1,11 @@
 # Heart Failure Survival Analysis in R
 
+[![Continuous integration](https://github.com/cjgunase/heart-failure-survival-analysis-r/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/cjgunase/heart-failure-survival-analysis-r/actions/workflows/ci.yml)
+
 An educational, reproducible survival-analysis project using the UCI Heart
 Failure Clinical Records dataset.
+
+Current release candidate: **v0.2.0**
 
 The continuously updated [learning notes](notes.md) explain the concepts,
 equations, R code, interpretations, and common mistakes covered in each stage.
@@ -10,11 +14,11 @@ The complete [worked tutorial](report/survival-analysis-tutorial.md) connects
 the project from censoring and Kaplan–Meier estimation through Cox regression,
 diagnostics, and bootstrap validation.
 
-## Current stage
+## Analysis status
 
-Stages 1–6 download and explore the data, estimate overall survival, compare
-prespecified groups, model adjusted prognostic associations, assess model
-diagnostics, and perform bootstrap internal validation.
+The statistical analysis and tutorial are complete. Version 0.2.0 adds
+automated tests, a locked R environment, a one-command pipeline, continuous
+integration, and versioned release documentation.
 
 ## Research question
 
@@ -58,8 +62,64 @@ Rscript R/06-model-diagnostics.R
 Rscript R/07-bootstrap-validation.R
 ```
 
-The scripts require `dplyr`, `ggplot2`, `patchwork`, `readr`, `scales`, and
-`survival`.
+## Run the pipeline
+
+The complete `{targets}` pipeline downloads and cleans the UCI dataset,
+generates the exploratory results, runs every survival-analysis stage,
+performs bootstrap validation, and renders both tutorial formats:
+
+```r
+targets::tar_make()
+```
+
+Inspect the dependency graph or read a built target with:
+
+```r
+targets::tar_visnetwork()
+targets::tar_read(clean_data)
+```
+
+The graph contains 27 targets spanning the entire project. On later runs,
+`{targets}` skips targets whose code, inputs, and upstream dependencies have
+not changed. The numbered scripts remain available as manual entry points.
+
+## Recreate the R environment
+
+This project uses `renv` to record the R and package versions used by the
+analysis. After cloning the repository, open R in the project root and run:
+
+```r
+install.packages("renv")
+renv::restore()
+```
+
+`renv::restore()` reads `renv.lock` and recreates the project-specific package
+library. Check that the installed environment matches the lockfile with:
+
+```r
+renv::status()
+```
+
+When intentionally changing a dependency, test the full analysis and then
+record the new environment with `renv::snapshot()`.
+
+## Run the automated tests
+
+After restoring the environment, run the test suite from the repository root:
+
+```r
+source("tests/testthat.R")
+```
+
+Or from a terminal:
+
+```bash
+Rscript tests/testthat.R
+```
+
+The tests check the documented data schema, survival-outcome validity, source
+to clean-data fidelity, the manual Kaplan–Meier calculation, and basic Cox
+model and reporting invariants.
 
 ## Outputs
 

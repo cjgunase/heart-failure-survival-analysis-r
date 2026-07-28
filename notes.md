@@ -1043,3 +1043,1199 @@ expensive 500-resample bootstrap is not rerun during every report render.
   available.
 - Avoid adding new models unless they answer a clearly defined scientific or
   educational question.
+
+## Stage 8: Automated testing with `testthat`
+
+### Why an analysis needs tests
+
+A statistical analysis can run without producing an error and still be wrong.
+For example, the event labels could be reversed, a cleaning step could drop
+rows, or an edited Kaplan–Meier calculation could silently disagree with the
+trusted package implementation.
+
+An automated test expresses one property that must remain true. The complete
+test suite acts as an executable contract for the analysis:
+
+```text
+data assumptions + statistical invariants + output contracts
+                         |
+                         v
+              pass or informative failure
+```
+
+Tests improve confidence in the implementation, but they do not prove that the
+scientific question, model choice, assumptions, or interpretation are correct.
+Those still require statistical judgment.
+
+### The structure of a `testthat` test
+
+Tests use three main ideas:
+
+```r
+test_that("follow-up time is valid", {
+  expect_false(anyNA(heart$followup_days))
+  expect_true(all(heart$followup_days > 0))
+})
+```
+
+- `test_that()` names one behavior being checked.
+- `expect_*()` describes the expected result.
+- A failed expectation reports the test file, line, and observed problem.
+
+Useful expectations include:
+
+- `expect_true(x)` when a logical condition must be true;
+- `expect_false(x)` when a condition must be false;
+- `expect_equal(x, y)` for numerical equality with optional tolerance;
+- `expect_identical(x, y)` for exact values and types;
+- `expect_setequal(x, y)` when membership matters but order does not.
+
+### Tests added to this project
+
+The test suite is stored under:
+
+```text
+tests/
+├── testthat.R
+└── testthat/
+    ├── helper-data.R
+    ├── test-data-quality.R
+    └── test-survival-models.R
+```
+
+`helper-data.R` loads the clean dataset once for all tests. The runner
+`tests/testthat.R` executes every file whose name begins with `test-`.
+
+The data-quality tests verify:
+
+- exactly 299 rows and the documented 13-column schema;
+- known, positive follow-up times;
+- event values restricted to 0 and 1;
+- 96 observed deaths;
+- binary predictor coding;
+- finite and plausible continuous model inputs;
+- exact preservation of raw `time` and `DEATH_EVENT` in the clean outcome
+  columns.
+
+The statistical tests verify:
+
+- the manual Kaplan–Meier calculation agrees with `survival::survfit()` to a
+  strict numerical tolerance;
+- estimated survival never increases and stays between 0 and 1;
+- the prespecified Cox model uses all 96 events and returns five finite,
+  positive hazard ratios;
+- every confidence interval has a positive lower bound below its upper bound;
+- saved adjusted results retain the expected table schema and valid p-values.
+
+### Why tests should target invariants
+
+An invariant is a property that should remain true across legitimate code
+changes. For example, a survival probability must remain between zero and one.
+
+It would be brittle to require a hazard ratio to equal a long decimal exactly.
+A harmless package update or numerical algorithm change could alter the final
+digits. Instead, the tests check structural properties such as finite positive
+hazard ratios and ordered confidence limits.
+
+Some exact values are appropriate when they define the source dataset or
+analysis contract. The row count, event count, column names, and raw-to-clean
+outcome mapping are exact checks because an unexpected change should trigger
+review.
+
+### Tests are not the same as statistical hypothesis tests
+
+The word “test” has two meanings here:
+
+- A software test asks whether the code satisfies a known expectation.
+- A statistical hypothesis test quantifies evidence about an unknown
+  population quantity under assumptions.
+
+`expect_true(all(death %in% c(0, 1)))` is a software test. A log-rank test is a
+statistical test. Passing the first says the event coding is valid; it says
+nothing about whether survival differs between groups.
+
+### Running the suite
+
+From the repository root:
+
+```r
+source("tests/testthat.R")
+```
+
+or:
+
+```bash
+Rscript tests/testthat.R
+```
+
+A passing suite should become part of the routine workflow before committing
+changes. Later, GitHub Actions can run exactly this command on a clean remote
+computer after every push.
+
+### What the first test run taught us
+
+The initial run failed because `testthat` evaluates helper files from inside
+the test directory. A path such as `data/processed/...` therefore pointed to
+the wrong location even though the command was launched from the repository
+root.
+
+The runner now records the absolute project root in
+`SURVIVAL_PROJECT_ROOT`, and the helper constructs data and output paths from
+that root. This illustrates an important reproducibility rule: code should not
+silently depend on an incidental working directory.
+
+A second run showed that the locally installed `testthat` version did not
+accept an optional diagnostic argument supported by newer interfaces. The
+unsupported decoration was removed without weakening the assertion. This is a
+small example of why dependency versions will later be recorded with `renv`.
+
+The completed suite contains 47 passing expectations:
+
+```text
+data-quality:    32 passed
+survival-models: 15 passed
+total:           47 passed
+```
+
+## Stage 9: Professional Git branching and releases
+
+### What a branch actually is
+
+A Git commit is a saved snapshot with a unique identifier. A branch is a
+movable name that points to one commit. Creating a branch does not copy the
+project:
+
+```text
+9fe205f  feat: complete survival analysis tutorial
+   ^
+   ├── main
+   └── develop
+```
+
+As new commits are created on a checked-out branch, that branch name moves
+forward. Other branch names remain where they were until changes are merged.
+
+The working tree is the editable collection of files on disk. Uncommitted
+changes belong to the working tree, not yet to any branch snapshot. This is why
+the testing changes could be carried safely from `main` onto a new feature
+branch before committing them.
+
+### Branch roles used in this project
+
+```text
+main
+  Stable, released versions only
+
+develop
+  Integration branch for the next release
+
+feature/automated-tests
+  Temporary branch containing one focused change
+
+release/v0.2.0
+  Future temporary branch for final release preparation
+```
+
+- `main` represents the latest stable release.
+- `develop` combines completed features intended for the next release.
+- A `feature/*` branch isolates one unit of work and supports review.
+- A `release/*` branch is temporary. It allows final documentation, version,
+  and validation changes without blocking new work on `develop`.
+- A version tag such as `v0.2.0` permanently identifies the released commit.
+
+### The testing feature workflow
+
+The automated tests follow this path:
+
+```text
+main
+  └── create develop
+        └── create feature/automated-tests
+              └── commit and push tests
+                    └── pull request into develop
+                          └── review and merge
+```
+
+The commands behind the workflow are:
+
+```bash
+git branch develop main
+git switch -c feature/automated-tests develop
+git add README.md notes.md tests/
+git commit -m "test: add automated analysis checks"
+git push -u origin develop
+git push -u origin feature/automated-tests
+```
+
+`git branch develop main` creates the integration pointer at the current
+stable commit. `git switch -c` creates and checks out the feature branch.
+`git add` places selected changes in the staging area. `git commit` turns the
+staged changes into a permanent local snapshot. `git push -u` publishes a
+branch and records its remote tracking branch.
+
+### Why use a pull request
+
+A pull request is not a Git object; it is a GitHub review process around the
+difference between two branches. For this feature:
+
+```text
+base branch: develop
+head branch: feature/automated-tests
+```
+
+The pull request shows exactly what the feature would add to `develop`. It
+provides a place for automated checks, discussion, review, and a documented
+merge decision. Even on a one-person project, this makes the reasoning and
+quality checks visible.
+
+### Release versioning
+
+This project uses `MAJOR.MINOR.PATCH` labels as a practical release convention:
+
+- `v0.1.0`: initial complete tutorial analysis;
+- `v0.2.0`: adds substantial testing and reproducibility infrastructure;
+- `v0.2.1`: would represent a backward-compatible correction;
+- `v1.0.0`: first stable, polished, reproducible public analysis.
+
+Because this repository is an analysis rather than a software library with a
+public API, this is SemVer-inspired communication rather than a claim of strict
+Semantic Versioning compliance.
+
+### Safe everyday Git habits
+
+- Check `git status` before and after every important operation.
+- Stage explicit files so unrelated work is not included accidentally.
+- Run relevant tests before committing.
+- Never rewrite shared history unless the team has explicitly agreed.
+- Merge through reviewed pull requests rather than pushing features directly
+  to stable branches.
+- Use tags for releases; do not use a permanent branch as a substitute for a
+  version marker.
+
+### Completing the first pull request
+
+Pull Request #1 proposed merging:
+
+```text
+feature/automated-tests  --->  develop
+          head                   base
+```
+
+Before merging, the maintainer-style review checked:
+
+- the base and head branches were in the intended direction;
+- the PR contained six focused files and no unrelated deletions;
+- the commits described the testing feature;
+- GitHub reported that the branches were mergeable;
+- all 47 local expectations passed;
+- the local working tree matched the published feature branch.
+
+A draft PR means the work is published for early discussion but is not yet
+declared ready for final review. Marking it ready communicates that the author
+believes its scope, documentation, and validation are complete.
+
+The PR is merged using a merge commit. Conceptually:
+
+```text
+develop:  A-------------M
+                       /
+feature:        B-----C
+```
+
+`A` is the commit where the feature branch began. `B` and `C` are feature
+commits. `M` is a new commit with two parents that records the decision to
+combine the feature into `develop`. This preserves the visible branch and PR
+history.
+
+After the remote merge, the local `develop` branch must be synchronized:
+
+```bash
+git switch develop
+git pull --ff-only
+```
+
+`git switch` changes which branch is checked out. `git pull --ff-only` fetches
+the remote state and advances local `develop` only when no divergent local
+history must be reconciled. The `--ff-only` guard prevents Git from creating an
+unexpected merge commit during synchronization.
+
+The merged feature branch can later be deleted locally and remotely because
+its commits are reachable from `develop`; deleting the branch pointer does not
+delete the merged work. Branch cleanup is a separate, explicit operation.
+
+At this stage, `main` remains unchanged. Merging into `develop` integrates the
+feature for the next release, but only a later release PR and version tag will
+promote it to stable `main`.
+
+## Stage 10: Reproducible package environments with `renv`
+
+### The dependency problem
+
+R code depends on more than the visible scripts. It also depends on:
+
+- the R version;
+- the names and versions of installed packages;
+- the packages required underneath those packages;
+- the source from which each package can be obtained.
+
+Two people can run the same code and data but receive different behavior if
+their package versions differ. Installing “the latest version” does not
+recreate the environment used when the analysis was developed.
+
+`renv` gives each project an isolated package library and records its
+dependency state in a machine-readable lockfile:
+
+```text
+project code
+    |
+    | renv::dependencies()
+    v
+detected packages
+    |
+    | renv::snapshot()
+    v
+renv.lock
+    |
+    | renv::restore()
+    v
+recreated project library
+```
+
+### Direct and transitive dependencies
+
+A direct dependency is a package named by this project, such as:
+
+```r
+library(survival)
+library(ggplot2)
+testthat::test_dir(...)
+```
+
+A transitive dependency is required by a direct dependency. For example,
+`ggplot2` itself depends on packages such as `gtable`, `scales`, `rlang`, and
+`vctrs`. The project may not call those packages directly, but they are still
+needed for `ggplot2` to work.
+
+The dependency scan detected the expected analysis, reporting, and testing
+packages. The resulting lockfile records both direct and transitive
+dependencies so the complete environment can be reconstructed.
+
+### Files created by `renv`
+
+The feature added:
+
+```text
+.Rprofile
+renv.lock
+renv/
+├── activate.R
+├── settings.json
+└── .gitignore
+```
+
+- `.Rprofile` sources `renv/activate.R` when R starts in the project.
+- `renv/activate.R` activates the project-specific package library.
+- `renv/settings.json` records project-level `renv` behavior.
+- `renv.lock` records R, package versions, package sources, and dependencies.
+- `renv/.gitignore` excludes local package libraries, caches, staging areas,
+  and other machine-specific content.
+
+The package binaries under `renv/library/` are deliberately not committed.
+They can be large and may differ across operating systems. Git stores the
+environment recipe, while `renv::restore()` reconstructs the local library.
+
+### Core commands
+
+Initialize `renv` for a project:
+
+```r
+renv::init()
+```
+
+Record the currently used dependency versions:
+
+```r
+renv::snapshot()
+```
+
+Recreate the versions recorded in the lockfile:
+
+```r
+renv::restore()
+```
+
+Compare the project library with the lockfile:
+
+```r
+renv::status()
+```
+
+The commands have different directions:
+
+```text
+snapshot: installed library  ---> lockfile
+restore:  installed library  <--- lockfile
+status:   installed library  <--> lockfile
+```
+
+Use `snapshot()` only after an intentional dependency change has been tested.
+Running it automatically after every package installation could lock an
+accidental or unvalidated upgrade into the project.
+
+### What was recorded for this project
+
+The lockfile records:
+
+- R version `4.5.2`;
+- `renv` version `1.2.0`;
+- the versions and sources of all detected external dependencies;
+- enough metadata for another machine to retrieve compatible packages.
+
+Examples include:
+
+```text
+survival  3.8-6
+dplyr     1.1.4
+ggplot2   4.0.1
+testthat  3.3.2
+rmarkdown 2.30
+renv      1.2.0
+```
+
+After restoration, `renv::status()` reported that the project was consistent
+with the lockfile, and all 47 software-test expectations passed.
+
+### The local sandbox lesson
+
+During initialization, this managed workspace blocked `renv` while it tried to
+create links between the project library and a shared package cache outside the
+workspace. The first process was stopped after it remained on a sandbox lock.
+The snapshot and verification were then run with `renv`'s optional package
+sandbox disabled for those local commands.
+
+This workaround addresses the restricted execution environment used during
+development; it is not stored as project behavior. On a normal machine or
+GitHub Actions runner, collaborators should use the standard command:
+
+```r
+renv::restore()
+```
+
+This distinction is important: a local infrastructure restriction should not
+silently weaken or complicate the repository configuration for everyone else.
+
+### What `renv` does and does not guarantee
+
+`renv` improves package-level reproducibility, but it does not freeze:
+
+- the operating system and system libraries;
+- external websites or downloadable datasets;
+- random behavior unless seeds are controlled;
+- the order and logic of the analysis pipeline;
+- the correctness of statistical decisions.
+
+The existing fixed bootstrap seed helps control random behavior. The dataset is
+stored with source provenance, while a future pipeline and CI workflow will
+control execution order and test reproducibility on a clean machine.
+
+## Stage 11: Reproducible pipelines with `{targets}`
+
+### Why running numbered scripts is not enough
+
+The original project used a documented manual order:
+
+```text
+01-download → 02-explore → 03-KM → ... → 07-validation → report
+```
+
+This is understandable, but Git does not know whether an output is current.
+For example, a predictor transformation could change while an old model table
+remains on disk. A later report might then combine new code with stale output.
+
+`{targets}` treats the analysis as a directed acyclic graph, or DAG:
+
+- **directed:** dependencies point from upstream inputs to downstream results;
+- **acyclic:** dependencies cannot loop back to an earlier target;
+- **graph:** each target is connected by explicit dependency relationships.
+
+The first pipeline slice is:
+
+```text
+dataset_url
+     |
+     v
+raw_data_file
+     |
+     v
+clean_data_file
+     |
+     v
+clean_data
+```
+
+### What a target is
+
+A target is a named result produced by an R expression. The initial pipeline is
+defined in `_targets.R`:
+
+```r
+tar_target(
+  clean_data_file,
+  write_clean_heart_failure_data(
+    prepare_heart_failure_data(raw_data_file)
+  ),
+  format = "file"
+)
+```
+
+This definition communicates several facts:
+
+- the target is named `clean_data_file`;
+- its command prepares the raw data and writes the clean file;
+- it depends on `raw_data_file` because that symbol appears in the command;
+- `format = "file"` tells `{targets}` to hash and monitor the returned file.
+
+If the raw file, preparation function, writer function, or relevant package
+changes, `{targets}` marks the clean file and its downstream targets outdated.
+
+### Functions contain work; targets connect work
+
+Reusable functions were extracted into:
+
+```text
+R/functions-data.R
+```
+
+The file contains:
+
+- `download_heart_failure_data()`;
+- `prepare_heart_failure_data()`;
+- `write_clean_heart_failure_data()`;
+- documented raw and analysis schemas.
+
+The distinction is important:
+
+```text
+functions-data.R: how individual operations work
+_targets.R:       which results depend on which operations and inputs
+```
+
+The numbered download and exploratory scripts now call these same functions.
+This prevents the manual workflow and pipeline from implementing cleaning in
+two different ways.
+
+### File targets and object targets
+
+The initial graph uses both:
+
+```r
+tar_target(raw_data_file, ..., format = "file")
+tar_target(clean_data, readr::read_csv(clean_data_file))
+```
+
+A file target returns a path and tracks the file contents. An object target
+stores an R value, such as the clean data frame, in the `{targets}` data store.
+Downstream targets can depend on either representation.
+
+The local `_targets/` store contains metadata and serialized objects. It is
+excluded from Git because it is machine-generated and can be reconstructed by
+running the pipeline.
+
+### How change detection works
+
+For each target, `{targets}` records information such as:
+
+- the command;
+- relevant function code;
+- upstream target values or hashes;
+- package dependencies;
+- the output value or file hash.
+
+Before running a target, it compares the current information with the recorded
+metadata. If nothing relevant changed, the target is skipped. If an upstream
+target changes, downstream targets become outdated.
+
+Skipping is not merely a speed feature. It provides evidence that an output was
+built from the recorded dependency state rather than from an unknown manual
+sequence.
+
+### Results from the first pipeline slice
+
+The first run built every target in dependency order:
+
+```text
+4 completed, 0 skipped
+```
+
+An immediate second run with no changes produced:
+
+```text
+0 completed, 4 skipped
+```
+
+That second result demonstrates that `{targets}` recognized the stored outputs
+as current.
+
+The refactor also added eight software-test expectations for the reusable data
+functions:
+
+- preparation preserves all 299 rows;
+- analysis variables are created;
+- survival outcomes match the existing clean dataset;
+- the writer produces the documented schema;
+- the written dataset matches the reference clean data;
+- malformed source schemas produce an informative error.
+
+The complete suite now contains 55 passing expectations:
+
+```text
+data-functions:   8 passed
+data-quality:    32 passed
+survival-models: 15 passed
+total:           55 passed
+```
+
+### Core `{targets}` commands
+
+Run all outdated targets:
+
+```r
+targets::tar_make()
+```
+
+Inspect the declared targets and commands:
+
+```r
+targets::tar_manifest()
+```
+
+Read a stored target:
+
+```r
+targets::tar_read(clean_data)
+```
+
+Visualize the graph:
+
+```r
+targets::tar_visnetwork()
+```
+
+Delete the local target store and force a future full rebuild:
+
+```r
+targets::tar_destroy()
+```
+
+`tar_destroy()` removes reconstructible pipeline metadata and outputs in the
+target store. It should be used deliberately, especially before testing a
+clean rebuild.
+
+### Second pipeline slice: exploratory analysis
+
+The next slice extended the clean data into summary and visualization
+branches:
+
+```text
+clean_data
+   ├── data_quality_table ───────> data_quality_file
+   ├── continuous_summary_table ─> continuous_summary_file
+   ├── binary_summary_table ─────> binary_summary_file
+   └── eda_data
+          ├── followup_plot ─────> followup_figure
+          └── marker_plot ───────> marker_figure
+```
+
+This demonstrates branching in a DAG. The summary tables do not depend on the
+plot objects, and the two plots do not depend on each other. `{targets}` may
+therefore schedule independent work when upstream data are ready.
+
+Each publication artifact has two targets:
+
+```text
+summary object ---> CSV file
+plot object ------> PNG file
+```
+
+Separating computation from writing has practical benefits:
+
+- tests can inspect an in-memory table without reading a generated CSV;
+- another downstream target can reuse a plot or summary object;
+- file targets still monitor the published artifacts;
+- failures indicate whether calculation or file creation caused the problem.
+
+Reusable EDA operations were extracted into:
+
+```text
+R/functions-eda.R
+```
+
+The manual `R/02-exploratory-analysis.R` entry point now calls the same
+functions as `_targets.R`. This reduced the script to orchestration and avoids
+maintaining separate summary and plotting implementations.
+
+When this slice was added, the incremental pipeline run produced:
+
+```text
+11 completed, 4 skipped
+```
+
+The four data-ingestion targets were unchanged and remained current. Only the
+new downstream EDA branch was built. An immediate subsequent run produced:
+
+```text
+0 completed, 15 skipped
+```
+
+The manual exploratory script also ran successfully, and its regenerated clean
+data, three CSV tables, and two PNG figures were byte-for-byte unchanged in
+Git.
+
+Eighteen new expectations test:
+
+- factor-label levels;
+- agreement of row, column, missing-cell, death, and censor counts;
+- coverage and ordering of continuous summaries;
+- valid binary-variable proportions that sum to one;
+- successful creation of `ggplot` objects.
+
+The complete suite now contains 73 passing expectations:
+
+```text
+data-functions:    8 passed
+data-quality:     32 passed
+eda-functions:    18 passed
+survival-models:  15 passed
+total:            73 passed
+```
+
+### Final pipeline slice: survival analysis through reporting
+
+The remaining established scripts were integrated as tracked stage targets:
+
+```text
+clean_data_file
+   ├── Kaplan–Meier outputs
+   ├── grouped-comparison outputs
+   └── Cox outputs
+          └── diagnostic outputs
+                 └── validation outputs
+
+all analysis outputs
+   └── Markdown and HTML tutorial report
+```
+
+The final graph contains 27 targets and declares:
+
+- 6 Kaplan–Meier artifacts;
+- 6 grouped-comparison artifacts;
+- 5 Cox-regression artifacts;
+- 11 diagnostic artifacts;
+- 7 bootstrap-validation artifacts;
+- 2 rendered-report artifacts.
+
+Each established stage has two pipeline targets:
+
+```text
+tracked script file ---> tracked output-file collection
+```
+
+For example, changing `R/06-model-diagnostics.R` changes the script target,
+which invalidates the diagnostic outputs, validation outputs, and report. It
+does not unnecessarily invalidate the data, EDA, Kaplan–Meier, grouped, or Cox
+targets.
+
+The helper `run_analysis_stage()` executes a stage and then verifies that every
+declared output exists. A script that exits without an R error but fails to
+create a promised artifact therefore fails the pipeline rather than leaving a
+silent stale file.
+
+Four additional expectations test the stage helper:
+
+- a valid script creates and returns its declared output;
+- the created file contains the expected content;
+- a missing script produces an informative error;
+- a missing declared output produces an informative error.
+
+The complete suite now contains 77 passing expectations:
+
+```text
+data-functions:      8 passed
+data-quality:       32 passed
+eda-functions:      18 passed
+pipeline-functions:  4 passed
+survival-models:    15 passed
+total:              77 passed
+```
+
+### True dependencies versus chapter order
+
+An early draft made grouped comparisons depend on Kaplan–Meier outputs and Cox
+regression depend on grouped outputs. That reproduced the tutorial chapter
+order but represented false computational dependencies: all three analyses
+actually need only the clean dataset.
+
+The final graph connects those analyses directly to `clean_data_file`.
+Diagnostics genuinely depend on Cox results, and validation genuinely depends
+on diagnostics because it uses the refined model specification.
+
+This distinction matters:
+
+- true dependencies produce accurate invalidation;
+- independent branches may run concurrently with parallel workers;
+- false dependencies create unnecessary reruns and reduce parallelism;
+- a pipeline documents computational causality, not presentation order.
+
+The report depends on all published analysis outputs, so any changed result
+invalidates the rendered tutorial.
+
+### Clean end-to-end rebuild
+
+After the graph was finalized, the reconstructible local cache was removed:
+
+```r
+targets::tar_destroy(destroy = "all", ask = FALSE)
+```
+
+The complete project was then rebuilt:
+
+```r
+targets::tar_make()
+```
+
+Final clean-build result:
+
+```text
+27 completed, 0 skipped
+500/500 bootstrap fits successful
+Markdown report rendered
+HTML report rendered
+elapsed pipeline time: approximately 12 seconds
+```
+
+An immediate unchanged run skips all 27 targets. Together, the clean build and
+unchanged skip demonstrate both reproducibility from zero metadata and correct
+up-to-date detection.
+
+No tracked analysis table, figure, data file, or report changed unexpectedly
+during migration. The numbered manual entry points also remained functional.
+
+Building the pipeline in slices limited the size of each debugging problem and
+provided validated checkpoints. A pipeline should not be considered reliable
+merely because every operation was placed into one large target; its declared
+outputs, invalidation behavior, clean rebuild, tests, and scientific results
+must all be verified.
+
+## Stage 12: Continuous integration with GitHub Actions
+
+### What continuous integration means
+
+Continuous integration, or CI, automatically validates changes in a fresh
+environment whenever code is pushed or proposed in a pull request:
+
+```text
+push or pull request
+          |
+          v
+fresh GitHub-hosted Linux runner
+          |
+          ├── install exact R version
+          ├── restore renv.lock
+          ├── run 77 software expectations
+          ├── run the complete 27-target pipeline
+          └── upload rendered reports
+```
+
+Local success is necessary but not sufficient. A project may accidentally
+depend on a package, file, environment variable, or configuration available
+only on the developer's computer. CI tests the repository on a clean machine
+that has no memory of previous manual steps.
+
+### Workflow location and triggers
+
+GitHub Actions workflows are YAML files under:
+
+```text
+.github/workflows/
+```
+
+This project uses `.github/workflows/ci.yml`. It runs on:
+
+- pushes to `main`;
+- pushes to `develop`;
+- pull requests targeting `main` or `develop`;
+- manual requests through `workflow_dispatch`.
+
+The pull-request trigger validates the proposed merged code before it reaches
+an important branch. Push triggers validate the actual branch state after a
+merge. Manual dispatch is useful when investigating infrastructure changes.
+
+### Workflow, job, and step
+
+The hierarchy is:
+
+```text
+workflow
+└── job: analysis
+    ├── step: check out repository
+    ├── step: set up R
+    ├── step: set up Pandoc
+    ├── step: restore renv environment
+    ├── step: run tests
+    ├── step: run targets pipeline
+    └── step: upload reports
+```
+
+A workflow is the complete automated process. A job runs on one runner. Steps
+within a job execute in order and share that job's filesystem.
+
+Tests run before the pipeline so inexpensive contract failures stop the
+analysis early. The report-upload step uses `if: always()`, allowing GitHub to
+attempt artifact collection even when an earlier step fails. Missing reports
+still cause that upload step to report an error.
+
+### Actions and shell commands
+
+Some steps reuse maintained GitHub Actions:
+
+```yaml
+uses: actions/checkout@v4
+uses: r-lib/actions/setup-r@v2
+uses: r-lib/actions/setup-pandoc@v2
+uses: r-lib/actions/setup-renv@v2
+uses: actions/upload-artifact@v4
+```
+
+Other steps execute project commands:
+
+```yaml
+run: Rscript tests/testthat.R
+run: Rscript -e 'targets::tar_make()'
+```
+
+`setup-renv` restores packages from `renv.lock` and caches them between runs.
+The cache improves speed, while the lockfile remains the source of truth.
+Pandoc is installed because R Markdown requires it to create the final report.
+
+### Security and resource controls
+
+The workflow declares:
+
+```yaml
+permissions:
+  contents: read
+```
+
+The automatically provided GitHub token can read the repository but cannot
+write code or alter issues and pull requests. CI validation does not require
+write access.
+
+The job has a 30-minute timeout so a hung installation or analysis cannot
+consume runner time indefinitely.
+
+Concurrency control groups runs by workflow and Git reference:
+
+```yaml
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+```
+
+If a newer commit is pushed to the same branch or PR, GitHub cancels the older
+superseded run rather than spending resources validating obsolete code.
+
+### Workflow artifacts
+
+An Actions artifact is a file bundle retained by GitHub after a workflow run.
+This workflow uploads the rendered Markdown and HTML tutorials for 14 days.
+
+Artifacts are not Git releases and are not permanent source control. They are
+useful for inspecting exactly what a particular CI run produced without
+committing new machine-generated files from the runner.
+
+### The CI status badge
+
+The README badge queries the workflow status for `main`:
+
+```text
+green  = latest main workflow succeeded
+red    = latest main workflow failed
+gray   = no relevant run or unknown state
+```
+
+A green badge is evidence that the declared automated checks passed on the
+latest run. It is not proof that the statistical conclusions are scientifically
+correct or externally valid.
+
+### What to inspect when CI fails
+
+Start with the earliest failing step and the first meaningful error, not merely
+the final “process exited” message. A later error may be a consequence of an
+earlier failed installation or missing file.
+
+Common categories are:
+
+- dependency restoration failure;
+- operating-system or system-library difference;
+- software-test expectation failure;
+- missing input or undeclared local dependency;
+- pipeline target failure;
+- report-rendering failure;
+- transient external download failure.
+
+The correct response is to identify and fix the root cause on a feature branch,
+then let CI validate the new commit. Disabling a meaningful check only to
+obtain a green badge would remove evidence rather than improve quality.
+
+### First CI failure: a missing system library
+
+The first pull-request run passed package restoration and all 77 software
+expectations, then failed when the pipeline loaded `{targets}`:
+
+```text
+unable to load shared object igraph.so:
+libglpk.so.40: cannot open shared object file
+```
+
+`{targets}` depends on `igraph`, whose compiled Linux code uses the GNU Linear
+Programming Kit, or GLPK. `renv.lock` records R packages, but it does not
+install operating-system shared libraries. The local macOS environment did not
+reveal this Ubuntu dependency.
+
+The focused workflow fix installs GLPK before restoring and loading R packages:
+
+```yaml
+- name: Install Linux system dependencies
+  run: |
+    sudo apt-get update
+    sudo apt-get install --yes libglpk-dev
+```
+
+This failure illustrates the reproducibility boundary discussed in Stage 10:
+
+```text
+renv.lock       ---> R package dependencies
+apt installation ---> Ubuntu system dependencies
+```
+
+CI turned an undocumented machine requirement into explicit infrastructure
+code. The existing tests were not weakened or skipped; the runner environment
+was corrected so the real pipeline could execute.
+
+### CI results after the fix
+
+The replacement pull-request run completed successfully:
+
+```text
+locked environment restored
+77 software expectations passed
+27-target pipeline completed
+Markdown and HTML reports uploaded
+total CI time: 1 minute 51 seconds
+```
+
+After Pull Request #4 was merged, the push-triggered run on the actual
+`develop` branch also passed:
+
+```text
+environment + tests + pipeline + artifacts
+total CI time: 1 minute 38 seconds
+```
+
+The two runs answer different questions:
+
+- PR CI asks whether the proposed feature and base branch work together.
+- Push CI asks whether the branch state that was actually merged works.
+
+Both should be green before using `develop` as the source of a release.
+
+## Stage 13: Preparing release `v0.2.0`
+
+### From integration to release
+
+At the start of release preparation:
+
+```text
+main     -> stable v0.1.0-era analysis
+develop  -> tests + renv + targets + green CI
+```
+
+A temporary branch was created from the green integration commit:
+
+```bash
+git switch -c release/v0.2.0 develop
+```
+
+Release branches should contain only final preparation, such as version
+metadata, changelog corrections, and release-blocking fixes. New feature work
+continues separately rather than expanding the release candidate indefinitely.
+
+### Version metadata
+
+The repository now contains:
+
+```text
+VERSION
+CHANGELOG.md
+```
+
+`VERSION` gives tools and readers one simple machine-readable release number.
+`CHANGELOG.md` explains what changed between public versions. Git history
+records every implementation detail, while the changelog summarizes changes
+that matter to users.
+
+Version `0.2.0` represents:
+
+- `0`: the project is still evolving and is not a validated clinical tool;
+- `2`: substantial reproducibility infrastructure was added;
+- `0`: this is the initial release of that feature set, not a patch correction.
+
+### Release pull request and CI
+
+The release branch is proposed into stable `main` through a pull request:
+
+```text
+release/v0.2.0  --->  main
+      head              base
+```
+
+Because CI runs on pull requests targeting `main`, the exact release candidate
+must restore its environment, pass all tests, run the pipeline, and render the
+reports on a clean Ubuntu runner before merging.
+
+After merge, an annotated Git tag marks the immutable release commit:
+
+```bash
+git tag -a v0.2.0 -m "Release v0.2.0"
+git push origin v0.2.0
+```
+
+A branch name moves as new commits arrive. A release tag should remain fixed
+at the published release commit. GitHub Releases can then attach human-readable
+notes to that tag.
+
+### Synchronizing after release
+
+The release merge commit on `main` must be brought back into `develop`. This
+keeps future release branches based on history that already contains the stable
+release decision and final release metadata.
+
+Temporary release branches are deleted only after:
+
+- the release PR is merged;
+- the tag is published;
+- the GitHub Release exists;
+- `develop` is synchronized;
+- final branch CI is green.
+
+### Release evidence versus scientific validity
+
+A versioned green release means the declared code, environment, tests,
+pipeline, and reports were reproducible under CI. It does not make the model a
+clinically validated prediction tool. The limitations remain:
+
+- small development sample;
+- transformations partly informed by the data;
+- internal rather than external validation;
+- observational, noncausal findings;
+- no demonstrated clinical utility.

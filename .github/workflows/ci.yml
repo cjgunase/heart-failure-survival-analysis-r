@@ -1,0 +1,63 @@
+name: Continuous integration
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  analysis:
+    name: Test and rebuild analysis
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: "4.5.2"
+          use-public-rspm: true
+
+      - name: Set up Pandoc
+        uses: r-lib/actions/setup-pandoc@v2
+
+      - name: Install Linux system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes libglpk-dev
+
+      - name: Restore locked R environment
+        uses: r-lib/actions/setup-renv@v2
+
+      - name: Run software tests
+        run: Rscript tests/testthat.R
+
+      - name: Run complete analysis pipeline
+        run: Rscript -e 'targets::tar_make()'
+
+      - name: Upload rendered tutorial
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: survival-analysis-tutorial-${{ github.run_id }}
+          path: |
+            report/survival-analysis-tutorial.md
+            report/survival-analysis-tutorial.html
+          if-no-files-found: error
+          retention-days: 14
