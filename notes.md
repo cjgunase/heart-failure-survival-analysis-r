@@ -1043,3 +1043,271 @@ expensive 500-resample bootstrap is not rerun during every report render.
   available.
 - Avoid adding new models unless they answer a clearly defined scientific or
   educational question.
+
+## Stage 8: Automated testing with `testthat`
+
+### Why an analysis needs tests
+
+A statistical analysis can run without producing an error and still be wrong.
+For example, the event labels could be reversed, a cleaning step could drop
+rows, or an edited Kaplan–Meier calculation could silently disagree with the
+trusted package implementation.
+
+An automated test expresses one property that must remain true. The complete
+test suite acts as an executable contract for the analysis:
+
+```text
+data assumptions + statistical invariants + output contracts
+                         |
+                         v
+              pass or informative failure
+```
+
+Tests improve confidence in the implementation, but they do not prove that the
+scientific question, model choice, assumptions, or interpretation are correct.
+Those still require statistical judgment.
+
+### The structure of a `testthat` test
+
+Tests use three main ideas:
+
+```r
+test_that("follow-up time is valid", {
+  expect_false(anyNA(heart$followup_days))
+  expect_true(all(heart$followup_days > 0))
+})
+```
+
+- `test_that()` names one behavior being checked.
+- `expect_*()` describes the expected result.
+- A failed expectation reports the test file, line, and observed problem.
+
+Useful expectations include:
+
+- `expect_true(x)` when a logical condition must be true;
+- `expect_false(x)` when a condition must be false;
+- `expect_equal(x, y)` for numerical equality with optional tolerance;
+- `expect_identical(x, y)` for exact values and types;
+- `expect_setequal(x, y)` when membership matters but order does not.
+
+### Tests added to this project
+
+The test suite is stored under:
+
+```text
+tests/
+├── testthat.R
+└── testthat/
+    ├── helper-data.R
+    ├── test-data-quality.R
+    └── test-survival-models.R
+```
+
+`helper-data.R` loads the clean dataset once for all tests. The runner
+`tests/testthat.R` executes every file whose name begins with `test-`.
+
+The data-quality tests verify:
+
+- exactly 299 rows and the documented 13-column schema;
+- known, positive follow-up times;
+- event values restricted to 0 and 1;
+- 96 observed deaths;
+- binary predictor coding;
+- finite and plausible continuous model inputs;
+- exact preservation of raw `time` and `DEATH_EVENT` in the clean outcome
+  columns.
+
+The statistical tests verify:
+
+- the manual Kaplan–Meier calculation agrees with `survival::survfit()` to a
+  strict numerical tolerance;
+- estimated survival never increases and stays between 0 and 1;
+- the prespecified Cox model uses all 96 events and returns five finite,
+  positive hazard ratios;
+- every confidence interval has a positive lower bound below its upper bound;
+- saved adjusted results retain the expected table schema and valid p-values.
+
+### Why tests should target invariants
+
+An invariant is a property that should remain true across legitimate code
+changes. For example, a survival probability must remain between zero and one.
+
+It would be brittle to require a hazard ratio to equal a long decimal exactly.
+A harmless package update or numerical algorithm change could alter the final
+digits. Instead, the tests check structural properties such as finite positive
+hazard ratios and ordered confidence limits.
+
+Some exact values are appropriate when they define the source dataset or
+analysis contract. The row count, event count, column names, and raw-to-clean
+outcome mapping are exact checks because an unexpected change should trigger
+review.
+
+### Tests are not the same as statistical hypothesis tests
+
+The word “test” has two meanings here:
+
+- A software test asks whether the code satisfies a known expectation.
+- A statistical hypothesis test quantifies evidence about an unknown
+  population quantity under assumptions.
+
+`expect_true(all(death %in% c(0, 1)))` is a software test. A log-rank test is a
+statistical test. Passing the first says the event coding is valid; it says
+nothing about whether survival differs between groups.
+
+### Running the suite
+
+From the repository root:
+
+```r
+source("tests/testthat.R")
+```
+
+or:
+
+```bash
+Rscript tests/testthat.R
+```
+
+A passing suite should become part of the routine workflow before committing
+changes. Later, GitHub Actions can run exactly this command on a clean remote
+computer after every push.
+
+### What the first test run taught us
+
+The initial run failed because `testthat` evaluates helper files from inside
+the test directory. A path such as `data/processed/...` therefore pointed to
+the wrong location even though the command was launched from the repository
+root.
+
+The runner now records the absolute project root in
+`SURVIVAL_PROJECT_ROOT`, and the helper constructs data and output paths from
+that root. This illustrates an important reproducibility rule: code should not
+silently depend on an incidental working directory.
+
+A second run showed that the locally installed `testthat` version did not
+accept an optional diagnostic argument supported by newer interfaces. The
+unsupported decoration was removed without weakening the assertion. This is a
+small example of why dependency versions will later be recorded with `renv`.
+
+The completed suite contains 47 passing expectations:
+
+```text
+data-quality:    32 passed
+survival-models: 15 passed
+total:           47 passed
+```
+
+## Stage 9: Professional Git branching and releases
+
+### What a branch actually is
+
+A Git commit is a saved snapshot with a unique identifier. A branch is a
+movable name that points to one commit. Creating a branch does not copy the
+project:
+
+```text
+9fe205f  feat: complete survival analysis tutorial
+   ^
+   ├── main
+   └── develop
+```
+
+As new commits are created on a checked-out branch, that branch name moves
+forward. Other branch names remain where they were until changes are merged.
+
+The working tree is the editable collection of files on disk. Uncommitted
+changes belong to the working tree, not yet to any branch snapshot. This is why
+the testing changes could be carried safely from `main` onto a new feature
+branch before committing them.
+
+### Branch roles used in this project
+
+```text
+main
+  Stable, released versions only
+
+develop
+  Integration branch for the next release
+
+feature/automated-tests
+  Temporary branch containing one focused change
+
+release/v0.2.0
+  Future temporary branch for final release preparation
+```
+
+- `main` represents the latest stable release.
+- `develop` combines completed features intended for the next release.
+- A `feature/*` branch isolates one unit of work and supports review.
+- A `release/*` branch is temporary. It allows final documentation, version,
+  and validation changes without blocking new work on `develop`.
+- A version tag such as `v0.2.0` permanently identifies the released commit.
+
+### The testing feature workflow
+
+The automated tests follow this path:
+
+```text
+main
+  └── create develop
+        └── create feature/automated-tests
+              └── commit and push tests
+                    └── pull request into develop
+                          └── review and merge
+```
+
+The commands behind the workflow are:
+
+```bash
+git branch develop main
+git switch -c feature/automated-tests develop
+git add README.md notes.md tests/
+git commit -m "test: add automated analysis checks"
+git push -u origin develop
+git push -u origin feature/automated-tests
+```
+
+`git branch develop main` creates the integration pointer at the current
+stable commit. `git switch -c` creates and checks out the feature branch.
+`git add` places selected changes in the staging area. `git commit` turns the
+staged changes into a permanent local snapshot. `git push -u` publishes a
+branch and records its remote tracking branch.
+
+### Why use a pull request
+
+A pull request is not a Git object; it is a GitHub review process around the
+difference between two branches. For this feature:
+
+```text
+base branch: develop
+head branch: feature/automated-tests
+```
+
+The pull request shows exactly what the feature would add to `develop`. It
+provides a place for automated checks, discussion, review, and a documented
+merge decision. Even on a one-person project, this makes the reasoning and
+quality checks visible.
+
+### Release versioning
+
+This project uses `MAJOR.MINOR.PATCH` labels as a practical release convention:
+
+- `v0.1.0`: initial complete tutorial analysis;
+- `v0.2.0`: adds substantial testing and reproducibility infrastructure;
+- `v0.2.1`: would represent a backward-compatible correction;
+- `v1.0.0`: first stable, polished, reproducible public analysis.
+
+Because this repository is an analysis rather than a software library with a
+public API, this is SemVer-inspired communication rather than a claim of strict
+Semantic Versioning compliance.
+
+### Safe everyday Git habits
+
+- Check `git status` before and after every important operation.
+- Stage explicit files so unrelated work is not included accidentally.
+- Run relevant tests before committing.
+- Never rewrite shared history unless the team has explicitly agreed.
+- Merge through reviewed pull requests rather than pushing features directly
+  to stable branches.
+- Use tags for releases; do not use a permanent branch as a substitute for a
+  version marker.

@@ -61,6 +61,25 @@ Rscript R/07-bootstrap-validation.R
 The scripts require `dplyr`, `ggplot2`, `patchwork`, `readr`, `scales`, and
 `survival`.
 
+## Run the automated tests
+
+Install `testthat` once, then run the test suite from the repository root:
+
+```r
+install.packages("testthat")
+source("tests/testthat.R")
+```
+
+Or from a terminal:
+
+```bash
+Rscript tests/testthat.R
+```
+
+The tests check the documented data schema, survival-outcome validity, source
+to clean-data fidelity, the manual Kaplan–Meier calculation, and basic Cox
+model and reporting invariants.
+
 ## Outputs
 
 - Clean analysis data: `data/processed/heart_failure_clean.csv`
